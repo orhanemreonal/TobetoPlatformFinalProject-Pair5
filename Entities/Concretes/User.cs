@@ -11,15 +11,8 @@ namespace Entities.Concretes
         public string RePassword { get; set; }
         public DateTime? BirthDate { get; set; }
         public List<Course>? Courses { get; set; }
-        public string Company { get; set; }
-
-
-
-
-
-
-
-
+        List<Student>? Students { get; set; }
+        List<Instructor>? Instructors { get; set; }
 
     }
 }
