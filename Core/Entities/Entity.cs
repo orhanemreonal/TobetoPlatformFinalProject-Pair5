@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Core.Entities
+﻿namespace Core.Entities
 {
     public class Entity<TId> : IEntityTimestamps
     {
@@ -14,5 +8,7 @@ namespace Core.Entities
         public DateTime? DeletedDate { get; set; }
         public Entity() { Id = default; }
         public Entity(TId id) { Id = id; }
+
+        // asdaskljfjlkasflkasf
     }
 }
