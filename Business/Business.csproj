@@ -15,4 +15,9 @@
     <ProjectReference Include="..\Entities\Entities.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Profiles\" />
+    <Folder Include="Rules\" />
+  </ItemGroup>
+
 </Project>

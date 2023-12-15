@@ -8,7 +8,7 @@ namespace DataAccess.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Certificate> builder)
         {
-            builder.ToTable("Certificate").HasKey(b => b.Id);
+            builder.ToTable("Certificates").HasKey(b => b.Id);
             builder.Property(b => b.Id).HasColumnName("Id").IsRequired();
         }
     }

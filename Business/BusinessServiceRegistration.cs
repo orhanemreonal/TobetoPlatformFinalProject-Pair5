@@ -25,6 +25,11 @@ namespace Business
             services.AddScoped<IStudentService, StudentManager>();
             services.AddScoped<ISurveyService, SurveyManager>();
             services.AddScoped<IUserService, UserManager>();
+            services.AddScoped<ICategoryService, CategoryManager>();
+            services.AddScoped<ICompanyService, CompanyManager>();
+            services.AddScoped<IClassService, ClassManager>();
+            services.AddScoped<IStudentLanguageService, StudentLanguageManager>();
+
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             return services;
         }

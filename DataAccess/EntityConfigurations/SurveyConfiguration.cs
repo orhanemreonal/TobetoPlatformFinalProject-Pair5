@@ -8,7 +8,7 @@ namespace DataAccess.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Survey> builder)
         {
-            builder.ToTable("Survey").HasKey(b => b.Id);
+            builder.ToTable("Surveys").HasKey(b => b.Id);
             builder.Property(b => b.Id).HasColumnName("Id").IsRequired();
         }
     }

@@ -9,7 +9,7 @@ namespace DataAccess.EntityConfigurations
         public void Configure(EntityTypeBuilder<SocialMedia> builder)
         {
 
-            builder.ToTable("SocialMedia").HasKey(b => b.Id);
+            builder.ToTable("SocialMedias").HasKey(b => b.Id);
             builder.Property(b => b.Id).HasColumnName("Id").IsRequired();
         }
     }

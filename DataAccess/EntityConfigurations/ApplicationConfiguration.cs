@@ -8,7 +8,7 @@ namespace DataAccess.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Application> builder)
         {
-            builder.ToTable("Application").HasKey(b => b.Id);
+            builder.ToTable("Applications").HasKey(b => b.Id);
             builder.Property(b => b.Id).HasColumnName("Id").IsRequired();
         }
     }
