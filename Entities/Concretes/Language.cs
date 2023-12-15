@@ -7,7 +7,6 @@ namespace Entities
     {
         public Guid StudentId { get; set; }
         public string Name { get; set; }
-        public string Level { get; set; }
         public Student? Student { get; set; }
     }
 }

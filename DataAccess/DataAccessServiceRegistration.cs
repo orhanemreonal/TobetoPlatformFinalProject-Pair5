@@ -30,7 +30,10 @@ namespace DataAccess
             services.AddScoped<IStudentDal, EfStudentDal>();
             services.AddScoped<ISurveyDal, EfSurveyDal>();
             services.AddScoped<IUserDal, EfUserDal>();
-
+            services.AddScoped<ICategoryDal, EfCategoryDal>();
+            services.AddScoped<ICompanyDal, EfCompanyDal>();
+            services.AddScoped<IClassDal, EfClassDal>();
+            services.AddScoped<IStudentLanguageDal, EfStudentLanguageDal>();
 
 
 

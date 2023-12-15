@@ -12,4 +12,10 @@
     <PackageReference Include="System.Linq.Dynamic.Core" Version="1.3.7" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Business\Rules\" />
+    <Folder Include="Business\Requests\" />
+    <Folder Include="CrossCuttingConcerns\Validation\" />
+  </ItemGroup>
+
 </Project>
