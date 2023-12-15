@@ -10,6 +10,8 @@ namespace DataAccess.EntityConfigurations
         {
             builder.ToTable("Experience").HasKey(b => b.Id);
             builder.Property(b => b.Id).HasColumnName("Id").IsRequired();
+
+            builder.HasOne(c => c.Student).WithMany(s => s.Experiences).HasForeignKey(e => e.StudentId);
         }
     }
 }
