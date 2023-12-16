@@ -1,4 +1,6 @@
-﻿namespace Core.CrossCuttingConcerns.Exceptions.Handlers;
+﻿using Core.CrossCuttingConcerns.Exceptions.Types;
+
+namespace Core.CrossCuttingConcerns.Exceptions.Handlers;
 
 public abstract class ExceptionHandler
 {

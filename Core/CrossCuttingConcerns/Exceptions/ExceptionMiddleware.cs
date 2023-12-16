@@ -1,4 +1,5 @@
 ﻿using Core.CrossCuttingConcerns.Exceptions.Handlers;
+using Microsoft.AspNetCore.Http;
 
 namespace Core.CrossCuttingConcerns.Exceptions;
 
