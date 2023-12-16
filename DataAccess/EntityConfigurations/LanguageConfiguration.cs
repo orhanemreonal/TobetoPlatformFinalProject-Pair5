@@ -11,7 +11,7 @@ namespace DataAccess.EntityConfigurations
             builder.ToTable("Languages").HasKey(b => b.Id);
             builder.Property(b => b.Id).HasColumnName("Id").IsRequired();
             builder.Property(b => b.Name).HasColumnName("Name").IsRequired();
-            builder.Property(b => b.Level).HasColumnName("Level").IsRequired();
+           // builder.Property(b => b.Level).HasColumnName("Level").IsRequired();
             builder.Property(b => b.StudentId).HasColumnName("StudentId").IsRequired();
 
 
