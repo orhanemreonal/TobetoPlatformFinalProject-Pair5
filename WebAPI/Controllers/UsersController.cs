@@ -1,5 +1,5 @@
 ﻿using Business.Abstracts;
-using Entities.Concretes;
+using Business.Dtos.Users.Requests;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
@@ -17,9 +17,9 @@ namespace WebAPI.Controllers
 
         [HttpPost]
 
-        public async Task<IActionResult> Add([FromBody] User user)
+        public async Task<IActionResult> Add([FromBody] CreateUserRequest createUserRequest)
         {
-            var result = await _userService.Add(user);
+            var result = await _userService.Add(createUserRequest);
             return Ok(result);
         }
     }

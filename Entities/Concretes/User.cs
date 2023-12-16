@@ -6,7 +6,7 @@ namespace Entities.Concretes
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string Email { get; set; }
+        public string Email { get; set; }        //register
         public string PasswordSalt { get; set; }
         public string PasswordHash { get; set; }
         public List<Course>? Courses { get; set; }

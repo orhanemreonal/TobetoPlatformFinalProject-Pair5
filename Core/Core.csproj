@@ -16,7 +16,6 @@
 
   <ItemGroup>
     <Folder Include="Business\Rules\" />
-    <Folder Include="Business\Requests\" />
     <Folder Include="CrossCuttingConcerns\Validation\" />
   </ItemGroup>
 

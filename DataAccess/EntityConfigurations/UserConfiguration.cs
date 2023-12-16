@@ -18,6 +18,7 @@ namespace DataAccess.EntityConfigurations
             builder.HasMany(s => s.Courses);
             builder.HasMany(s => s.Students);
             builder.HasMany(s => s.Instructors);
+            //builder.HasData(new User { Id = Guid.NewGuid(), FirstName = "Engin", LastName = "Demiroğ", Email = "deneme@gmail.com", PasswordHash = "123asd", PasswordSalt = "123asd" });
 
         }
     }
