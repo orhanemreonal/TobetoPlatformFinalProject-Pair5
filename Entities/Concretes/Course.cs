@@ -18,9 +18,9 @@ namespace Entities.Concretes
 
         public DateTime SpentTime { get; set; }
         public DateTime EstimatedTime { get; set; }
-        public Company Company { get; set; }
-        public Category Category { get; set; }
-        public List<Class>? Classes { get; set; }
+        public Company? Company { get; set; }
+        public Category? Category { get; set; }
+        public List<ClassCourse>? ClassCourses { get; set; } //sonradan eklendi - Nergis
 
 
     }

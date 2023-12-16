@@ -10,6 +10,15 @@ namespace DataAccess.EntityConfigurations
         {
             builder.ToTable("Competences").HasKey(b => b.Id);
             builder.Property(b => b.Id).HasColumnName("Id").IsRequired();
+            builder.Property(b => b.StudentId).HasColumnName("StudentId").IsRequired();
+            builder.Property(b => b.Name).HasColumnName("Name").IsRequired();
+
+
+            builder.HasOne(c => c.Student)
+                .WithMany(s => s.Competences)
+                .HasForeignKey(c => c.StudentId);
+
+            builder.HasQueryFilter(b => !b.DeletedDate.HasValue);
         }
     }
 }
