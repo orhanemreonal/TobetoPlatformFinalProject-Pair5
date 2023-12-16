@@ -10,7 +10,7 @@ namespace Entities.Concretes
         public List<Experience>? Experiences { get; set; }
         public List<Education>? Educations { get; set; }
         public List<Competence>? Competences { get; set; }
-        public List<Language>? Languages { get; set; }
+        public List<StudentLanguage>? StudentLanguages { get; set; }
         public List<Certificate>? Certificates { get; set; }
         public List<SocialMedia>? SocialMedias { get; set; }
         public List<Survey>? Surveys { get; set; }
@@ -20,6 +20,8 @@ namespace Entities.Concretes
         public PersonalInformation? PersonalInformation { get; set; }
         public User? User { get; set; }
         public Class? Class { get; set; }
+
+        public StudentLanguage StudentLanguage { get; set; } // eklendi
 
 
     }
