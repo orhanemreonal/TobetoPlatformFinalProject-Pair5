@@ -15,14 +15,14 @@ namespace DataAccess.EntityConfigurations
 
             builder.HasOne(b => b.Class)
                      .WithMany(c => c.ClassCourses)
-                     .HasForeignKey(b => b.ClassId)
-                     .IsRequired();
+                     .HasForeignKey(b => b.ClassId);
 
 
             builder.HasOne(b => b.Course)
                    .WithMany(c => c.ClassCourses)
-                   .HasForeignKey(b => b.CourseId)
-                   .IsRequired();
+                   .HasForeignKey(b => b.CourseId);
+
+            builder.HasQueryFilter(b => !b.DeletedDate.HasValue);
         }
     }
 }
