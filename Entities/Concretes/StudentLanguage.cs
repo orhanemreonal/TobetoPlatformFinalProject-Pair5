@@ -10,8 +10,8 @@ namespace Entities.Concretes
 
         public string LanguageLevel { get; set; }
 
-        public Student Student { get; set; }
+        public Student? Student { get; set; }
 
-        public Language Language { get; set; }
+        public Language? Language { get; set; }
     }
 }

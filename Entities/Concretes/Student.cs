@@ -21,8 +21,5 @@ namespace Entities.Concretes
         public User? User { get; set; }
         public Class? Class { get; set; }
 
-        public StudentLanguage StudentLanguage { get; set; } // eklendi
-
-
     }
 }
