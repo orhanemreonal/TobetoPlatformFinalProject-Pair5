@@ -19,6 +19,6 @@ namespace Entities.Concretes
 
         public DateTime BirthDate { get; set; }
 
-        public Student Student { get; set; }
+        public Student? Student { get; set; }
     }
 }

@@ -15,7 +15,7 @@ namespace DataAccess.EntityConfigurations
             builder.HasMany(s => s.Experiences);
             builder.HasMany(s => s.Educations);
             builder.HasMany(s => s.Competences);
-            builder.HasMany(s => s.Languages);
+            builder.HasMany(s => s.StudentLanguages);
             builder.HasMany(s => s.Certificates);
             builder.HasMany(s => s.SocialMedias);
             builder.HasMany(s => s.Surveys);
