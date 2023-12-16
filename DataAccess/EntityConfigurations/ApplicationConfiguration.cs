@@ -8,8 +8,22 @@ namespace DataAccess.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Application> builder)
         {
-            builder.ToTable("Applications").HasKey(b => b.Id);
-            builder.Property(b => b.Id).HasColumnName("Id").IsRequired();
+            builder.ToTable("Applications").HasKey(a => a.Id);
+            builder.Property(a => a.Id).HasColumnName("Id").IsRequired();
+            builder.Property(a => a.StudentId).HasColumnName("StudentId").IsRequired();
+            builder.Property(a => a.Destription).HasColumnName("Destription").IsRequired();
+            builder.Property(a => a.IsAccepted).HasColumnName("IsAccepted");
+
+            builder.HasOne(a => a.Student)
+                    .WithMany(s => s.Applications)
+                    .HasForeignKey(a => a.StudentId);
+
+
+            builder.HasQueryFilter(b => !b.DeletedDate.HasValue);
+
+
+
+
         }
-    }
+        }
 }

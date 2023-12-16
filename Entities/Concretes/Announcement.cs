@@ -9,7 +9,7 @@ namespace Entities.Concretes
         public string Organization { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public bool IsRead { get; set; }
+        public bool? IsRead { get; set; }
         public Class? Class { get; set; }
 
     }
