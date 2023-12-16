@@ -34,6 +34,7 @@ namespace DataAccess
             services.AddScoped<ICompanyDal, EfCompanyDal>();
             services.AddScoped<IClassDal, EfClassDal>();
             services.AddScoped<IStudentLanguageDal, EfStudentLanguageDal>();
+            services.AddScoped<IClassAnnouncementDal, EfClassAnnouncementDal>();
 
 
 

@@ -1,5 +1,6 @@
 ﻿using Business.Abstracts;
 using Business.Concretes;
+using Entities.Concretes;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
@@ -29,6 +30,7 @@ namespace Business
             services.AddScoped<ICompanyService, CompanyManager>();
             services.AddScoped<IClassService, ClassManager>();
             services.AddScoped<IStudentLanguageService, StudentLanguageManager>();
+            services.AddScoped<IClassAnnouncementService, ClassAnnouncementManager>();
 
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             return services;

@@ -12,8 +12,9 @@ namespace DataAccess.EntityConfigurations
             builder.Property(c => c.Id).HasColumnName("Id").IsRequired();
             builder.Property(c => c.Name).HasColumnName("Name").IsRequired();
              builder.HasMany(c => c.Students);
-            builder.HasMany(c => c.Courses);
-            builder.HasMany(c => c.Announcement);
+            builder.HasMany(c => c.ClassCourses);
+            builder.HasMany(a => a.ClassAnnouncements);
+
 
             builder.HasQueryFilter(b => !b.DeletedDate.HasValue);
         }

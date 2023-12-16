@@ -9,7 +9,6 @@ namespace DataAccess.EntityConfigurations
         public void Configure(EntityTypeBuilder<Announcement> builder)
         {
             builder.ToTable("Announcements").HasKey(a => a.Id);
-            builder.Property(a => a.ClassId).HasColumnName("ClassId").IsRequired();
             builder.Property(a => a.Type).HasColumnName("Type").IsRequired();
             builder.Property(a => a.Organization).HasColumnName("Organization").IsRequired();
             builder.Property(a => a.Title).HasColumnName("Title").IsRequired();
@@ -18,9 +17,7 @@ namespace DataAccess.EntityConfigurations
            
 
 
-            builder.HasOne(a => a.Class)
-                .WithMany(c => c.Announcements)//ara tabloya ihtiyaç var
-                .HasForeignKey(a => a.ClassId);
+            builder.HasMany(a => a.ClassAnnouncements);
 
             builder.HasQueryFilter(b => !b.DeletedDate.HasValue);
         }

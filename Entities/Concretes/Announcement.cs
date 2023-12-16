@@ -4,13 +4,12 @@ namespace Entities.Concretes
 {
     public class Announcement : Entity<Guid>
     {
-        public Guid ClassId { get; set; }
         public string Type { get; set; }
         public string Organization { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public bool? IsRead { get; set; }
-        public Class? Class { get; set; }
+        public List<ClassAnnouncement>? ClassAnnouncements { get;}
 
     }
 }
