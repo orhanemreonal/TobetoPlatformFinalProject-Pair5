@@ -10,7 +10,7 @@ namespace Business.Abstracts
         Task<GetClassAnnouncementResponse> Add(CreateClassAnnouncementRequest createClassAnnouncementRequest);
         Task<GetClassAnnouncementResponse> Update(UpdateClassAnnouncementRequest updateCertificateRequest);
         Task<GetClassAnnouncementResponse> Delete(DeleteClassAnnouncementRequest deleteCertificateRequest);
-        Task<IPaginate<GetClassAnnouncementResponse>> GetList(PageRequest pageRequest);
+        Task<IPaginate<GetListClassAnnouncementResponse>> GetList(PageRequest pageRequest);
         Task<GetClassAnnouncementResponse> Get(Guid id);
     }
 }

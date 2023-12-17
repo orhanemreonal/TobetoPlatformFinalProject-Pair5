@@ -3,17 +3,12 @@ using Business.Dtos.ClassCourse.Requests;
 using Business.Dtos.ClassCourse.Responses;
 using Core.DataAccess.Paging;
 using Entities.Concretes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Business.Profiles
 {
     public class ClassCourseMappingProfile : Profile
     {
-        protected ClassCourseMappingProfile()
+        public ClassCourseMappingProfile()
         {
             //Requests
             CreateMap<ClassCourse, CreateClassCourseRequest>().ReverseMap();
@@ -23,7 +18,7 @@ namespace Business.Profiles
 
             //Responses
             CreateMap<ClassCourse, GetClassCourseResponse>().ReverseMap();
-            CreateMap<Paginate<ClassCourse>, Paginate<GetClassCourseResponse>>().ReverseMap();
+            CreateMap<Paginate<ClassCourse>, Paginate<GetListClassCourseResponse>>().ReverseMap();
         }
     }
 }

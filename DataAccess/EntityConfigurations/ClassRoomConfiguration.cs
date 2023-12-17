@@ -4,14 +4,14 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DataAccess.EntityConfigurations
 {
-    public class ClassConfiguration : IEntityTypeConfiguration<Class>
+    public class ClassRoomConfiguration : IEntityTypeConfiguration<ClassRoom>
     {
-        public void Configure(EntityTypeBuilder<Class> builder)
+        public void Configure(EntityTypeBuilder<ClassRoom> builder)
         {
-            builder.ToTable("Classes").HasKey(c => c.Id);
+            builder.ToTable("ClassRooms").HasKey(c => c.Id);
             builder.Property(c => c.Id).HasColumnName("Id").IsRequired();
             builder.Property(c => c.Name).HasColumnName("Name").IsRequired();
-             builder.HasMany(c => c.Students);
+            builder.HasMany(c => c.Students);
             builder.HasMany(c => c.ClassCourses);
             builder.HasMany(a => a.ClassAnnouncements);
 

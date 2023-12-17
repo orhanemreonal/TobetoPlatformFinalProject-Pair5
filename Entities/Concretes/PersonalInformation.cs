@@ -4,7 +4,7 @@ namespace Entities.Concretes
 {
     public class PersonalInformation : Entity<Guid>
     {
-
+        public Guid StudentId { get; set; }
         public string? About { get; set; }
         public string IdentityNo { get; set; }
         //public Country Country { get; set; }

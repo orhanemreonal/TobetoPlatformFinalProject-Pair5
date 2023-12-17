@@ -1,18 +1,11 @@
 ﻿using AutoMapper;
-using Azure.Core;
 using Business.Abstracts;
 using Business.Dtos.ClassAnnouncement.Requests;
 using Business.Dtos.ClassAnnouncement.Responses;
 using Core.Business.Requests;
 using Core.DataAccess.Paging;
 using DataAccess.Abstracts;
-using DataAccess.Concretes;
 using Entities.Concretes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Business.Concretes
 {
@@ -29,15 +22,15 @@ namespace Business.Concretes
 
         public async Task<GetClassAnnouncementResponse> Add(CreateClassAnnouncementRequest request)
         {
-            ClassAnnouncement classAnnouncement=_mapper.Map<ClassAnnouncement>(request);
+            ClassAnnouncement classAnnouncement = _mapper.Map<ClassAnnouncement>(request);
             await _classAnnouncementDal.AddAsync(classAnnouncement);
-            GetClassAnnouncementResponse response=_mapper.Map<GetClassAnnouncementResponse>(request);
+            GetClassAnnouncementResponse response = _mapper.Map<GetClassAnnouncementResponse>(request);
             return response;
         }
 
         public async Task<GetClassAnnouncementResponse> Delete(DeleteClassAnnouncementRequest request)
         {
-            ClassAnnouncement classAnnouncement = await _classAnnouncementDal.GetAsync(predicate:ca=>ca.Id==request.Id);
+            ClassAnnouncement classAnnouncement = await _classAnnouncementDal.GetAsync(predicate: ca => ca.Id == request.Id);
             await _classAnnouncementDal.DeleteAsync(classAnnouncement);
             GetClassAnnouncementResponse response = _mapper.Map<GetClassAnnouncementResponse>(classAnnouncement);
             return response;
@@ -54,16 +47,16 @@ namespace Business.Concretes
 
         }
 
-        public async Task<IPaginate<GetClassAnnouncementResponse>> GetList(PageRequest request)
+        public async Task<IPaginate<GetListClassAnnouncementResponse>> GetList(PageRequest request)
         {
             var result = await _classAnnouncementDal.GetListAsync(index: request.Index, size: request.Size);
-            Paginate<GetClassAnnouncementResponse> response=_mapper.Map<Paginate<GetClassAnnouncementResponse>>(result);
+            Paginate<GetListClassAnnouncementResponse> response = _mapper.Map<Paginate<GetListClassAnnouncementResponse>>(result);
             return response;
         }
 
         public async Task<GetClassAnnouncementResponse> Update(UpdateClassAnnouncementRequest request)
         {
-            ClassAnnouncement classAnnouncement=_mapper.Map<ClassAnnouncement>(request);
+            ClassAnnouncement classAnnouncement = _mapper.Map<ClassAnnouncement>(request);
             await _classAnnouncementDal.UpdateAsync(classAnnouncement);
             GetClassAnnouncementResponse response = _mapper.Map<GetClassAnnouncementResponse>(classAnnouncement);
             return response;

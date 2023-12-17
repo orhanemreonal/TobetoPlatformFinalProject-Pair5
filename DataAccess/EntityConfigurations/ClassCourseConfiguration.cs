@@ -11,11 +11,11 @@ namespace DataAccess.EntityConfigurations
             builder.ToTable("ClassCourses").HasKey(b => b.Id);
             builder.Property(b => b.Id).HasColumnName("Id").IsRequired();
             builder.Property(b => b.CourseId).HasColumnName("CourseId").IsRequired();
-            builder.Property(b => b.ClassId).HasColumnName("ClassId").IsRequired();
+            builder.Property(b => b.ClassRoomId).HasColumnName("ClassId").IsRequired();
 
-            builder.HasOne(b => b.Class)
+            builder.HasOne(b => b.ClassRoom)
                      .WithMany(c => c.ClassCourses)
-                     .HasForeignKey(b => b.ClassId);
+                     .HasForeignKey(b => b.ClassRoomId);
 
 
             builder.HasOne(b => b.Course)

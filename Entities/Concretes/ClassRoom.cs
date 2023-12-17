@@ -2,12 +2,11 @@
 
 namespace Entities.Concretes
 {
-    public class Class : Entity<Guid>
+    public class ClassRoom : Entity<Guid>
     {
-
         public string Name { get; set; }
         public List<Student>? Students { get; set; }
-        public List<ClassCourse>? ClassCourses { get; set; } //sonradan eklendi - Nergis
+        public List<ClassCourse>? ClassCourses { get; set; }
         public List<ClassAnnouncement>? ClassAnnouncements { get; set; }
     }
 }
