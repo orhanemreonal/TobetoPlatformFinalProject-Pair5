@@ -6,7 +6,6 @@ namespace Entities.Concretes
     {
         public Guid UserId { get; set; }
         public Guid ClassId { get; set; }
-        public Guid? PersonalInformationId { get; set; }
         public List<Experience>? Experiences { get; set; }
         public List<Education>? Educations { get; set; }
         public List<Competence>? Competences { get; set; }

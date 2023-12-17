@@ -11,7 +11,6 @@ namespace DataAccess.EntityConfigurations
             builder.ToTable("Students").HasKey(s => s.Id);
             builder.Property(s => s.UserId).HasColumnName("UserId").IsRequired();
             builder.Property(s => s.ClassId).HasColumnName("ClassId").IsRequired();
-            builder.Property(s => s.PersonalInformationId).HasColumnName("PersonalInformationId").IsRequired();
             builder.HasMany(s => s.Experiences);
             builder.HasMany(s => s.Educations);
             builder.HasMany(s => s.Competences);
@@ -23,12 +22,8 @@ namespace DataAccess.EntityConfigurations
             builder.HasMany(s => s.Announcements);
             builder.HasMany(s => s.Applications);
 
-            // 1-1 İlişki Örneği
-            builder.HasOne(s => s.PersonalInformation)
-                .WithOne(p => p.Student)
-                .HasForeignKey<Student>(p => p.PersonalInformationId);
+            builder.HasOne(s => s.PersonalInformation);
 
-            // 1-n İlişki Örnekleri
             builder.HasOne(s => s.User).WithMany(u => u.Students).HasForeignKey(s => s.UserId);
 
             builder.HasOne(s => s.Class)
