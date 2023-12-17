@@ -58,8 +58,7 @@ namespace Business.Concretes
 
         public async Task<GetUserResponse> Update(UpdateUserRequest request)
         {
-            User user = await _userDal.GetAsync(predicate: u => u.Id == request.Id);
-            User updatedUser = _mapper.Map<User>(user);
+            User updatedUser = _mapper.Map<User>(request);
             await _userDal.UpdateAsync(updatedUser);
             GetUserResponse response = _mapper.Map<GetUserResponse>(updatedUser);
             return response;
