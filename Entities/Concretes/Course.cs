@@ -20,7 +20,7 @@ namespace Entities.Concretes
         public DateTime EstimatedTime { get; set; }
         public Company? Company { get; set; }
         public Category? Category { get; set; }
-        public List<ClassCourse>? ClassCourses { get; set; } //sonradan eklendi - Nergis
+        public List<ClassCourse>? ClassCourses { get; set; }
 
 
     }
