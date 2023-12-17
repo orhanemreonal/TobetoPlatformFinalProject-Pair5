@@ -10,7 +10,7 @@ namespace DataAccess.EntityConfigurations
         {
             builder.ToTable("Students").HasKey(s => s.Id);
             builder.Property(s => s.UserId).HasColumnName("UserId").IsRequired();
-            builder.Property(s => s.ClassId).HasColumnName("ClassId").IsRequired();
+            builder.Property(s => s.ClassRoomId).HasColumnName("ClassRoomId").IsRequired();
             builder.Property(s => s.PersonalInformationId).HasColumnName("PersonalInformationId").IsRequired();
             builder.HasMany(s => s.Experiences);
             builder.HasMany(s => s.Educations);

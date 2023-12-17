@@ -6,7 +6,7 @@ namespace Entities.Concretes
     {
         public string Name { get; set; }
         public List<Student>? Students { get; set; }
-        public List<ClassCourse>? ClassCourses { get; set; } //sonradan eklendi - Nergis
+        public List<ClassCourse>? ClassCourses { get; set; }
         public List<ClassAnnouncement>? ClassAnnouncements { get; set; }
     }
 }
