@@ -23,6 +23,5 @@ namespace Business.Dtos.PersonelInformations.Requests
 
         public DateTime BirthDate { get; set; }
 
-        public Student? Student { get; set; }
     }
 }

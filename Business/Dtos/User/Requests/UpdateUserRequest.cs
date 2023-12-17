@@ -1,6 +1,7 @@
-﻿{
-    public class UpdateUserRequest
+﻿namespace Business.Dtos.Users.Requests
 {
-    public Guid Id { get; set; }
-}
+    public class UpdateUserRequest
+    {
+        public Guid Id { get; set; }
+    }
 }
