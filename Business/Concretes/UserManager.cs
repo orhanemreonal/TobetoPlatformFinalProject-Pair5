@@ -13,25 +13,24 @@ namespace Business.Concretes
     {
         IUserDal _userDal;
         IMapper _mapper;
-        IPersonalInformationDal _personalInformationDal;
 
 
-        public UserManager(IUserDal userDal, IMapper mapper, IPersonalInformationDal personalInformationDal)
+
+        public UserManager(IUserDal userDal, IMapper mapper)
         {
             _userDal = userDal;
             _mapper = mapper;
-            _personalInformationDal = personalInformationDal;
         }
 
         public async Task<GetUserResponse> Add(CreateUserRequest request)
         {
             User user = _mapper.Map<User>(request);
             await _userDal.AddAsync(user);
-            await _personalInformationDal.AddAsync(new PersonalInformation());
             GetUserResponse response = _mapper.Map<GetUserResponse>(user);
             return response;
 
         }
+
 
         public async Task<GetUserResponse> Delete(DeleteUserRequest request)
         {
@@ -58,8 +57,7 @@ namespace Business.Concretes
 
         public async Task<GetUserResponse> Update(UpdateUserRequest request)
         {
-            User user = await _userDal.GetAsync(predicate: u => u.Id == request.Id);
-            User updatedUser = _mapper.Map<User>(user);
+            User updatedUser = _mapper.Map<User>(request);
             await _userDal.UpdateAsync(updatedUser);
             GetUserResponse response = _mapper.Map<GetUserResponse>(updatedUser);
             return response;

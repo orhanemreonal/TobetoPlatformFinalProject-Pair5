@@ -1,9 +1,8 @@
-﻿using Core.Entities;
-
-namespace Entities.Concretes
+﻿namespace Business.Dtos.Course.Requests
 {
-    public class Course : Entity<Guid>
+    public class UpdateCourseRequest
     {
+        public Guid Id { get; set; }
         public Guid CategoryId { get; set; }
 
         public Guid CompanyId { get; set; }
@@ -18,12 +17,5 @@ namespace Entities.Concretes
 
         public DateTime SpentTime { get; set; }
         public DateTime EstimatedTime { get; set; }
-        public Company? Company { get; set; }
-        public Category? Category { get; set; }
-        public List<ClassCourse>? ClassCourses { get; set; }
-
-
     }
-
-
 }
