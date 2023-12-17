@@ -1,13 +1,8 @@
 ﻿using AutoMapper;
 using Business.Dtos.Certificate.Requests;
-using Entities.Concretes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Core.DataAccess.Paging;
 using Business.Dtos.Certificate.Responses;
+using Core.DataAccess.Paging;
+using Entities.Concretes;
 
 namespace Business.Profiles
 {

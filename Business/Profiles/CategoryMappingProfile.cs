@@ -1,0 +1,24 @@
+﻿using AutoMapper;
+using Business.Dtos.Category.Requests;
+using Business.Dtos.Category.Responses;
+using Core.DataAccess.Paging;
+using Entities.Concretes;
+
+namespace Business.Profiles
+{
+    public class CategoryMappingProfile : Profile
+    {
+        public CategoryMappingProfile()
+        {
+            //Requests
+            CreateMap<Category, CreateCategoryRequest>().ReverseMap();
+            CreateMap<Category, DeleteCategoryRequest>().ReverseMap();
+            CreateMap<Category, UpdateCategoryRequest>().ReverseMap();
+
+
+            //Responses
+            CreateMap<Category, GetCategoryResponse>().ReverseMap();
+            CreateMap<Paginate<Category>, Paginate<GetCategoryResponse>>().ReverseMap();
+        }
+    }
+}
