@@ -10,7 +10,7 @@ namespace Business.Abstracts
         Task<GetClassCourseResponse> Add(CreateClassCourseRequest createClassCourseRequest);
         Task<GetClassCourseResponse> Update(UpdateClassCourseRequest updateClassCourseRequest);
         Task<GetClassCourseResponse> Delete(DeleteClassCourseRequest deleteClassCourseRequest);
-        Task<IPaginate<GetClassCourseResponse>> GetList(PageRequest pageRequest);
+        Task<IPaginate<GetListClassCourseResponse>> GetList(PageRequest pageRequest);
         Task<GetClassCourseResponse> Get(Guid id);
     }
 }

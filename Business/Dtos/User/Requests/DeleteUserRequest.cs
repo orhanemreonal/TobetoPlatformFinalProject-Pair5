@@ -1,4 +1,4 @@
-﻿namespace Business.Dtos.User.Requests
+﻿namespace Business.Dtos.Users.Requests
 {
     public class DeleteUserRequest
     {

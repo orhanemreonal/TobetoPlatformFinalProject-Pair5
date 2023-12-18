@@ -1,4 +1,4 @@
-﻿namespace Business.Dtos.User.Responses
+﻿namespace Business.Dtos.Users.Responses
 {
     public class GetListUserResponse
     {

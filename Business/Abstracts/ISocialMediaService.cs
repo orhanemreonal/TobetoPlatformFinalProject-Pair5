@@ -1,7 +1,5 @@
 ﻿using Business.Dtos.SocialMedias.Requests;
 using Business.Dtos.SocialMedias.Responses;
-using Business.Dtos.Users.Requests;
-using Business.Dtos.Users.Responses;
 using Core.Business.Requests;
 using Core.DataAccess.Paging;
 

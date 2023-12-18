@@ -14,8 +14,6 @@ namespace Business.Concretes
         IUserDal _userDal;
         IMapper _mapper;
 
-
-
         public UserManager(IUserDal userDal, IMapper mapper)
         {
             _userDal = userDal;

@@ -1,4 +1,4 @@
-﻿namespace Business.Dtos.User.Requests
+﻿namespace Business.Dtos.Users.Requests
 {
     public class CreateUserRequest
     {
@@ -8,4 +8,5 @@
         public string PasswordSalt { get; set; }
         public string PasswordHash { get; set; }
     }
+
 }

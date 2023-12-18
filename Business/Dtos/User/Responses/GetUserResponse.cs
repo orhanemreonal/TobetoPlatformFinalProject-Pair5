@@ -1,4 +1,4 @@
-﻿namespace Business.Dtos.User.Responses
+﻿namespace Business.Dtos.Users.Responses
 {
     public class GetUserResponse
     {
@@ -9,4 +9,5 @@
         public string PasswordSalt { get; set; }
         public string PasswordHash { get; set; }
     }
+
 }
