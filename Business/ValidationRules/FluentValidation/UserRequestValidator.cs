@@ -1,5 +1,5 @@
 ﻿using Business.Constants;
-using Business.Dtos.Users.Requests;
+using Business.Dtos.User.Requests;
 using Entities.Concretes;
 using FluentValidation;
 using System;
