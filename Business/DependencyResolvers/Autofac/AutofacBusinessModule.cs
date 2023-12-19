@@ -17,8 +17,14 @@ namespace Business.DependencyResolvers.Autofac
 
             builder.RegisterType<UserManager>().As<IUserService>().SingleInstance();
             builder.RegisterType<EfUserDal>().As<IUserDal>().SingleInstance();
+            builder.RegisterType<PersonalInformationManager>().As<IPersonalInformationService>().SingleInstance();
+            builder.RegisterType<EfPersonalInformationDal>().As<IPersonalInformationDal>().SingleInstance();
+            builder.RegisterType<SocialMediaManager>().As<ISocialMediaService>().SingleInstance();
+            builder.RegisterType<EfSocialMediaDal>().As<ISocialMediaDal>().SingleInstance();
+            builder.RegisterType<StudentLanguageManager>().As<IStudentService>().SingleInstance();
+            builder.RegisterType<EfStudentDal>().As<IStudentDal>().SingleInstance();
 
-            
+
 
 
 
