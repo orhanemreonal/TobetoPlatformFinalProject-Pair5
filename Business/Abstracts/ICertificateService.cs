@@ -1,6 +1,5 @@
 ﻿using Business.Dtos.Certificate.Requests;
 using Business.Dtos.Certificate.Responses;
-using Business.Dtos.Users.Responses;
 using Core.Business.Requests;
 using Core.DataAccess.Paging;
 

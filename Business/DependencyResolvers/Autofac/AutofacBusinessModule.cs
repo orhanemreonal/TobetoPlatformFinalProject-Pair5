@@ -15,10 +15,26 @@ namespace Business.DependencyResolvers.Autofac
         protected override void Load(ContainerBuilder builder)
         {
 
+
+
+            builder.RegisterType<AnnouncementManager>().As<IAnnouncementService>().SingleInstance();
+            builder.RegisterType<EfAnnouncementDal>().As<IAnnouncementDal>().SingleInstance();
+
+            builder.RegisterType<ApplicationManager>().As<IApplicationService>().SingleInstance();
+            builder.RegisterType<EfApplicationDal>().As<IApplicationDal>().SingleInstance();
+
+            builder.RegisterType<CategoryManager>().As<ICategoryService>().SingleInstance();
+            builder.RegisterType<EfCategoryDal>().As<ICategoryDal>().SingleInstance();
+
+            builder.RegisterType<StudentManager>().As<IStudentService>().SingleInstance();
+            builder.RegisterType<EfStudentDal>().As<IStudentDal>().SingleInstance();
+
+            builder.RegisterType<SurveyManager>().As<ISurveyService>().SingleInstance();
+            builder.RegisterType<EfSurveyDal>().As<ISurveyDal>().SingleInstance();
+
             builder.RegisterType<UserManager>().As<IUserService>().SingleInstance();
             builder.RegisterType<EfUserDal>().As<IUserDal>().SingleInstance();
 
-            
 
 
 

@@ -3,5 +3,6 @@
     public class DeleteStudentRequest
     {
         public Guid Id { get; set; }
+
     }
 }
