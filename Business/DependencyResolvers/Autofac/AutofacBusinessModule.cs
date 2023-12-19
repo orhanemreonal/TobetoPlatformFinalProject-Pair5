@@ -3,10 +3,9 @@ using Autofac.Extras.DynamicProxy;
 using Business.Abstracts;
 using Business.Concretes;
 using Castle.DynamicProxy;
+using Core.Utilities.Interceptors;
 using DataAccess.Abstracts;
 using DataAccess.Concretes;
-
-
 
 namespace Business.DependencyResolvers.Autofac
 {
@@ -24,7 +23,16 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<StudentLanguageManager>().As<IStudentService>().SingleInstance();
             builder.RegisterType<EfStudentDal>().As<IStudentDal>().SingleInstance();
 
+            
 
+            builder.RegisterType<ClassCourseManager>().As<IClassCourseService>().SingleInstance();
+            builder.RegisterType<EfClassCourseDal>().As<IClassCourseDal>().SingleInstance();
+
+            builder.RegisterType<CertificateManager>().As<ICertificateService>().SingleInstance();
+            builder.RegisterType<EfCertificateDal>().As<ICertificateDal>().SingleInstance();
+
+            builder.RegisterType<ClassAnnouncementManager>().As<IClassAnnouncementService>().SingleInstance();
+            builder.RegisterType<EfClassAnnouncementDal>().As<IClassAnnouncementDal>().SingleInstance();
 
 
 
