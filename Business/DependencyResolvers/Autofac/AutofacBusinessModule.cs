@@ -33,6 +33,14 @@ namespace Business.DependencyResolvers.Autofac
 
             builder.RegisterType<ClassAnnouncementManager>().As<IClassAnnouncementService>().SingleInstance();
             builder.RegisterType<EfClassAnnouncementDal>().As<IClassAnnouncementDal>().SingleInstance();
+            builder.RegisterType<PersonalInformationManager>().As<IPersonalInformationService>().SingleInstance();
+            builder.RegisterType<EfPersonalInformationDal>().As<IPersonalInformationDal>().SingleInstance();
+            builder.RegisterType<SocialMediaManager>().As<ISocialMediaService>().SingleInstance();
+            builder.RegisterType<EfSocialMediaDal>().As<ISocialMediaDal>().SingleInstance();
+            builder.RegisterType<StudentLanguageManager>().As<IStudentService>().SingleInstance();
+            builder.RegisterType<EfStudentDal>().As<IStudentDal>().SingleInstance();
+
+            
 
             builder.RegisterType<ClassCourseManager>().As<IClassCourseService>().SingleInstance();
             builder.RegisterType<EfClassCourseDal>().As<IClassCourseDal>().SingleInstance();
