@@ -1,4 +1,8 @@
-﻿namespace Business.ValidationRules.FluentValidation
+﻿using Business.Constants;
+using Business.Dtos.Users.Requests;
+using FluentValidation;
+
+namespace Business.ValidationRules.FluentValidation
 {
     public class UserRequestValidator : AbstractValidator<CreateUserRequest>
     {

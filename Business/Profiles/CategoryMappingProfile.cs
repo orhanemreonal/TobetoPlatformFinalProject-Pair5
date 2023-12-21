@@ -18,7 +18,7 @@ namespace Business.Profiles
 
             //Responses
             CreateMap<Category, GetCategoryResponse>().ReverseMap();
-            CreateMap<Paginate<Category>, Paginate<GetCategoryResponse>>().ReverseMap();
+            CreateMap<Paginate<Category>, Paginate<GetListCategoryResponse>>().ReverseMap();
         }
     }
 }

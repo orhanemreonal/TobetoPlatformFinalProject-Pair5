@@ -25,8 +25,6 @@ namespace DataAccess.EntityConfigurations
 
             builder.HasOne(s => s.PersonalInformation);
 
-            builder.HasOne(s => s.User).WithMany(u => u.Students).HasForeignKey(s => s.UserId);
-
             builder.HasOne(s => s.ClassRoom)
                 .WithMany(u => u.Students)
                 .HasForeignKey(s => s.ClassRoomId);

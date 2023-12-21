@@ -24,7 +24,7 @@ namespace Business.Concretes
         {
             Category category = _mapper.Map<Category>(request);
             await _categoryDal.AddAsync(category);
-            GetCategoryResponse response = _mapper.Map<GetCategoryResponse>(request);
+            GetCategoryResponse response = _mapper.Map<GetCategoryResponse>(category);
             return response;
         }
 

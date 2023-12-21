@@ -2,5 +2,6 @@
 {
     public class CreateSurveyRequest
     {
+        public string Description { get; set; }
     }
 }

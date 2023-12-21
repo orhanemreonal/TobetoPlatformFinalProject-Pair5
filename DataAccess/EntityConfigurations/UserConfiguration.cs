@@ -1,4 +1,4 @@
-﻿using Entities.Concretes;
+﻿using Core.Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -15,9 +15,8 @@ namespace DataAccess.EntityConfigurations
             builder.Property(b => b.Email).HasColumnName("Email").IsRequired();
             builder.Property(b => b.PasswordSalt).HasColumnName("PasswordSalt").IsRequired();
             builder.Property(b => b.PasswordHash).HasColumnName("PasswordHash").IsRequired();
-            builder.HasMany(s => s.Courses);
-            builder.HasMany(s => s.Students);
-            builder.HasMany(s => s.Instructors);
+            builder.Property(b => b.Status).HasColumnName("Status").IsRequired();
+
             //builder.HasData(new User { Id = Guid.NewGuid(), FirstName = "Engin", LastName = "Demiroğ", Email = "deneme@gmail.com", PasswordHash = "123asd", PasswordSalt = "123asd" });
 
         }

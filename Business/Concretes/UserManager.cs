@@ -2,13 +2,10 @@
 using Business.Abstracts;
 using Business.Dtos.Users.Requests;
 using Business.Dtos.Users.Responses;
-using Business.ValidationRules.FluentValidation;
-using Core.Aspects.Autofac.Validation;
 using Core.Business.Requests;
 using Core.DataAccess.Paging;
+using Core.Entities.Concrete;
 using DataAccess.Abstracts;
-using Entities.Concretes;
-using System.ComponentModel.DataAnnotations;
 
 namespace Business.Concretes
 {
@@ -23,7 +20,7 @@ namespace Business.Concretes
             _mapper = mapper;
         }
 
-        [ValidationAspect(typeof(UserRequestValidator))]
+        //[ValidationAspect(typeof(UserRequestValidator))]
         public async Task<GetUserResponse> Add(CreateUserRequest request)
         {
             User user = _mapper.Map<User>(request);
