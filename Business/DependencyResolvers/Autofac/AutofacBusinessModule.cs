@@ -1,21 +1,19 @@
-﻿using Autofac;
-using Autofac.Extras.DynamicProxy;
-using Business.Abstract;
-using Business.Abstracts;
-using Business.Concrete;
-using Business.Concretes;
-using Castle.DynamicProxy;
-using Core.Utilities.Interceptors;
-using Core.Utilities.Security.Jwt;
-using DataAccess.Abstracts;
-using DataAccess.Concretes;
-
-namespace Business.DependencyResolvers.Autofac
+﻿namespace Business.DependencyResolvers.Autofac
 {
     public class AutofacBusinessModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterType<AnnouncementManager>().As<IAnnouncementService>().SingleInstance();
+            builder.RegisterType<EfAnnouncementDal>().As<IAnnouncementDal>().SingleInstance();
+
+
+
+            builder.RegisterType<ApplicationManager>().As<IApplicationService>().SingleInstance();
+            builder.RegisterType<EfApplicationDal>().As<IApplicationDal>().SingleInstance();
+
+            builder.RegisterType<CategoryManager>().As<ICategoryService>().SingleInstance();
+            builder.RegisterType<EfCategoryDal>().As<ICategoryDal>().SingleInstance();
 
             builder.RegisterType<AnnouncementManager>().As<IAnnouncementService>().SingleInstance();
             builder.RegisterType<EfAnnouncementDal>().As<IAnnouncementDal>().SingleInstance();
