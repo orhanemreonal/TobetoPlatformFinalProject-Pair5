@@ -1,4 +1,16 @@
-﻿namespace Business.DependencyResolvers.Autofac
+﻿using Autofac;
+using Autofac.Extras.DynamicProxy;
+using Business.Abstract;
+using Business.Abstracts;
+using Business.Concrete;
+using Business.Concretes;
+using Castle.DynamicProxy;
+using Core.Utilities.Interceptors;
+using Core.Utilities.Security.Jwt;
+using DataAccess.Abstracts;
+using DataAccess.Concretes;
+
+namespace Business.DependencyResolvers.Autofac
 {
     public class AutofacBusinessModule : Module
     {
