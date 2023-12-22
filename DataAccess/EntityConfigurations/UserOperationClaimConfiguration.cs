@@ -9,12 +9,17 @@ namespace DataAccess.EntityConfigurations
         public void Configure(EntityTypeBuilder<UserOperationClaim> builder)
         {
 
-            builder.ToTable("UserOperationClaims").HasKey(b => b.Id);
 
-            builder.Property(b => b.UserId).HasColumnName("UserId").IsRequired();
-            builder.Property(b => b.OperationClaimId).HasColumnName("OperationClaimId").IsRequired();
+            builder.ToTable("UserOperationClaims").HasKey(uoc => uoc.Id);
 
-            builder.HasQueryFilter(b => !b.DeletedDate.HasValue);
+            builder.Property(uoc => uoc.Id).HasColumnName("Id").IsRequired();
+            builder.Property(uoc => uoc.UserId).HasColumnName("UserId").IsRequired();
+            builder.Property(uoc => uoc.OperationClaimId).HasColumnName("OperationClaimId").IsRequired();
+            builder.Property(uoc => uoc.CreatedDate).HasColumnName("CreatedDate").IsRequired();
+            builder.Property(uoc => uoc.UpdatedDate).HasColumnName("UpdatedDate");
+            builder.Property(uoc => uoc.DeletedDate).HasColumnName("DeletedDate");
+
+            builder.HasQueryFilter(uoc => !uoc.DeletedDate.HasValue);
 
 
 

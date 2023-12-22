@@ -1,6 +1,12 @@
-﻿namespace Business.Profiles
+﻿using AutoMapper;
+using Business.Dtos.Instructor.Requests;
+using Business.Dtos.Instructor.Responses;
+using Core.DataAccess.Paging;
+using Entities.Concretes;
+
+namespace Business.Profiles
 {
-    internal class InstructorMappingProfile : Profile
+    public class InstructorMappingProfile : Profile
     {
 
         public InstructorMappingProfile()

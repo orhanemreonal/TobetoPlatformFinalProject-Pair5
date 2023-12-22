@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Business.Constants
+﻿namespace Business.Constants
 {
     public class Messages
     {
@@ -29,6 +23,11 @@ namespace Business.Constants
         public static string PleaseEnterAStrongerPassword = "Please enter a stronger password";
         public static string PleaseEnterAValidNationalyIdNumber = "Please enter a valid nationality id number";
 
+        public static string UserNotFound = "Kullanıcı Bulunamadı.";
 
+        public static string? PasswordUncorrect = "Hatalı Paralo Girildi.";
+
+        public static string? UserAlreadyExists = "Böyle bir kullanıcı mevcut.";
+        public static object? AccessTokenCreated = "Token Oluşturuldu";
     }
 }

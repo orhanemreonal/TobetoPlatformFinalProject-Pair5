@@ -1,10 +1,15 @@
-﻿using Business.Abstract;
+﻿using AutoMapper;
+using Business.Abstract;
 using Business.Abstracts;
 using Business.Constants;
+using Business.Dtos.Auth.Requests;
+using Business.Dtos.Auth.Responses;
+using Business.Dtos.Users.Requests;
+using Business.Dtos.Users.Responses;
+using Core.CrossCuttingConcerns.Exceptions.Types;
 using Core.Entities.Concrete;
 using Core.Utilities.Security.Hashing;
 using Core.Utilities.Security.Jwt;
-using Entities.Dtos;
 
 namespace Business.Concrete
 {
@@ -12,60 +17,83 @@ namespace Business.Concrete
     {
         private IUserService _userService;
         private ITokenHelper _tokenHelper;
+        private IMapper _mapper;
 
-        public AuthManager(IUserService userService, ITokenHelper tokenHelper)
+        public AuthManager(IUserService userService, ITokenHelper tokenHelper, IMapper mapper)
         {
             _userService = userService;
             _tokenHelper = tokenHelper;
+            _mapper = mapper;
         }
 
-        public IDataResult<User> Register(UserForRegisterDto userForRegisterDto, string password)
+        public async Task<RegisterAuthResponse> Register(RegisterAuthRequest request, string password)
         {
+            User user = _mapper.Map<User>(request);
+            var existingUser = await _userService.GetByMail(user.Email);
+
+            if (existingUser != null)
+            {
+                throw new BusinessException(Messages.UserNotBeExist);
+            }
+
             byte[] passwordHash, passwordSalt;
             HashingHelper.CreatePasswordHash(password, out passwordHash, out passwordSalt);
-            var user = new User
-            {
-                Email = userForRegisterDto.Email,
-                FirstName = userForRegisterDto.FirstName,
-                LastName = userForRegisterDto.LastName,
-                PasswordHash = passwordHash,
-                PasswordSalt = passwordSalt,
-                Status = true
-            };
-            _userService.Add(user);
-            return new SuccessDataResult<User>(user, Messages.UserRegistered);
+            user.PasswordHash = passwordHash;
+            user.PasswordSalt = passwordSalt;
+
+            CreateUserRequest createUserRequest = _mapper.Map<CreateUserRequest>(user);
+
+            GetUserResponse createdUser = await _userService.Add(createUserRequest);
+
+            RegisterAuthResponse response = _mapper.Map<RegisterAuthResponse>(createdUser);
+
+            return response;
+
+
         }
 
-        public IDataResult<User> Login(UserForLoginDto userForLoginDto)
+        public async Task<LoginAuthResponse> Login(LoginAuthRequest request)
         {
-            var userToCheck = _userService.GetByMail(userForLoginDto.Email);
-            if (userToCheck == null)
+            User user = _mapper.Map<User>(request);
+            var loginuser = await _userService.GetByMail(user.Email);
+
+            if (loginuser == null)
             {
-                return new ErrorDataResult<User>(Messages.UserNotFound);
+                //LoginUserResponse response = _mapper.Map<LoginUserResponse>(user);
+                //return new Task<response>(user, Messages.UserNotBeExist);
+                throw new BusinessException(Messages.UserNotBeExist);
+
+
             }
 
-            if (!HashingHelper.VerifyPasswordHash(userForLoginDto.Password, userToCheck.PasswordHash, userToCheck.PasswordSalt))
+            if (!HashingHelper.VerifyPasswordHash(request.Password, loginuser.PasswordHash, loginuser.PasswordSalt))
             {
-                return new ErrorDataResult<User>(Messages.PasswordError);
+                throw new BusinessException(Messages.PasswordUncorrect);
             }
 
-            return new SuccessDataResult<User>(userToCheck, Messages.SuccessfulLogin);
+            LoginAuthResponse response = _mapper.Map<LoginAuthResponse>(loginuser);
+
+            return response;
         }
 
-        public IResult UserExists(string email)
-        {
-            if (_userService.GetByMail(email) != null)
-            {
-                return new ErrorResult(Messages.UserAlreadyExists);
-            }
-            return new SuccessResult();
-        }
+        //public Task UserExists(string email)
+        //{
+        //    if (_userService.GetByMail(email) != null)
+        //    {
 
-        public IDataResult<AccessToken> CreateAccessToken(User user)
+        //        throw new BusinessException(Messages.UserAlreadyExists);
+        //    }
+        //    return new BusinessEx();
+        //}
+
+        public AccessToken CreateAccessToken(LoginAuthResponse loginAuthResponse)
         {
+
+            User user = _mapper.Map<User>(loginAuthResponse);
             var claims = _userService.GetClaims(user);
             var accessToken = _tokenHelper.CreateToken(user, claims);
-            return new SuccessDataResult<AccessToken>(accessToken, Messages.AccessTokenCreated);
+
+            return accessToken;
         }
     }
 }

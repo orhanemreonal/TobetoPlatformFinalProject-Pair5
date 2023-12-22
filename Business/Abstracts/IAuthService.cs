@@ -1,14 +1,14 @@
-﻿using Core.Entities.Concrete;
+﻿using Business.Dtos.Auth.Requests;
+using Business.Dtos.Auth.Responses;
 using Core.Utilities.Security.Jwt;
-using Entities.Dtos;
 
 namespace Business.Abstract
 {
     public interface IAuthService
     {
-        IDataResult<User> Register(UserForRegisterDto userForRegisterDto, string password);
-        IDataResult<User> Login(UserForLoginDto userForLoginDto);
-        IResult UserExists(string email);
-        IDataResult<AccessToken> CreateAccessToken(User user);
+        Task<RegisterAuthResponse> Register(RegisterAuthRequest registerAuthRequest, string password);
+        Task<LoginAuthResponse> Login(LoginAuthRequest loginAuthRequest);
+        //Task UserExists(string email);
+        AccessToken CreateAccessToken(LoginAuthResponse loginAuthResponse);
     }
 }

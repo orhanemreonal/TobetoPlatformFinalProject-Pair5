@@ -47,6 +47,18 @@ namespace Business.Concretes
             return response;
         }
 
+        public async Task<GetUserResponse> GetByMail(string email)
+        {
+            var gettedUser = await _userDal.GetAsync(u => u.Email == email);
+            GetUserResponse response = _mapper.Map<GetUserResponse>(gettedUser);
+            return response;
+        }
+
+        public List<OperationClaim> GetClaims(User user)
+        {
+            return _userDal.GetClaims(user);
+        }
+
         public async Task<IPaginate<GetListUserResponse>> GetList(PageRequest request)
         {
             var result = await _userDal.GetListAsync(index: request.Index, size: request.Size);

@@ -2,6 +2,7 @@
 using Business.Dtos.Users.Responses;
 using Core.Business.Requests;
 using Core.DataAccess.Paging;
+using Core.Entities.Concrete;
 
 namespace Business.Abstracts
 {
@@ -12,5 +13,7 @@ namespace Business.Abstracts
         Task<GetUserResponse> Delete(DeleteUserRequest deleteUserRequest);
         Task<IPaginate<GetListUserResponse>> GetList(PageRequest pageRequest);
         Task<GetUserResponse> Get(Guid id);
+        Task<GetUserResponse> GetByMail(string email);
+        List<OperationClaim> GetClaims(User user);
     }
 }

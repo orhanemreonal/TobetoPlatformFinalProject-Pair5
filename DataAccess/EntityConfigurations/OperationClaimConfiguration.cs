@@ -8,11 +8,17 @@ namespace DataAccess.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<OperationClaim> builder)
         {
-            builder.ToTable("OperationClaims").HasKey(b => b.Id);
 
-            builder.Property(b => b.Name).HasColumnName("Name").IsRequired();
 
-            builder.HasQueryFilter(b => !b.DeletedDate.HasValue);
+            builder.ToTable("OperationClaims").HasKey(oc => oc.Id);
+
+            builder.Property(oc => oc.Id).HasColumnName("Id").IsRequired();
+            builder.Property(oc => oc.Name).HasColumnName("Name").IsRequired();
+            builder.Property(oc => oc.CreatedDate).HasColumnName("CreatedDate").IsRequired();
+            builder.Property(oc => oc.UpdatedDate).HasColumnName("UpdatedDate");
+            builder.Property(oc => oc.DeletedDate).HasColumnName("DeletedDate");
+
+            builder.HasQueryFilter(oc => !oc.DeletedDate.HasValue);
 
 
 

@@ -1,8 +1,8 @@
 ﻿using Core.Entities;
 
-namespace Entities.Dtos
+namespace Business.Dtos.Auth.Requests
 {
-    public class UserForRegisterDto : IDto
+    public class RegisterAuthRequest : IDto
     {
         public string Email { get; set; }
         public string Password { get; set; }
