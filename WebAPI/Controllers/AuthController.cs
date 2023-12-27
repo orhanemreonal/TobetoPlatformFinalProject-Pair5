@@ -27,36 +27,25 @@ namespace WebAPI.Controllers
 
 
             var result = _authService.CreateAccessToken(userToLogin);
-
             return Ok(result);
         }
 
         [HttpPost("Register")]
         public async Task<IActionResult> Register([FromBody] RegisterAuthRequest request)
         {
-            //var userExists = _authService.UserExists(request.Email);
+            await  _authService.UserExists(request.Email);
 
-            //if (!userExists)
-            //{
-            //    return BadRequest(userExists);
-            //}
 
             var registerResult = await _authService.Register(request, request.Password);
 
-
-
-            return Ok(registerResult);
-
-
-            //var registerResult = _authService.Register(userForRegisterDto, userForRegisterDto.Password);
-            //var result = _authService.CreateAccessToken(registerResult.Data);
-            //if (result.Success)
-            //{
-            //    return Ok(result);
-            //}
+            var result = _authService.CreateAccessToken(registerResult);
+            if (result != null)
+            {
+                return Ok(result);
+            }
 
             //return BadRequest(result.Message);
-
+            return Ok(registerResult);
         }
     }
 }

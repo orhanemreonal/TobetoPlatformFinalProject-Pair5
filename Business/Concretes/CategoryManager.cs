@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Business.Abstracts;
+using Business.BusinessAspects.Autofac;
 using Business.Dtos.Category.Requests;
 using Business.Dtos.Category.Responses;
 using Core.Business.Requests;
@@ -19,7 +20,6 @@ namespace Business.Concretes
             _categoryDal = categoryDal;
             _mapper = mapper;
         }
-
         public async Task<GetCategoryResponse> Add(CreateCategoryRequest request)
         {
             Category category = _mapper.Map<Category>(request);

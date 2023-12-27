@@ -26,15 +26,11 @@ namespace Business.Concrete
             _mapper = mapper;
         }
 
-        public async Task<RegisterAuthResponse> Register(RegisterAuthRequest request, string password)
+        public async Task<User> Register(RegisterAuthRequest request, string password)
         {
             User user = _mapper.Map<User>(request);
-            var existingUser = await _userService.GetByMail(user.Email);
 
-            if (existingUser != null)
-            {
-                throw new BusinessException(Messages.UserNotBeExist);
-            }
+    
 
             byte[] passwordHash, passwordSalt;
             HashingHelper.CreatePasswordHash(password, out passwordHash, out passwordSalt);
@@ -43,24 +39,22 @@ namespace Business.Concrete
 
             CreateUserRequest createUserRequest = _mapper.Map<CreateUserRequest>(user);
 
-            GetUserResponse createdUser = await _userService.Add(createUserRequest);
+            await _userService.Add(createUserRequest);
 
-            RegisterAuthResponse response = _mapper.Map<RegisterAuthResponse>(createdUser);
 
-            return response;
+            return user;
 
 
         }
 
-        public async Task<LoginAuthResponse> Login(LoginAuthRequest request)
+        public async Task<User> Login(LoginAuthRequest request)
         {
             User user = _mapper.Map<User>(request);
             var loginuser = await _userService.GetByMail(user.Email);
 
             if (loginuser == null)
             {
-                //LoginUserResponse response = _mapper.Map<LoginUserResponse>(user);
-                //return new Task<response>(user, Messages.UserNotBeExist);
+               
                 throw new BusinessException(Messages.UserNotBeExist);
 
 
@@ -71,29 +65,28 @@ namespace Business.Concrete
                 throw new BusinessException(Messages.PasswordUncorrect);
             }
 
-            LoginAuthResponse response = _mapper.Map<LoginAuthResponse>(loginuser);
 
-            return response;
+            return user;
         }
 
-        //public Task UserExists(string email)
-        //{
-        //    if (_userService.GetByMail(email) != null)
-        //    {
+        public Task UserExists(string email)
+        {
+            if (_userService.GetByMail(email) != null)
+            {
 
-        //        throw new BusinessException(Messages.UserAlreadyExists);
-        //    }
-        //    return new BusinessEx();
-        //}
+                throw new BusinessException(Messages.UserAlreadyExists);
+            }
+            throw new BusinessException("Başarılı ");
+        }
 
-        public AccessToken CreateAccessToken(LoginAuthResponse loginAuthResponse)
+        public async Task<AccessToken> CreateAccessToken(User   user)
         {
 
-            User user = _mapper.Map<User>(loginAuthResponse);
-            var claims = _userService.GetClaims(user);
+            var claims = await _userService.GetClaims(user);
             var accessToken = _tokenHelper.CreateToken(user, claims);
 
             return accessToken;
         }
+
     }
 }

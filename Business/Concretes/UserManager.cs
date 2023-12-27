@@ -54,9 +54,9 @@ namespace Business.Concretes
             return response;
         }
 
-        public List<OperationClaim> GetClaims(User user)
+        public async Task<List<OperationClaim>> GetClaims(User user)
         {
-            return _userDal.GetClaims(user);
+            return await _userDal.GetClaims(user);
         }
 
         public async Task<IPaginate<GetListUserResponse>> GetList(PageRequest request)

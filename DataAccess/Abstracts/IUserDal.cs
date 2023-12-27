@@ -5,6 +5,6 @@ namespace DataAccess.Abstracts
 {
     public interface IUserDal : IRepository<User, Guid>, IAsyncRepository<User, Guid>
     {
-        List<OperationClaim> GetClaims(User user);
+        Task<List<OperationClaim>> GetClaims(User user);
     }
 }

@@ -14,6 +14,6 @@ namespace Business.Abstracts
         Task<IPaginate<GetListUserResponse>> GetList(PageRequest pageRequest);
         Task<GetUserResponse> Get(Guid id);
         Task<GetUserResponse> GetByMail(string email);
-        List<OperationClaim> GetClaims(User user);
+        Task<List<OperationClaim>> GetClaims(User user);
     }
 }

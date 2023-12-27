@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Business.Abstracts;
+using Business.BusinessAspects.Autofac;
 using Business.Dtos.Company.Requests;
 using Business.Dtos.Company.Responses;
 using Core.Business.Requests;
@@ -20,6 +21,7 @@ namespace Business.Concretes
             _mapper = mapper;
         }
 
+        [SecuredOperation("Admin")]
         public async Task<GetCompanyResponse> Add(CreateCompanyRequest request)
         {
             Company company = _mapper.Map<Company>(request);
