@@ -3,6 +3,8 @@ using Business.Abstracts;
 using Business.BusinessAspects.Autofac;
 using Business.Dtos.Category.Requests;
 using Business.Dtos.Category.Responses;
+using Core.Aspects.Caching;
+using Core.Aspects.Performance;
 using Core.Business.Requests;
 using Core.DataAccess.Paging;
 using DataAccess.Abstracts;
@@ -20,6 +22,7 @@ namespace Business.Concretes
             _categoryDal = categoryDal;
             _mapper = mapper;
         }
+        [CacheRemoveAspect("ICategoryService.Get")]
         public async Task<GetCategoryResponse> Add(CreateCategoryRequest request)
         {
             Category category = _mapper.Map<Category>(request);
@@ -27,7 +30,7 @@ namespace Business.Concretes
             GetCategoryResponse response = _mapper.Map<GetCategoryResponse>(category);
             return response;
         }
-
+        [CacheRemoveAspect("ICategoryService.Get")]
         public async Task<GetCategoryResponse> Delete(DeleteCategoryRequest request)
         {
             Category category = await _categoryDal.GetAsync(predicate: c => c.Id == request.Id);
@@ -42,14 +45,15 @@ namespace Business.Concretes
             GetCategoryResponse response = _mapper.Map<GetCategoryResponse>(category);
             return response;
         }
-
+        [CacheAspect]
+        [PerformanceAspect(1)]
         public async Task<IPaginate<GetListCategoryResponse>> GetList(PageRequest request)
         {
             var result = await _categoryDal.GetListAsync(index: request.Index, size: request.Size);
             Paginate<GetListCategoryResponse> response = _mapper.Map<Paginate<GetListCategoryResponse>>(result);
             return response;
         }
-
+        [CacheRemoveAspect("ICategoryService.Get")]
         public async Task<GetCategoryResponse> Update(UpdateCategoryRequest request)
         {
             Category category = _mapper.Map<Category>(request);

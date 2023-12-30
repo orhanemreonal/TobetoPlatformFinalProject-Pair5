@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Core.Utilities.Inceptors;
+using Core.Utilities.Interceptors;
 using Core.CrossCuttingConcerns.Exceptions.Types;
 
 namespace Business.BusinessAspects.Autofac

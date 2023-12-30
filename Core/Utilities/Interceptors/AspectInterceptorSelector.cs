@@ -1,5 +1,4 @@
 ﻿using Castle.DynamicProxy;
-using Core.Utilities.Inceptors;
 using System.Reflection;
 using IInterceptor = Castle.DynamicProxy.IInterceptor;
 
