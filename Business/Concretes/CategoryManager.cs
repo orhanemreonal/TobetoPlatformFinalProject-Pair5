@@ -4,8 +4,10 @@ using Business.BusinessAspects.Autofac;
 using Business.Dtos.Category.Requests;
 using Business.Dtos.Category.Responses;
 using Core.Aspects.Caching;
+using Core.Aspects.Logging;
 using Core.Aspects.Performance;
 using Core.Business.Requests;
+using Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using Core.DataAccess.Paging;
 using DataAccess.Abstracts;
 using Entities.Concretes;
@@ -23,6 +25,7 @@ namespace Business.Concretes
             _mapper = mapper;
         }
         [CacheRemoveAspect("ICategoryService.Get")]
+        [LogAspect(typeof(FileLogger))]
         public async Task<GetCategoryResponse> Add(CreateCategoryRequest request)
         {
             Category category = _mapper.Map<Category>(request);
@@ -47,6 +50,7 @@ namespace Business.Concretes
         }
         [CacheAspect]
         [PerformanceAspect(1)]
+        [LogAspect(typeof(FileLogger))]
         public async Task<IPaginate<GetListCategoryResponse>> GetList(PageRequest request)
         {
             var result = await _categoryDal.GetListAsync(index: request.Index, size: request.Size);
