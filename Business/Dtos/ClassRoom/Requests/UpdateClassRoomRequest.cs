@@ -1,6 +1,6 @@
-﻿namespace Business.Dtos.ClassRoom.Requests
+﻿namespace Business.Dtos.Classroom.Requests
 {
-    public class UpdateClassRoomRequest
+    public class UpdateClassroomRequest
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

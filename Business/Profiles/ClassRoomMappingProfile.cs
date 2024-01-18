@@ -1,21 +1,21 @@
 ﻿using AutoMapper;
-using Business.Dtos.ClassRoom.Requests;
-using Business.Dtos.ClassRoom.Responses;
+using Business.Dtos.Classroom.Requests;
+using Business.Dtos.Classroom.Responses;
 using Core.DataAccess.Paging;
 using Entities.Concretes;
 
 namespace Business.Profiles
 {
-    public class ClassRoomMappingProfile : Profile
+    public class ClassroomMappingProfile : Profile
     {
-        public ClassRoomMappingProfile()
+        public ClassroomMappingProfile()
         {
-            CreateMap<ClassRoom, CreateClassRoomRequest>().ReverseMap();
-            CreateMap<ClassRoom, DeleteClassRoomRequest>().ReverseMap();
-            CreateMap<ClassRoom, UpdateClassRoomRequest>().ReverseMap();
+            CreateMap<Classroom, CreateClassroomRequest>().ReverseMap();
+            CreateMap<Classroom, DeleteClassroomRequest>().ReverseMap();
+            CreateMap<Classroom, UpdateClassroomRequest>().ReverseMap();
 
-            CreateMap<ClassRoom, GetClassRoomResponse>().ReverseMap();
-            CreateMap<Paginate<ClassRoom>, Paginate<GetListClassRoomResponse>>().ReverseMap();
+            CreateMap<Classroom, GetClassroomResponse>().ReverseMap();
+            CreateMap<Paginate<Classroom>, Paginate<GetListClassroomResponse>>().ReverseMap();
         }
 
     }

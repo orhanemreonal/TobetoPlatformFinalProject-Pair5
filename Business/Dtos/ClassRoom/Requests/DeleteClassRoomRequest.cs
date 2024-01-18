@@ -1,6 +1,6 @@
-﻿namespace Business.Dtos.ClassRoom.Requests
+﻿namespace Business.Dtos.Classroom.Requests
 {
-    public class DeleteClassRoomRequest
+    public class DeleteClassroomRequest
     {
         public Guid Id { get; set; }
     }

@@ -4,8 +4,8 @@ namespace Entities.Concretes
 {
     public class Survey : Entity<Guid>
     {
-        public Guid ClassRoomId { get; set; }
+        public Guid ClassroomId { get; set; }
         public string Description { get; set; }
-        public ClassRoom? ClassRoom { get; set; }
+        public Classroom? Classroom { get; set; }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Business.Abstracts;
-using Business.Dtos.ClassRoom.Requests;
-using Business.Dtos.ClassRoom.Responses;
+using Business.Dtos.Classroom.Requests;
+using Business.Dtos.Classroom.Responses;
 using Core.Business.Requests;
 using Core.DataAccess.Paging;
 using DataAccess.Abstracts;
@@ -9,54 +9,54 @@ using Entities.Concretes;
 
 namespace Business.Concretes
 {
-    public class ClassRoomManager : IClassRoomService
+    public class ClassroomManager : IClassroomService
     {
-        IClassRoomDal _classRoomDal;
+        IClassroomDal _classroomDal;
         IMapper _mapper;
 
-        public ClassRoomManager(IClassRoomDal classRoomDal, IMapper mapper)
+        public ClassroomManager(IClassroomDal classroomDal, IMapper mapper)
         {
-            _classRoomDal = classRoomDal;
+            _classroomDal = classroomDal;
             _mapper = mapper;
         }
 
-        public async Task<GetClassRoomResponse> Add(CreateClassRoomRequest request)
+        public async Task<GetClassroomResponse> Add(CreateClassroomRequest request)
         {
-            ClassRoom classRoom = _mapper.Map<ClassRoom>(request);
-            await _classRoomDal.AddAsync(classRoom);
+            Classroom classroom = _mapper.Map<Classroom>(request);
+            await _classroomDal.AddAsync(classroom);
             //await _personalInformationDal.AddAsync(new PersonalInformation());
-            GetClassRoomResponse response = _mapper.Map<GetClassRoomResponse>(classRoom);
+            GetClassroomResponse response = _mapper.Map<GetClassroomResponse>(classroom);
             return response;
         }
 
-        public async Task<GetClassRoomResponse> Delete(DeleteClassRoomRequest request)
+        public async Task<GetClassroomResponse> Delete(DeleteClassroomRequest request)
         {
-            ClassRoom classRoom = await _classRoomDal.GetAsync(predicate: c => c.Id == request.Id);
-            await _classRoomDal.DeleteAsync(classRoom);
-            GetClassRoomResponse response = _mapper.Map<GetClassRoomResponse>(classRoom);
+            Classroom classroom = await _classroomDal.GetAsync(predicate: c => c.Id == request.Id);
+            await _classroomDal.DeleteAsync(classroom);
+            GetClassroomResponse response = _mapper.Map<GetClassroomResponse>(classroom);
             return response;
         }
 
-        public async Task<GetClassRoomResponse> Get(Guid id)
+        public async Task<GetClassroomResponse> Get(Guid id)
         {
-            ClassRoom classRoom = await _classRoomDal.GetAsync(predicate: cm => cm.Id == id);
-            GetClassRoomResponse response = _mapper.Map<GetClassRoomResponse>(classRoom);
+            Classroom classroom = await _classroomDal.GetAsync(predicate: cm => cm.Id == id);
+            GetClassroomResponse response = _mapper.Map<GetClassroomResponse>(classroom);
             return response;
         }
 
-        public async Task<IPaginate<GetListClassRoomResponse>> GetList(PageRequest request)
+        public async Task<IPaginate<GetListClassroomResponse>> GetList(PageRequest request)
         {
-            var result = await _classRoomDal.GetListAsync(index: request.Index, size: request.Size);
-            Paginate<GetListClassRoomResponse> response = _mapper.Map<Paginate<GetListClassRoomResponse>>(result);
+            var result = await _classroomDal.GetListAsync(index: request.Index, size: request.Size);
+            Paginate<GetListClassroomResponse> response = _mapper.Map<Paginate<GetListClassroomResponse>>(result);
             return response;
         }
 
-        public async Task<GetClassRoomResponse> Update(UpdateClassRoomRequest request)
+        public async Task<GetClassroomResponse> Update(UpdateClassroomRequest request)
         {
-            ClassRoom updatedClassRoom = _mapper.Map<ClassRoom>(request);
+            Classroom updatedClassroom = _mapper.Map<Classroom>(request);
 
-            await _classRoomDal.UpdateAsync(updatedClassRoom);
-            GetClassRoomResponse response = _mapper.Map<GetClassRoomResponse>(updatedClassRoom);
+            await _classroomDal.UpdateAsync(updatedClassroom);
+            GetClassroomResponse response = _mapper.Map<GetClassroomResponse>(updatedClassroom);
             return response;
         }
     }

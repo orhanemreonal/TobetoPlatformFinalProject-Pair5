@@ -1,5 +1,5 @@
 ﻿using Business.Abstracts;
-using Business.Dtos.ClassRoom.Requests;
+using Business.Dtos.Classroom.Requests;
 using Core.Business.Requests;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,43 +7,43 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClassRoomsController : ControllerBase
+    public class ClassroomsController : ControllerBase
     {
-        IClassRoomService _classRoomService;
+        IClassroomService _classroomService;
 
-        public ClassRoomsController(IClassRoomService classRoomService)
+        public ClassroomsController(IClassroomService classroomService)
         {
-            _classRoomService = classRoomService;
+            _classroomService = classroomService;
         }
 
         [HttpPost("add")]
 
-        public async Task<IActionResult> Add([FromBody] CreateClassRoomRequest createClassRoomRequest)
+        public async Task<IActionResult> Add([FromBody] CreateClassroomRequest createClassroomRequest)
         {
-            var result = await _classRoomService.Add(createClassRoomRequest);
+            var result = await _classroomService.Add(createClassroomRequest);
             return Ok(result);
         }
 
         [HttpDelete("delete")]
 
-        public async Task<IActionResult> Delete(DeleteClassRoomRequest deleteClassRoomRequest)
+        public async Task<IActionResult> Delete(DeleteClassroomRequest deleteClassroomRequest)
         {
-            var result = await _classRoomService.Delete(deleteClassRoomRequest);
+            var result = await _classroomService.Delete(deleteClassroomRequest);
             return Ok(result);
         }
 
         [HttpPut("update")]
 
-        public async Task<IActionResult> Update([FromBody] UpdateClassRoomRequest updateClassRoomRequest)
+        public async Task<IActionResult> Update([FromBody] UpdateClassroomRequest updateClassroomRequest)
         {
-            var result = await _classRoomService.Update(updateClassRoomRequest);
+            var result = await _classroomService.Update(updateClassroomRequest);
             return Ok(result);
         }
 
         [HttpGet("get")]
         public async Task<IActionResult> Get([FromQuery] Guid id)
         {
-            var result = await _classRoomService.Get(id);
+            var result = await _classroomService.Get(id);
             return Ok(result);
 
         }
@@ -52,7 +52,7 @@ namespace WebAPI.Controllers
 
         public async Task<IActionResult> GetList([FromQuery] PageRequest pageRequest)
         {
-            var result = await _classRoomService.GetList(pageRequest);
+            var result = await _classroomService.GetList(pageRequest);
             return Ok(result);
         }
 

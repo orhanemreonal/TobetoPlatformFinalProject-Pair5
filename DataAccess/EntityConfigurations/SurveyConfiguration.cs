@@ -11,7 +11,7 @@ namespace DataAccess.EntityConfigurations
             builder.ToTable("Surveys").HasKey(b => b.Id);
             builder.Property(b => b.Id).HasColumnName("Id").IsRequired();
             builder.Property(b => b.Id).HasColumnName("Description");
-            builder.Property(s => s.ClassRoomId).HasColumnName("ClassRoomId").IsRequired();
+            builder.Property(s => s.ClassroomId).HasColumnName("ClassroomId").IsRequired();
         }
     }
 }

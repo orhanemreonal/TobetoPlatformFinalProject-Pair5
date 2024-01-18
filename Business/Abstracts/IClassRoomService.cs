@@ -1,16 +1,16 @@
-﻿using Business.Dtos.ClassRoom.Requests;
-using Business.Dtos.ClassRoom.Responses;
+﻿using Business.Dtos.Classroom.Requests;
+using Business.Dtos.Classroom.Responses;
 using Core.Business.Requests;
 using Core.DataAccess.Paging;
 
 namespace Business.Abstracts
 {
-    public interface IClassRoomService
+    public interface IClassroomService
     {
-        Task<GetClassRoomResponse> Add(CreateClassRoomRequest createClassRequest);
-        Task<GetClassRoomResponse> Update(UpdateClassRoomRequest updateClassRequest);
-        Task<GetClassRoomResponse> Delete(DeleteClassRoomRequest deleteClassRequest);
-        Task<IPaginate<GetListClassRoomResponse>> GetList(PageRequest pageRequest);
-        Task<GetClassRoomResponse> Get(Guid id);
+        Task<GetClassroomResponse> Add(CreateClassroomRequest createClassRequest);
+        Task<GetClassroomResponse> Update(UpdateClassroomRequest updateClassRequest);
+        Task<GetClassroomResponse> Delete(DeleteClassroomRequest deleteClassRequest);
+        Task<IPaginate<GetListClassroomResponse>> GetList(PageRequest pageRequest);
+        Task<GetClassroomResponse> Get(Guid id);
     }
 }

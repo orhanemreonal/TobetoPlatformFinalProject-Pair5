@@ -48,8 +48,8 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<ClassCourseManager>().As<IClassCourseService>().SingleInstance();
             builder.RegisterType<EfClassCourseDal>().As<IClassCourseDal>().SingleInstance();
 
-            builder.RegisterType<ClassRoomManager>().As<IClassRoomService>().SingleInstance();
-            builder.RegisterType<EfClassRoomDal>().As<IClassRoomDal>().SingleInstance();
+            builder.RegisterType<ClassroomManager>().As<IClassroomService>().SingleInstance();
+            builder.RegisterType<EfClassroomDal>().As<IClassroomDal>().SingleInstance();
 
 
             builder.RegisterType<CompanyManager>().As<ICompanyService>().SingleInstance();

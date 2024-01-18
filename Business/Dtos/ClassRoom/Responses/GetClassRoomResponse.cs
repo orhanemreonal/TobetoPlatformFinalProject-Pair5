@@ -1,6 +1,6 @@
-﻿namespace Business.Dtos.ClassRoom.Responses
+﻿namespace Business.Dtos.Classroom.Responses
 {
-    public class GetClassRoomResponse
+    public class GetClassroomResponse
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

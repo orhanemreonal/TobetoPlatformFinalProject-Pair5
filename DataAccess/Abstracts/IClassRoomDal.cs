@@ -3,7 +3,7 @@ using Entities.Concretes;
 
 namespace DataAccess.Abstracts
 {
-    public interface IClassRoomDal : IRepository<ClassRoom, Guid>, IAsyncRepository<ClassRoom, Guid>
+    public interface IClassroomDal : IRepository<Classroom, Guid>, IAsyncRepository<Classroom, Guid>
     {
     }
 }

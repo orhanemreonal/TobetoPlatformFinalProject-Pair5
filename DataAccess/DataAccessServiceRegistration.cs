@@ -32,7 +32,7 @@ namespace DataAccess
             services.AddScoped<IUserDal, EfUserDal>();
             services.AddScoped<ICategoryDal, EfCategoryDal>();
             services.AddScoped<ICompanyDal, EfCompanyDal>();
-            services.AddScoped<IClassRoomDal, EfClassRoomDal>();
+            services.AddScoped<IClassroomDal, EfClassroomDal>();
             services.AddScoped<IStudentLanguageDal, EfStudentLanguageDal>();
             services.AddScoped<IClassAnnouncementDal, EfClassAnnouncementDal>();
 

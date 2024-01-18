@@ -5,9 +5,9 @@ using Entities.Concretes;
 
 namespace DataAccess.Concretes
 {
-    public class EfClassRoomDal : EfRepositoryBase<ClassRoom, Guid, TobetoPlatformContext>, IClassRoomDal
+    public class EfClassroomDal : EfRepositoryBase<Classroom, Guid, TobetoPlatformContext>, IClassroomDal
     {
-        public EfClassRoomDal(TobetoPlatformContext context) : base(context)
+        public EfClassroomDal(TobetoPlatformContext context) : base(context)
         {
         }
     }
