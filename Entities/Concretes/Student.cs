@@ -21,6 +21,7 @@ namespace Entities.Concretes
         public PersonalInformation? PersonalInformation { get; set; }
         public User? User { get; set; }
         public Classroom? Classroom { get; set; }
+        public List<StudentLike>? StudentLike { get; set; }
 
     }
 }

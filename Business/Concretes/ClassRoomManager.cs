@@ -22,25 +22,25 @@ namespace Business.Concretes
 
         public async Task<GetClassroomResponse> Add(CreateClassroomRequest request)
         {
-            Classroom classroom = _mapper.Map<Classroom>(request);
-            await _classroomDal.AddAsync(classroom);
+            Classroom classRoom = _mapper.Map<Classroom>(request);
+            await _classroomDal.AddAsync(classRoom);
             //await _personalInformationDal.AddAsync(new PersonalInformation());
-            GetClassroomResponse response = _mapper.Map<GetClassroomResponse>(classroom);
+            GetClassroomResponse response = _mapper.Map<GetClassroomResponse>(classRoom);
             return response;
         }
 
         public async Task<GetClassroomResponse> Delete(DeleteClassroomRequest request)
         {
-            Classroom classroom = await _classroomDal.GetAsync(predicate: c => c.Id == request.Id);
-            await _classroomDal.DeleteAsync(classroom);
-            GetClassroomResponse response = _mapper.Map<GetClassroomResponse>(classroom);
+            Classroom classRoom = await _classroomDal.GetAsync(predicate: c => c.Id == request.Id);
+            await _classroomDal.DeleteAsync(classRoom);
+            GetClassroomResponse response = _mapper.Map<GetClassroomResponse>(classRoom);
             return response;
         }
 
         public async Task<GetClassroomResponse> Get(Guid id)
         {
-            Classroom classroom = await _classroomDal.GetAsync(predicate: cm => cm.Id == id);
-            GetClassroomResponse response = _mapper.Map<GetClassroomResponse>(classroom);
+            Classroom classRoom = await _classroomDal.GetAsync(predicate: cm => cm.Id == id);
+            GetClassroomResponse response = _mapper.Map<GetClassroomResponse>(classRoom);
             return response;
         }
 

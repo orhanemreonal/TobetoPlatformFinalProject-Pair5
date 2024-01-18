@@ -12,7 +12,7 @@ namespace Business
             services.AddScoped<IAnnouncementService, AnnouncementManager>();
             services.AddScoped<IApplicationService, ApplicationManager>();
             services.AddScoped<ICertificateService, CertificateManager>();
-            services.AddScoped<IClassCourseService, ClassCourseManager>();
+            services.AddScoped<IClassroomCourseService, ClassroomCourseManager>();
             services.AddScoped<ICompetenceService, CompetenceManager>();
             services.AddScoped<ICourseService, CourseManager>();
             services.AddScoped<IEducationService, EducationManager>();

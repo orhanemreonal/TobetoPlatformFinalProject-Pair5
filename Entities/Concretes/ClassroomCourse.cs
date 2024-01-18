@@ -2,7 +2,7 @@
 
 namespace Entities.Concretes
 {
-    public class ClassCourse : Entity<Guid>
+    public class ClassroomCourse : Entity<Guid>
     {
         public Guid ClassroomId { get; set; }
         public Guid CourseId { get; set; }

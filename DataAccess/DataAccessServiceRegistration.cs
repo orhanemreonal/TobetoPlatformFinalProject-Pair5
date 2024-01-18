@@ -17,7 +17,7 @@ namespace DataAccess
             services.AddScoped<IAnnouncementDal, EfAnnouncementDal>();
             services.AddScoped<IApplicationDal, EfApplicationDal>();
             services.AddScoped<ICertificateDal, EfCertificateDal>();
-            services.AddScoped<IClassCourseDal, EfClassCourseDal>();
+            services.AddScoped<IClassroomCourseDal, EfClassroomCourseDal>();
             services.AddScoped<ICompetenceDal, EfCompetenceDal>();
             services.AddScoped<ICourseDal, EfCourseDal>();
             services.AddScoped<IEducationDal, EfEducationDal>();

@@ -2,6 +2,7 @@
 using Business.Abstracts;
 using Business.Dtos.Announcement.Requests;
 using Business.Dtos.Announcement.Responses;
+using Business.Rules;
 using Core.Business.Requests;
 using Core.DataAccess.Paging;
 using DataAccess.Abstracts;
@@ -11,13 +12,16 @@ namespace Business.Concretes
 {
     public class AnnouncementManager : IAnnouncementService
     {
+
         IAnnouncementDal _announcementDal;
         IMapper _mapper;
+        AnnouncementBusinessRules _announcementBusinessRules;
 
-        public AnnouncementManager(IAnnouncementDal announcementDal, IMapper mapper)
+        public AnnouncementManager(IAnnouncementDal announcementDal, IMapper mapper, AnnouncementBusinessRules announcementBusinessRules)
         {
             _announcementDal = announcementDal;
             _mapper = mapper;
+            _announcementBusinessRules = announcementBusinessRules;
         }
 
         public async Task<GetAnnouncementResponse> Add(CreateAnnouncementRequest request)
@@ -31,6 +35,9 @@ namespace Business.Concretes
         public async Task<GetAnnouncementResponse> Delete(DeleteAnnouncementRequest request)
         {
             Announcement announcement = await _announcementDal.GetAsync(predicate: c => c.Id == request.Id);
+
+            await _announcementBusinessRules.AnnouncementShouldExistWhenSelected(announcement);
+
             await _announcementDal.DeleteAsync(announcement);
             GetAnnouncementResponse response = _mapper.Map<GetAnnouncementResponse>(announcement);
             return response;

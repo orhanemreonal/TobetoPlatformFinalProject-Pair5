@@ -45,8 +45,8 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<ClassAnnouncementManager>().As<IClassAnnouncementService>().SingleInstance();
             builder.RegisterType<EfClassAnnouncementDal>().As<IClassAnnouncementDal>().SingleInstance();
 
-            builder.RegisterType<ClassCourseManager>().As<IClassCourseService>().SingleInstance();
-            builder.RegisterType<EfClassCourseDal>().As<IClassCourseDal>().SingleInstance();
+            builder.RegisterType<ClassroomCourseManager>().As<IClassroomCourseService>().SingleInstance();
+            builder.RegisterType<EfClassroomCourseDal>().As<IClassroomCourseDal>().SingleInstance();
 
             builder.RegisterType<ClassroomManager>().As<IClassroomService>().SingleInstance();
             builder.RegisterType<EfClassroomDal>().As<IClassroomDal>().SingleInstance();
