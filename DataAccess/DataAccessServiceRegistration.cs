@@ -35,6 +35,9 @@ namespace DataAccess
             services.AddScoped<IClassroomDal, EfClassroomDal>();
             services.AddScoped<IStudentLanguageDal, EfStudentLanguageDal>();
             services.AddScoped<IClassAnnouncementDal, EfClassAnnouncementDal>();
+            services.AddScoped<ITopicDal, EfTopicDal>();
+            services.AddScoped<ITitleDal, EfTitleDal>();
+            services.AddScoped<IVirtualClassDal, EfVirtualClassDal>();
 
 
 

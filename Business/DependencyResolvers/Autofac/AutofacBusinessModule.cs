@@ -95,6 +95,16 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<ExperienceManager>().As<IExperienceService>().SingleInstance();
             builder.RegisterType<EfExperienceDal>().As<IExperienceDal>().SingleInstance();
 
+            builder.RegisterType<TitleManager>().As<ITitleService>().SingleInstance();
+            builder.RegisterType<EfTitleDal>().As<ITitleDal>().SingleInstance();
+
+            builder.RegisterType<TopicManager>().As<ITopicService>().SingleInstance();
+            builder.RegisterType<EfTopicDal>().As<ITopicDal>().SingleInstance();
+
+            builder.RegisterType<VirtualClassManager>().As<IVirtualClassService>().SingleInstance();
+            builder.RegisterType<EfVirtualClassDal>().As<IVirtualClassDal>().SingleInstance();
+
+
             builder.RegisterType<AuthManager>().As<IAuthService>();
             builder.RegisterType<JwtHelper>().As<ITokenHelper>();
 

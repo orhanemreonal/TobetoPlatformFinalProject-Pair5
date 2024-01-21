@@ -30,6 +30,9 @@ namespace Business
             services.AddScoped<IClassroomService, ClassroomManager>();
             services.AddScoped<IStudentLanguageService, StudentLanguageManager>();
             services.AddScoped<IClassAnnouncementService, ClassAnnouncementManager>();
+            services.AddScoped<ITitleService, TitleManager>();
+            services.AddScoped<ITopicService, TopicManager>();
+            services.AddScoped<IVirtualClassService, VirtualClassManager>();
 
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             return services;
