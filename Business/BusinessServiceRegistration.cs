@@ -71,11 +71,7 @@ namespace Business
             services.AddScoped<TopicBusinessRules>();
             services.AddScoped<UserBusinessRules>();
             services.AddScoped<VirtualClassBusinessRules>();
-            //services.AddScoped<UserBusinessRules>();
-            //services.AddScoped<UserBusinessRules>();
-            //services.AddScoped<UserBusinessRules>();
-            //services.AddScoped<UserBusinessRules>();
-            //services.AddScoped<UserBusinessRules>();
+
 
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
 

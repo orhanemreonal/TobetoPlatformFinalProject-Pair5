@@ -37,9 +37,8 @@
         public static string? StudentLanguageNotExists = "Muhtemelen kullanmıcaz ara tablo bu.";
         public static string? SurveyNotExists = "Böyle bir survey bulunamadı.";
 
-        public static string UserNotBeExist = "User not be exist";
+        public static string UserNotBeExist = "Kullanıcı mevcut değil";
         public static string? UserAlreadyExists = "Böyle bir kullanıcı mevcut.";
-        public static string UserNotFound = "Kullanıcı Bulunamadı.";
 
 
         public static string MustContainAtMinTwoChar = "Must contain at minimum 2 characters";

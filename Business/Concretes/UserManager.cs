@@ -31,7 +31,7 @@ namespace Business.Concretes
             User user = _mapper.Map<User>(request);
 
             // Böyle bir kullanıcı var mı?
-            await _businessRules.CheckIfUserExist(user);
+            //await _businessRules.CheckIfUserExist(user);
 
             await _userDal.AddAsync(user);
             GetUserResponse response = _mapper.Map<GetUserResponse>(user);

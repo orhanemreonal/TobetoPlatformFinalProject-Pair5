@@ -61,18 +61,20 @@ namespace Business.Concrete
                 throw new BusinessException(Messages.PasswordUncorrect);
             }
 
+            var userResponse = _mapper.Map<User>(loginuser);
 
-            return user;
+            return userResponse;
         }
 
         public Task UserExists(string email)
         {
-            if (_userService.GetByMail(email) != null)
+            var getByMailResult = _userService.GetByMail(email);
+            if (getByMailResult.Result != null)
             {
 
                 throw new BusinessException(Messages.UserAlreadyExists);
             }
-            throw new BusinessException("Başarılı ");
+            return Task.CompletedTask;
         }
 
         public async Task<AccessToken> CreateAccessToken(User user)
