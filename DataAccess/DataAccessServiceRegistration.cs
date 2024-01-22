@@ -41,11 +41,6 @@ namespace DataAccess
             services.AddScoped<IUserDal, EfUserDal>();
 
 
-
-
-
-
-
             return services;
         }
     }

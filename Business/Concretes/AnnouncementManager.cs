@@ -28,7 +28,8 @@ namespace Business.Concretes
         {
             Announcement announcement = _mapper.Map<Announcement>(request);
             await _announcementDal.AddAsync(announcement);
-            GetAnnouncementResponse response = _mapper.Map<GetAnnouncementResponse>(request);
+
+            GetAnnouncementResponse response = _mapper.Map<GetAnnouncementResponse>(announcement);
             return response;
         }
 

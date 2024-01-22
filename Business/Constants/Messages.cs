@@ -55,7 +55,7 @@
 
         public static object? AccessTokenCreated = "Token Oluşturuldu";
         internal static string? PasswordDontMatch;
-        internal static string? UserMailAlreadyExists;
+
         internal static string? AsyncVideoNotExists;
         internal static string? LikeNotExists;
         internal static string? StudentLikeNotExists;

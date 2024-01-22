@@ -14,6 +14,10 @@ namespace Business.Profiles
             CreateMap<Announcement, CreateAnnouncementRequest>().ReverseMap();
             CreateMap<Announcement, DeleteAnnouncementRequest>().ReverseMap();
             CreateMap<Announcement, UpdateAnnouncementRequest>().ReverseMap();
+            CreateMap<GetAnnouncementResponse, CreateAnnouncementRequest>().ReverseMap();
+            CreateMap<GetAnnouncementResponse, UpdateAnnouncementRequest>().ReverseMap();
+            CreateMap<GetAnnouncementResponse, DeleteAnnouncementRequest>().ReverseMap();
+
 
 
             //Responses

@@ -1,8 +1,6 @@
 ﻿using Business.Abstracts;
 using Business.Dtos.SocialMedias.Requests;
-using Business.Dtos.Students.Requests;
 using Core.Business.Requests;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
@@ -25,7 +23,7 @@ namespace WebAPI.Controllers
             var result = await _socialMediaService.Get(Id);
             return Ok(result);
         }
-        [HttpGet("getList")]
+        [HttpGet("getlist")]
         public async Task<IActionResult> GetList([FromQuery] PageRequest pageRequest)
         {
             var result = await _socialMediaService.GetList(pageRequest);

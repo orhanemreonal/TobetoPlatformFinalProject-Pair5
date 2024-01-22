@@ -1,7 +1,6 @@
 ﻿using Business.Abstracts;
 using Business.Dtos.Topic.Requests;
 using Core.Business.Requests;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
@@ -32,7 +31,7 @@ namespace WebAPI.Controllers
             return Ok(result);
         }
 
-        [HttpGet("getlist")]
+        [HttpGet("get")]
         public async Task<IActionResult> Get([FromBody] Guid id)
         {
             var result = await _topicService.Get(id);

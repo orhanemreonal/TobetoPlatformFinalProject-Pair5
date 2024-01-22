@@ -1,4 +1,13 @@
-﻿namespace Business
+﻿using Business.Abstract;
+using Business.Abstracts;
+using Business.Concrete;
+using Business.Concretes;
+using Business.Rules;
+using Core.Utilities.Security.Jwt;
+using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
+
+namespace Business
 {
     public static class BusinessServiceRegistration
     {
@@ -32,6 +41,41 @@
             services.AddScoped<ITitleService, TitleManager>();
             services.AddScoped<ITopicService, TopicManager>();
             services.AddScoped<IVirtualClassService, VirtualClassManager>();
+            services.AddScoped<IAuthService, AuthManager>();
+            services.AddScoped<ITokenHelper, JwtHelper>();
+
+            services.AddScoped<AnnouncementBusinessRules>();
+            services.AddScoped<ApplicationBusinessRules>();
+            services.AddScoped<AsyncVideoBusinessRules>();
+            services.AddScoped<CategoryBusinessRules>();
+            services.AddScoped<CertificateBusinessRules>();
+            services.AddScoped<ClassAnnouncementBusinessRules>();
+            services.AddScoped<ClassroomBusinessRules>();
+            services.AddScoped<ClassroomCourseBusinessRules>();
+            services.AddScoped<CompanyBusinessRules>();
+            services.AddScoped<CompetenceBusinessRules>();
+            services.AddScoped<CourseBusinessRules>();
+            services.AddScoped<CourseTopicBusinessRules>();
+            services.AddScoped<EducationBusinessRules>();
+            services.AddScoped<ExamBusinessRules>();
+            services.AddScoped<ExperienceBusinessRules>();
+            services.AddScoped<InstructorBusinessRules>();
+            services.AddScoped<LanguageBusinessRules>();
+            services.AddScoped<LikeBusinessRules>();
+            services.AddScoped<SocialMediaBusinessRules>();
+            services.AddScoped<StudentBusinessRules>();
+            services.AddScoped<StudentLanguageBusinessRules>();
+            services.AddScoped<StudentLikeBusinessRules>();
+            services.AddScoped<SurveyBusinessRules>();
+            services.AddScoped<TitleBusinessRules>();
+            services.AddScoped<TopicBusinessRules>();
+            services.AddScoped<UserBusinessRules>();
+            services.AddScoped<VirtualClassBusinessRules>();
+            //services.AddScoped<UserBusinessRules>();
+            //services.AddScoped<UserBusinessRules>();
+            //services.AddScoped<UserBusinessRules>();
+            //services.AddScoped<UserBusinessRules>();
+            //services.AddScoped<UserBusinessRules>();
 
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
