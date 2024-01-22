@@ -34,6 +34,9 @@ namespace Business
             services.AddScoped<IStudentLanguageService, StudentLanguageManager>();
             services.AddScoped<IStudentLikeService, StudentLikeManager>();
             services.AddScoped<IClassAnnouncementService, ClassAnnouncementManager>();
+            services.AddScoped<ITitleService, TitleManager>();
+            services.AddScoped<ITopicService, TopicManager>();
+            services.AddScoped<IVirtualClassService, VirtualClassManager>();
 
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             return services;

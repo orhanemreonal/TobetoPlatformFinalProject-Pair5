@@ -1,9 +1,8 @@
-﻿using Core.Entities;
-
-namespace Entities.Concretes
+﻿namespace Business.Dtos.Title.Responses
 {
-    public class Title : Entity<Guid>
+    public class GetListTitleResponse
     {
+        public Guid Id { get; set; }
         public Guid TopicId { get; set; }
         public Guid LikeId { get; set; }
         public string Name { get; set; }
@@ -12,7 +11,5 @@ namespace Entities.Concretes
         public string Subtype { get; set; }
         public string VideoLanguage { get; set; }
         public string VideoLink { get; set; }
-        public Topic? Topic { get; set; }
-        public Like? Like { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using Business.Abstracts;
 using Business.Dtos.Competence.Requests;
 using Business.Dtos.Competence.Responses;
+using Business.Rules;
 using Core.Business.Requests;
 using Core.DataAccess.Paging;
 using DataAccess.Abstracts;
@@ -13,16 +14,21 @@ namespace Business.Concretes
     {
         ICompetenceDal _competenceDal;
         IMapper _mapper;
+        CompetenceBusinessRules _businessRules;
 
-        public CompetenceManager(ICompetenceDal competenceDal, IMapper mapper)
+        public CompetenceManager(ICompetenceDal competenceDal, IMapper mapper, CompetenceBusinessRules businessRules)
         {
             _competenceDal = competenceDal;
             _mapper = mapper;
+            _businessRules = businessRules;
         }
 
         public async Task<GetCompetenceResponse> Add(CreateCompetenceRequest request)
         {
             Competence competence = _mapper.Map<Competence>(request);
+
+            await _businessRules.CheckIfCompetenceExist(competence);
+
             await _competenceDal.AddAsync(competence);
 
             GetCompetenceResponse response = _mapper.Map<GetCompetenceResponse>(competence);
@@ -32,6 +38,10 @@ namespace Business.Concretes
         public async Task<GetCompetenceResponse> Delete(DeleteCompetenceRequest request)
         {
             Competence competence = await _competenceDal.GetAsync(predicate: cm => cm.Id == request.Id);
+
+            await _businessRules.CheckIfCompetenceNotExist(competence);
+
+
             await _competenceDal.DeleteAsync(competence);
             GetCompetenceResponse response = _mapper.Map<GetCompetenceResponse>(competence);
             return response;
@@ -40,6 +50,10 @@ namespace Business.Concretes
         public async Task<GetCompetenceResponse> Get(Guid id)
         {
             Competence competence = await _competenceDal.GetAsync(predicate: cm => cm.Id == id);
+
+            await _businessRules.CheckIfCompetenceNotExist(competence);
+
+
             GetCompetenceResponse response = _mapper.Map<GetCompetenceResponse>(competence);
             return response;
         }
@@ -54,6 +68,9 @@ namespace Business.Concretes
         public async Task<GetCompetenceResponse> Update(UpdateCompetenceRequest request)
         {
             Competence updatedCompetence = _mapper.Map<Competence>(request);
+
+            await _businessRules.CheckIfCompetenceNotExist(updatedCompetence);
+
 
             await _competenceDal.UpdateAsync(updatedCompetence);
             GetCompetenceResponse response = _mapper.Map<GetCompetenceResponse>(updatedCompetence);

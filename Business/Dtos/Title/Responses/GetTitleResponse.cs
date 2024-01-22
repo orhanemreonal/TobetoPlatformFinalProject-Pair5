@@ -1,9 +1,14 @@
-﻿using Core.Entities;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Entities.Concretes
+namespace Business.Dtos.Title.Responses
 {
-    public class Title : Entity<Guid>
+    public class GetTitleResponse
     {
+        public Guid Id { get; set; }
         public Guid TopicId { get; set; }
         public Guid LikeId { get; set; }
         public string Name { get; set; }
@@ -12,7 +17,5 @@ namespace Entities.Concretes
         public string Subtype { get; set; }
         public string VideoLanguage { get; set; }
         public string VideoLink { get; set; }
-        public Topic? Topic { get; set; }
-        public Like? Like { get; set; }
     }
 }
