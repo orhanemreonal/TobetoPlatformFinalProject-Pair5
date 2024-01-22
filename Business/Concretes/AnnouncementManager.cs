@@ -60,9 +60,12 @@ namespace Business.Concretes
 
         public async Task<GetAnnouncementResponse> Update(UpdateAnnouncementRequest request)
         {
-            Announcement announcement = _mapper.Map<Announcement>(request);
-            await _announcementDal.UpdateAsync(announcement);
-            GetAnnouncementResponse response = _mapper.Map<GetAnnouncementResponse>(announcement);
+            var result = await _announcementDal.GetAsync(predicate: c => c.Id == request.Id);
+            _mapper.Map(request, result);
+
+
+            await _announcementDal.UpdateAsync(result);
+            GetAnnouncementResponse response = _mapper.Map<GetAnnouncementResponse>(result);
             return response;
         }
     }
