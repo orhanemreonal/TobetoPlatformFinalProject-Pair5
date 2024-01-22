@@ -1,9 +1,4 @@
-﻿using Autofac;
-using Autofac.Extras.DynamicProxy;
-using Castle.DynamicProxy;
-using Core.Utilities.Interceptors;
-
-namespace Business.DependencyResolvers.Autofac
+﻿namespace Business.DependencyResolvers.Autofac
 {
     public class AutofacBusinessModule : Module
     {

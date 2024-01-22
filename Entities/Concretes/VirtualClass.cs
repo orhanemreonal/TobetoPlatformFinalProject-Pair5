@@ -1,6 +1,8 @@
-﻿namespace Entities.Concretes
+﻿using Core.Entities;
+
+namespace Entities.Concretes
 {
-    public class VirtualClass
+    public class VirtualClass : Entity<Guid>
     {
         public Guid TopicId { get; set; }
         public DateTime StartTime { get; set; }

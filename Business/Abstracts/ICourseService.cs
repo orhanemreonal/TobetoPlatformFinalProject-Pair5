@@ -7,9 +7,9 @@ namespace Business.Abstracts
 {
     public interface ICourseService
     {
-        Task<GetCourseResponse> Add(CreateCourseRequest createUserRequest);
-        Task<GetCourseResponse> Update(UpdateCourseRequest updateUserRequest);
-        Task<GetCourseResponse> Delete(DeleteCourseRequest deleteUserRequest);
+        Task<GetCourseResponse> Add(CreateCourseRequest createCourseRequest);
+        Task<GetCourseResponse> Update(UpdateCourseRequest updateCourseRequest);
+        Task<GetCourseResponse> Delete(DeleteCourseRequest deleteCourseRequest);
         Task<IPaginate<GetListCourseResponse>> GetList(PageRequest pageRequest);
         Task<GetCourseResponse> Get(Guid id);
     }

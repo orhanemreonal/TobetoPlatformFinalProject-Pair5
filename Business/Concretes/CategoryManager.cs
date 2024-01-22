@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Business.Abstracts;
-using Business.BusinessAspects.Autofac;
 using Business.Dtos.Category.Requests;
 using Business.Dtos.Category.Responses;
+using Business.Rules;
 using Core.Aspects.Caching;
 using Core.Aspects.Logging;
 using Core.Aspects.Performance;
@@ -18,11 +18,13 @@ namespace Business.Concretes
     {
         ICategoryDal _categoryDal;
         IMapper _mapper;
+        CategoryBusinessRules _categoryBusinessRules;
 
-        public CategoryManager(ICategoryDal categoryDal, IMapper mapper)
+        public CategoryManager(ICategoryDal categoryDal, IMapper mapper, CategoryBusinessRules categoryBusinessRules)
         {
             _categoryDal = categoryDal;
             _mapper = mapper;
+            _categoryBusinessRules = categoryBusinessRules;
         }
         [CacheRemoveAspect("ICategoryService.Get")]
         [LogAspect(typeof(FileLogger))]
@@ -37,6 +39,8 @@ namespace Business.Concretes
         public async Task<GetCategoryResponse> Delete(DeleteCategoryRequest request)
         {
             Category category = await _categoryDal.GetAsync(predicate: c => c.Id == request.Id);
+            await _categoryBusinessRules.CheckIfCategoryExist(category);
+
             await _categoryDal.DeleteAsync(category);
             GetCategoryResponse response = _mapper.Map<GetCategoryResponse>(category);
             return response;

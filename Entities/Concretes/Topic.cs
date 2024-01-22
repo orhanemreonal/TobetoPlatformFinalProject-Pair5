@@ -8,6 +8,8 @@ namespace Entities.Concretes
         public List<AsyncVideo>? AsyncVideos { get; set; }
         public List<VirtualClass>? VirtualClasses { get; set; }
         public List<CourseTopic>? CourseTopics { get; set; }
+
+        public List<Title>? Titles { get; set; }
     }
 }
 

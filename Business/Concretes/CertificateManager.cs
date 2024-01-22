@@ -2,6 +2,7 @@
 using Business.Abstracts;
 using Business.Dtos.Certificate.Requests;
 using Business.Dtos.Certificate.Responses;
+using Business.Rules;
 using Core.Business.Requests;
 using Core.DataAccess.Paging;
 using DataAccess.Abstracts;
@@ -13,16 +14,20 @@ namespace Business.Concretes
     {
         ICertificateDal _certificateDal;
         IMapper _mapper;
+        CertificateBusinessRules _certificateBusinessRules;
 
-        public CertificateManager(ICertificateDal certificateDal, IMapper mapper)
+        public CertificateManager(ICertificateDal certificateDal, IMapper mapper, CertificateBusinessRules certificateBusinessRules)
         {
             _certificateDal = certificateDal;
             _mapper = mapper;
+            _certificateBusinessRules = certificateBusinessRules;
         }
 
         public async Task<GetCertificateResponse> Add(CreateCertificateRequest request)
         {
             Certificate certificate = _mapper.Map<Certificate>(request);
+            await _certificateBusinessRules.CertificateShouldExistWhenSelected(certificate);
+
             await _certificateDal.AddAsync(certificate);
             GetCertificateResponse response = _mapper.Map<GetCertificateResponse>(request);
             return response;
@@ -31,6 +36,7 @@ namespace Business.Concretes
         public async Task<GetCertificateResponse> Delete(DeleteCertificateRequest request)
         {
             Certificate certificate = await _certificateDal.GetAsync(predicate: c => c.Id == request.Id);
+
             await _certificateDal.DeleteAsync(certificate);
             GetCertificateResponse response = _mapper.Map<GetCertificateResponse>(certificate);
             return response;

@@ -3,10 +3,12 @@ using Business.Abstracts;
 using Business.BusinessAspects.Autofac;
 using Business.Dtos.Company.Requests;
 using Business.Dtos.Company.Responses;
+using Business.Rules;
 using Core.Business.Requests;
 using Core.DataAccess.Paging;
 using DataAccess.Abstracts;
 using Entities.Concretes;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Business.Concretes
 {
@@ -14,17 +16,22 @@ namespace Business.Concretes
     {
         ICompanyDal _companyDal;
         IMapper _mapper;
+        CompanyBusinessRules _businessRules;
 
-        public CompanyManager(ICompanyDal companyDal, IMapper mapper)
+        public CompanyManager(ICompanyDal companyDal, IMapper mapper, CompanyBusinessRules businessRules)
         {
             _companyDal = companyDal;
             _mapper = mapper;
+            _businessRules = businessRules;
         }
 
         [SecuredOperation("Admin")]
         public async Task<GetCompanyResponse> Add(CreateCompanyRequest request)
         {
             Company company = _mapper.Map<Company>(request);
+
+            await _businessRules.CheckIfCompanyExist(company);
+
             await _companyDal.AddAsync(company);
 
             GetCompanyResponse response = _mapper.Map<GetCompanyResponse>(company);
@@ -34,6 +41,10 @@ namespace Business.Concretes
         public async Task<GetCompanyResponse> Delete(DeleteCompanyRequest request)
         {
             Company company = await _companyDal.GetAsync(predicate: c => c.Id == request.Id);
+
+            await _businessRules.CheckIfCompanyNotExist(company);
+
+
             await _companyDal.DeleteAsync(company);
             GetCompanyResponse response = _mapper.Map<GetCompanyResponse>(company);
             return response;
@@ -42,6 +53,10 @@ namespace Business.Concretes
         public async Task<GetCompanyResponse> Get(Guid id)
         {
             Company company = await _companyDal.GetAsync(predicate: cm => cm.Id == id);
+
+            await _businessRules.CheckIfCompanyNotExist(company);
+
+
             GetCompanyResponse response = _mapper.Map<GetCompanyResponse>(company);
             return response;
         }
@@ -56,6 +71,9 @@ namespace Business.Concretes
         public async Task<GetCompanyResponse> Update(UpdateCompanyRequest request)
         {
             Company updatedCompany = _mapper.Map<Company>(request);
+
+            await _businessRules.CheckIfCompanyNotExist(updatedCompany);
+
 
             await _companyDal.UpdateAsync(updatedCompany);
             GetCompanyResponse response = _mapper.Map<GetCompanyResponse>(updatedCompany);

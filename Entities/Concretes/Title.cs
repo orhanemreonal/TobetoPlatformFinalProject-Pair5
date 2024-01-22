@@ -12,7 +12,7 @@ namespace Entities.Concretes
         public string Subtype { get; set; }
         public string VideoLanguage { get; set; }
         public string VideoLink { get; set; }
-        public Topic? Topics { get; set; }
+        public Topic? Topic { get; set; }
         public Like? Like { get; set; }
     }
 }

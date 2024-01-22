@@ -12,6 +12,7 @@ namespace DataAccess.EntityConfigurations
             builder.Property(b => b.Id).HasColumnName("Id").IsRequired();
             builder.Property(b => b.CategoryId).HasColumnName("CategoryId").IsRequired();
             builder.Property(b => b.CompanyId).HasColumnName("CompanyId").IsRequired();
+            builder.Property(b => b.LikeId).HasColumnName("LikeId").IsRequired();
             builder.Property(b => b.Name).HasColumnName("Name").IsRequired();
             builder.Property(b => b.ImageUrl).HasColumnName("ImageUrl");
             builder.Property(b => b.About).HasColumnName("About");
@@ -27,6 +28,10 @@ namespace DataAccess.EntityConfigurations
             builder.HasOne(c => c.Category)
                 .WithMany(ct => ct.Courses)
                 .HasForeignKey(c => c.CategoryId);
+
+            builder.HasOne(c => c.Like)
+                .WithOne(ct => ct.Course)
+                .HasForeignKey<Course>(c => c.LikeId);
 
 
             builder.HasQueryFilter(b => !b.DeletedDate.HasValue);
