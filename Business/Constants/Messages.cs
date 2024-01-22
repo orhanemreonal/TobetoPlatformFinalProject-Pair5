@@ -8,14 +8,23 @@
         internal static readonly string CurriculumVitaeAlreadyExist;
         internal static readonly string CurriculumVitaeNotBeExist;
 
+        public static string MustContainAtMinTwentyfiveChar = "En az 25 karakter girilmelidir.";//Announcement
+
+        public static string AnnouncementNotExists = "Duyuru bulunamadı.";
+        public static string ApplicationNotExists = "Başvuru bulunamadı.";
+        public static string AuthNotExists = "İzin bulunamadı.";
+        public static string CategoryNotExists = "Kategori bulunamadı.";
+        public static string CertificateNotExists = "Sertifika bulunamadı.";
+        public static string ClassAnnouncementNotExists = "Sınıf duyuruları bulunamadı.";
+        public static string ClassroomCourseNotExists = "Sınıfın kursu bulunamadı.";
+
+
+
+
         public static string AddedData = "Veri Eklendi";
         public static string DeletedData = "Veri Silindi";
         public static string UpdatedData = "Veri Güncellendi";
         public static string ListedData = "Veri/Veriler Listelendi";
-
-        public static string AnnouncementNotExists = "Duyuru bulunamadı.";
-
-
 
 
 
@@ -51,5 +60,9 @@
         public static object? AccessTokenCreated = "Token Oluşturuldu";
         internal static string? PasswordDontMatch;
         internal static string? UserMailAlreadyExists;
+        internal static string? AsyncVideoNotExists;
+        internal static string? LikeNotExists;
+        internal static string? StudentLikeNotExists;
+        internal static string? CourseTopicNotExists;
     }
 }

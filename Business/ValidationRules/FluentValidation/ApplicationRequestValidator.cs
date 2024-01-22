@@ -1,4 +1,5 @@
-﻿using Business.Dtos.Application.Requests;
+﻿using Business.Constants;
+using Business.Dtos.Application.Requests;
 using FluentValidation;
 
 namespace Business.ValidationRules.FluentValidation
@@ -7,6 +8,7 @@ namespace Business.ValidationRules.FluentValidation
     {
         public ApplicationRequestValidator()
         {
+            RuleFor(p => p.Description).NotEmpty().MinimumLength(25).WithMessage(Messages.MustContainAtMinTwentyfiveChar);
 
         }
     }

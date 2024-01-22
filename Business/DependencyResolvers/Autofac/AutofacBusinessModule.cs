@@ -20,24 +20,17 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<EfAnnouncementDal>().As<IAnnouncementDal>().SingleInstance();
 
 
-
             builder.RegisterType<ApplicationManager>().As<IApplicationService>().SingleInstance();
             builder.RegisterType<EfApplicationDal>().As<IApplicationDal>().SingleInstance();
 
-            builder.RegisterType<CategoryManager>().As<ICategoryService>().SingleInstance();
-            builder.RegisterType<EfCategoryDal>().As<ICategoryDal>().SingleInstance();
+            builder.RegisterType<AsyncVideoManager>().As<IAsyncVideoService>().SingleInstance();
+            builder.RegisterType<EfAsyncVideoDal>().As<IAsyncVideoDal>().SingleInstance();
 
-            builder.RegisterType<AnnouncementManager>().As<IAnnouncementService>().SingleInstance();
-            builder.RegisterType<EfAnnouncementDal>().As<IAnnouncementDal>().SingleInstance();
-
-
-
-            builder.RegisterType<ApplicationManager>().As<IApplicationService>().SingleInstance();
-            builder.RegisterType<EfApplicationDal>().As<IApplicationDal>().SingleInstance();
+            builder.RegisterType<AuthManager>().As<IAuthService>();
+            builder.RegisterType<JwtHelper>().As<ITokenHelper>();
 
             builder.RegisterType<CategoryManager>().As<ICategoryService>().SingleInstance();
             builder.RegisterType<EfCategoryDal>().As<ICategoryDal>().SingleInstance();
-
 
             builder.RegisterType<CertificateManager>().As<ICertificateService>().SingleInstance();
             builder.RegisterType<EfCertificateDal>().As<ICertificateDal>().SingleInstance();
@@ -62,11 +55,26 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<CourseManager>().As<ICourseService>().SingleInstance();
             builder.RegisterType<EfCourseDal>().As<ICourseDal>().SingleInstance();
 
+            builder.RegisterType<CourseTopicManager>().As<ICourseTopicService>().SingleInstance();
+            builder.RegisterType<EfCourseTopicDal>().As<ICourseTopicDal>().SingleInstance();
+
             builder.RegisterType<EducationManager>().As<IEducationService>().SingleInstance();
             builder.RegisterType<EfEducationDal>().As<IEducationDal>().SingleInstance();
 
             builder.RegisterType<ExamManager>().As<IExamService>().SingleInstance();
             builder.RegisterType<EfExamDal>().As<IExamDal>().SingleInstance();
+
+            builder.RegisterType<ExperienceManager>().As<IExperienceService>().SingleInstance();
+            builder.RegisterType<EfExperienceDal>().As<IExperienceDal>().SingleInstance();
+
+            builder.RegisterType<InstructorManager>().As<IInstructorService>().SingleInstance();
+            builder.RegisterType<EfInstructorDal>().As<IInstructorDal>().SingleInstance();
+
+            builder.RegisterType<LanguageManager>().As<ILanguageService>().SingleInstance();
+            builder.RegisterType<EfLanguageDal>().As<ILanguageDal>().SingleInstance();
+
+            builder.RegisterType<LikeManager>().As<ILikeService>().SingleInstance();
+            builder.RegisterType<EfLikeDal>().As<ILikeDal>().SingleInstance();
 
             builder.RegisterType<PersonalInformationManager>().As<IPersonalInformationService>().SingleInstance();
             builder.RegisterType<EfPersonalInformationDal>().As<IPersonalInformationDal>().SingleInstance();
@@ -77,6 +85,9 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<StudentLanguageManager>().As<IStudentLanguageService>().SingleInstance();
             builder.RegisterType<EfStudentLanguageDal>().As<IStudentLanguageDal>().SingleInstance();
 
+            builder.RegisterType<StudentLikeManager>().As<IStudentLikeService>().SingleInstance();
+            builder.RegisterType<EfStudentLikeDal>().As<IStudentLikeDal>().SingleInstance();
+
             builder.RegisterType<StudentManager>().As<IStudentService>().SingleInstance();
             builder.RegisterType<EfStudentDal>().As<IStudentDal>().SingleInstance();
 
@@ -86,17 +97,7 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<UserManager>().As<IUserService>().SingleInstance();
             builder.RegisterType<EfUserDal>().As<IUserDal>().SingleInstance();
 
-            builder.RegisterType<SurveyManager>().As<ISurveyService>().SingleInstance();
-            builder.RegisterType<EfSurveyDal>().As<ISurveyDal>().SingleInstance();
 
-            builder.RegisterType<InstructorManager>().As<IInstructorService>().SingleInstance();
-            builder.RegisterType<EfInstructorDal>().As<IInstructorDal>().SingleInstance();
-
-            builder.RegisterType<ExperienceManager>().As<IExperienceService>().SingleInstance();
-            builder.RegisterType<EfExperienceDal>().As<IExperienceDal>().SingleInstance();
-
-            builder.RegisterType<AuthManager>().As<IAuthService>();
-            builder.RegisterType<JwtHelper>().As<ITokenHelper>();
 
 
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();

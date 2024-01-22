@@ -3,9 +3,7 @@ using Business.Abstract;
 using Business.Abstracts;
 using Business.Constants;
 using Business.Dtos.Auth.Requests;
-using Business.Dtos.Auth.Responses;
 using Business.Dtos.Users.Requests;
-using Business.Dtos.Users.Responses;
 using Core.CrossCuttingConcerns.Exceptions.Types;
 using Core.Entities.Concrete;
 using Core.Utilities.Security.Hashing;
@@ -30,8 +28,6 @@ namespace Business.Concrete
         {
             User user = _mapper.Map<User>(request);
 
-    
-
             byte[] passwordHash, passwordSalt;
             HashingHelper.CreatePasswordHash(password, out passwordHash, out passwordSalt);
             user.PasswordHash = passwordHash;
@@ -54,7 +50,7 @@ namespace Business.Concrete
 
             if (loginuser == null)
             {
-               
+
                 throw new BusinessException(Messages.UserNotBeExist);
 
 
@@ -79,7 +75,7 @@ namespace Business.Concrete
             throw new BusinessException("Başarılı ");
         }
 
-        public async Task<AccessToken> CreateAccessToken(User   user)
+        public async Task<AccessToken> CreateAccessToken(User user)
         {
 
             var claims = await _userService.GetClaims(user);

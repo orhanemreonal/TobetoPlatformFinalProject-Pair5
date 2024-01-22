@@ -3,7 +3,7 @@
     public class CreateApplicationRequest
     {
         public Guid StudentId { get; set; }
-        public string Destription { get; set; }
+        public string Description { get; set; }
         public bool IsAccepted { get; set; }
     }
 }
