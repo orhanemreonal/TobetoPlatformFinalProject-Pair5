@@ -19,18 +19,14 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+        public static string? UserMailAlreadyExists = "Böyle bir mail sisteme kayıtlıdır.";
+        public static string? InstructorNotExists = "Eğitmen bulunamadı.";
+        public static string? LanguageNotExists = "Böyle bir dil bulunamadı.";
+        public static string? PersonalInformationNotExists = "Böyle bir kişisel bilgi bulunamadı.";
+        public static string? SocialMediaNotExists = "Böyle bir sosyal medya bulunamadı.";
+        public static string? StudentNotExists = "Böyle bir Öğrenci bulunamadı.";
+        public static string? StudentLanguageNotExists = "Muhtemelen kullanmıcaz ara tablo bu.";
+        public static string? SurveyNotExists = "Böyle bir survey bulunamadı.";
 
         public static string UserNotBeExist = "User not be exist";
         public static string? UserAlreadyExists = "Böyle bir kullanıcı mevcut.";
@@ -49,7 +45,7 @@
 
 
         public static object? AccessTokenCreated = "Token Oluşturuldu";
-        internal static string? PasswordDontMatch;
-        internal static string? UserMailAlreadyExists;
+        internal static string? PasswordDontMatch = "Şifre eşleşmedi";
+
     }
 }

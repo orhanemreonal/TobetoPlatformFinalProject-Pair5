@@ -2,6 +2,7 @@
 using Business.Abstracts;
 using Business.Dtos.Survey.Requests;
 using Business.Dtos.Survey.Responses;
+using Business.Rules;
 using Core.Business.Requests;
 using Core.DataAccess.Paging;
 using DataAccess.Abstracts;
@@ -13,11 +14,13 @@ namespace Business.Concretes
     {
         ISurveyDal _surveyDal;
         IMapper _mapper;
+        SurveyBusinessRules _surveyBusinessRules;
 
-        public SurveyManager(ISurveyDal surveyDal, IMapper mapper)
+        public SurveyManager(ISurveyDal surveyDal, IMapper mapper, SurveyBusinessRules surveyBusinessRules)
         {
             _surveyDal = surveyDal;
             _mapper = mapper;
+            _surveyBusinessRules = surveyBusinessRules;
         }
 
         public async Task<GetSurveyResponse> Add(CreateSurveyRequest request)
@@ -31,6 +34,9 @@ namespace Business.Concretes
         public async Task<GetSurveyResponse> Delete(DeleteSurveyRequest request)
         {
             Survey survey = await _surveyDal.GetAsync(predicate: c => c.Id == request.Id);
+
+            await _surveyBusinessRules.SurveyShouldExistWhenSelected(survey);
+
             await _surveyDal.DeleteAsync(survey);
             GetSurveyResponse response = _mapper.Map<GetSurveyResponse>(survey);
             return response;
@@ -53,6 +59,9 @@ namespace Business.Concretes
         public async Task<GetSurveyResponse> Update(UpdateSurveyRequest request)
         {
             Survey survey = _mapper.Map<Survey>(request);
+
+            await _surveyBusinessRules.SurveyShouldExistWhenSelected(survey);
+
             await _surveyDal.UpdateAsync(survey);
             GetSurveyResponse response = _mapper.Map<GetSurveyResponse>(survey);
             return response;

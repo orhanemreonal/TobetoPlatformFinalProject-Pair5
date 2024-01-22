@@ -1,5 +1,8 @@
-﻿using Business.Abstracts;
+﻿using Business.Abstract;
+using Business.Abstracts;
+using Business.Concrete;
 using Business.Concretes;
+using Core.Utilities.Security.Jwt;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
@@ -30,8 +33,12 @@ namespace Business
             services.AddScoped<IClassroomService, ClassroomManager>();
             services.AddScoped<IStudentLanguageService, StudentLanguageManager>();
             services.AddScoped<IClassAnnouncementService, ClassAnnouncementManager>();
+            services.AddScoped<IAuthService, AuthManager>();
+            services.AddScoped<ITokenHelper, JwtHelper>();
+
 
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
             return services;
         }
     }

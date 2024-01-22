@@ -1,29 +1,29 @@
 ﻿using AutoMapper;
-using Azure.Core;
 using Business.Abstracts;
 using Business.Dtos.PersonelInformations.Requests;
 using Business.Dtos.PersonelInformations.Responses;
-using Business.Dtos.Users.Requests;
-using Business.Dtos.Users.Responses;
+using Business.Rules;
 using Core.Business.Requests;
 using Core.DataAccess.Paging;
 using DataAccess.Abstracts;
-using DataAccess.Concretes;
 using Entities.Concretes;
 
 namespace Business.Concretes
 {
     public class PersonalInformationManager : IPersonalInformationService
     {
-        IPersonalInformationDal _personalInformationDal;
-        IMapper _mapper;
-        public PersonalInformationManager(IPersonalInformationDal personalInformationDal, IMapper mapper)
-        {
+        private readonly IPersonalInformationDal _personalInformationDal;
+        private readonly IMapper _mapper;
+        private readonly PersonalInformationBusinessRules _personalInformationBusinessRules;
 
+
+        public PersonalInformationManager(IPersonalInformationDal personalInformationDal, IMapper mapper, PersonalInformationBusinessRules personalInformationBusinessRules)
+        {
             _personalInformationDal = personalInformationDal;
             _mapper = mapper;
-
+            _personalInformationBusinessRules = personalInformationBusinessRules;
         }
+
         public async Task<GetPersonalInformationResponse> Add(CreatePersonalInformationRequest createUserRequest)
         {
             PersonalInformation personalInformation = _mapper.Map<PersonalInformation>(createUserRequest);
@@ -41,7 +41,7 @@ namespace Business.Concretes
 
         }
 
-        public async Task<GetPersonalInformationResponse> Get(Guid id)    
+        public async Task<GetPersonalInformationResponse> Get(Guid id)
         {
             PersonalInformation personalInformation = await _personalInformationDal.GetAsync(predicate: u => u.Id == id);
             GetPersonalInformationResponse response = _mapper.Map<GetPersonalInformationResponse>(personalInformation);
@@ -57,9 +57,11 @@ namespace Business.Concretes
 
         public async Task<GetPersonalInformationResponse> Update(UpdatePersonalInformationRequest updatePersonalInformationRequest)
         {
-            PersonalInformation updatedUser = _mapper.Map<PersonalInformation>(updatePersonalInformationRequest);
-            await _personalInformationDal.UpdateAsync(updatedUser);
-            GetPersonalInformationResponse response = _mapper.Map<GetPersonalInformationResponse>(updatedUser); 
+            PersonalInformation personalInformation = _mapper.Map<PersonalInformation>(updatePersonalInformationRequest);
+            await _personalInformationBusinessRules.PersonalInformationShouldExistWhenSelected(personalInformation);
+
+            await _personalInformationDal.UpdateAsync(personalInformation);
+            GetPersonalInformationResponse response = _mapper.Map<GetPersonalInformationResponse>(personalInformation);
             return response;
         }
     }

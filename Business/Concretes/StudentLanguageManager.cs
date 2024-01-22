@@ -1,15 +1,11 @@
 ﻿using AutoMapper;
 using Business.Abstracts;
-using Business.Dtos.PersonelInformations.Requests;
-using Business.Dtos.PersonelInformations.Responses;
-using Business.Dtos.SocialMedias.Responses;
 using Business.Dtos.Students.Requests;
 using Business.Dtos.Students.Responses;
-using Business.Dtos.Users.Requests;
+using Business.Rules;
 using Core.Business.Requests;
 using Core.DataAccess.Paging;
 using DataAccess.Abstracts;
-using DataAccess.Concretes;
 using Entities.Concretes;
 
 namespace Business.Concretes
@@ -18,11 +14,13 @@ namespace Business.Concretes
     {
         IStudentLanguageDal _studentLanguageDal;
         IMapper _mapper;
+        StudentLanguageBusinessRules _studentLanguageBusinessRules;
 
-        public StudentLanguageManager(IStudentLanguageDal studentLanguageDal, IMapper mapper)
+        public StudentLanguageManager(IStudentLanguageDal studentLanguageDal, IMapper mapper, StudentLanguageBusinessRules studentLanguageBusinessRules)
         {
             _studentLanguageDal = studentLanguageDal;
             _mapper = mapper;
+            _studentLanguageBusinessRules = studentLanguageBusinessRules;
         }
 
         public async Task<GetStudentLanguageResponse> Add(CreateStudentLanguageRequest createStudentLanguageRequest)
@@ -44,6 +42,9 @@ namespace Business.Concretes
         public async Task<GetStudentLanguageResponse> Get(Guid id)
         {
             StudentLanguage studentLanguage = await _studentLanguageDal.GetAsync(predicate: u => u.Id == id);
+
+            await _studentLanguageBusinessRules.StudentLanguageShouldExistWhenSelected(studentLanguage);
+
             GetStudentLanguageResponse response = _mapper.Map<GetStudentLanguageResponse>(studentLanguage);
             return response;
         }
@@ -58,6 +59,9 @@ namespace Business.Concretes
         public async Task<GetStudentLanguageResponse> Update(UpdateStudentLanguageRequest updateStudentLanguageRequest)
         {
             StudentLanguage studentLanguage = _mapper.Map<StudentLanguage>(updateStudentLanguageRequest);
+
+            await _studentLanguageBusinessRules.StudentLanguageShouldExistWhenSelected(studentLanguage);
+
             await _studentLanguageDal.UpdateAsync(studentLanguage);
             GetStudentLanguageResponse response = _mapper.Map<GetStudentLanguageResponse>(studentLanguage);
             return response;

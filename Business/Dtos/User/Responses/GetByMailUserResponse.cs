@@ -2,5 +2,6 @@
 {
     public class GetByMailUserResponse
     {
+        public string Message { get; set; }
     }
 }

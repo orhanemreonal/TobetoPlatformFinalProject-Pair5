@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using Azure.Core;
 using Business.Abstracts;
 using Business.Dtos.Language.Requests;
 using Business.Dtos.Language.Responses;
+using Business.Rules;
 using Core.Business.Requests;
 using Core.DataAccess.Paging;
 using DataAccess.Abstracts;
@@ -14,11 +14,13 @@ namespace Business.Concretes
     {
         private readonly ILanguageDal _languageDal;
         private readonly IMapper _mapper;
+        private readonly LanguageBusinessRules _languageBusinessRules;
 
-        public LanguageManager(ILanguageDal languageDal, IMapper mapper)
+        public LanguageManager(ILanguageDal languageDal, IMapper mapper, LanguageBusinessRules languageBusinessRules)
         {
             _languageDal = languageDal;
             _mapper = mapper;
+            _languageBusinessRules = languageBusinessRules;
         }
 
         public async Task<GetLanguageResponse> Add(CreateLanguageRequest createLanguageRequest)
@@ -48,16 +50,20 @@ namespace Business.Concretes
 
         public async Task<GetLanguageResponse> Update(UpdateLanguageRequest updateLanguageRequest)
         {
-            Language updatedLanguage  = _mapper.Map<Language>(updateLanguageRequest);
-            await _languageDal.UpdateAsync(updatedLanguage);
-            GetLanguageResponse response = _mapper.Map<GetLanguageResponse>(updatedLanguage);
+            Language? language = await _languageDal.GetAsync(predicate: l => l.Id == updateLanguageRequest.Id);
+            await _languageBusinessRules.LanguageShouldExistWhenSelected(language);
+
+            await _languageDal.UpdateAsync(language);
+            GetLanguageResponse response = _mapper.Map<GetLanguageResponse>(language);
             return response;
         }
 
         public async Task<GetLanguageResponse> Delete(DeleteLanguageRequest deleteLanguageRequest)
         {
             Language language = await _languageDal.GetAsync(predicate: l => l.Id == deleteLanguageRequest.Id);
-            await _languageDal.DeleteAsync(language);
+            await _languageBusinessRules.LanguageShouldExistWhenSelected(language);
+
+            await _languageDal.DeleteAsync(language!);
             GetLanguageResponse response = _mapper.Map<GetLanguageResponse>(language);
             return response;
         }

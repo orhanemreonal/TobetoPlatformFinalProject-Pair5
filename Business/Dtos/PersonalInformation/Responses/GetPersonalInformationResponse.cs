@@ -1,11 +1,4 @@
-﻿using Entities.Concretes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Business.Dtos.PersonelInformations.Responses
+﻿namespace Business.Dtos.PersonelInformations.Responses
 {
     public class GetPersonalInformationResponse
     {
@@ -23,6 +16,8 @@ namespace Business.Dtos.PersonelInformations.Responses
         public string PhoneNumber { get; set; }
 
         public DateTime BirthDate { get; set; }
+
+        public string Message { get; set; }
 
     }
 }

@@ -1,13 +1,11 @@
 ﻿using AutoMapper;
 using Business.Abstracts;
-using Business.Dtos.PersonelInformations.Responses;
 using Business.Dtos.SocialMedias.Requests;
 using Business.Dtos.SocialMedias.Responses;
-using Business.Dtos.Users.Requests;
+using Business.Rules;
 using Core.Business.Requests;
 using Core.DataAccess.Paging;
 using DataAccess.Abstracts;
-using DataAccess.Concretes;
 using Entities.Concretes;
 
 namespace Business.Concretes
@@ -16,11 +14,13 @@ namespace Business.Concretes
     {
         ISocialMediaDal _socialMediaDal;
         IMapper _mapper;
+        SocialMediaBusinessRules _socialMediaBusinessRules;
 
-        public SocialMediaManager(ISocialMediaDal socialMediaDal, IMapper mapper)
+        public SocialMediaManager(ISocialMediaDal socialMediaDal, IMapper mapper, SocialMediaBusinessRules socialMediaBusinessRules)
         {
             _socialMediaDal = socialMediaDal;
             _mapper = mapper;
+            _socialMediaBusinessRules = socialMediaBusinessRules;
         }
 
         public async Task<GetSocialMediaResponse> Add(CreateSocialMediaRequest createSocialMediaRequest)
@@ -35,6 +35,9 @@ namespace Business.Concretes
         public async Task<GetSocialMediaResponse> Delete(DeleteSocialMediaRequest deleteSocialMediaRequest)
         {
             SocialMedia socialMedia = await _socialMediaDal.GetAsync(predicate: u => u.Id == deleteSocialMediaRequest.Id);
+
+            await _socialMediaBusinessRules.SocialMediaShouldExistWhenSelected(socialMedia);
+
             await _socialMediaDal.DeleteAsync(socialMedia);
             GetSocialMediaResponse response = _mapper.Map<GetSocialMediaResponse>(socialMedia);
             return response;
@@ -56,7 +59,10 @@ namespace Business.Concretes
 
         public async Task<GetSocialMediaResponse> Update(UpdateSocialMediaRequest updateSocialMediaRequest)
         {
-            SocialMedia socialMedia = _mapper.Map<SocialMedia>(updateSocialMediaRequest);
+            SocialMedia? socialMedia = await _socialMediaDal.GetAsync(predicate: l => l.Id == updateSocialMediaRequest.Id);
+
+            await _socialMediaBusinessRules.SocialMediaShouldExistWhenSelected(socialMedia);
+
             await _socialMediaDal.UpdateAsync(socialMedia);
             GetSocialMediaResponse response = _mapper.Map<GetSocialMediaResponse>(socialMedia);
             return response;
