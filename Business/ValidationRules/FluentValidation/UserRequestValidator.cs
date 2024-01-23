@@ -15,7 +15,7 @@ namespace Business.ValidationRules.FluentValidation
             RuleFor(r => r.Email).NotEmpty().WithMessage(Messages.MustFilling);
             RuleFor(r => r.Email).NotEmpty().Must(ValidateEmail).WithMessage(Messages.InvalidEmail);
             RuleFor(r => r.Password).NotEmpty().WithMessage(Messages.MustFilling);
-            RuleFor(r => r.Password).MinimumLength(8).MaximumLength(10).NotEmpty().Must(ValidatePassword).WithMessage(Messages.MustContainAtMinTwoChar).WithMessage(Messages.MustContainAtMaxTenChar).WithMessage(Messages.MustContainUpperLowerChar);
+            RuleFor(r => r.Password).MinimumLength(6).MaximumLength(20).NotEmpty().Must(ValidatePassword).WithMessage(Messages.MustContainAtMinTwoChar).WithMessage(Messages.MustContainAtMaxTwentyChar).WithMessage(Messages.MustContainUpperLowerChar);
 
         }
         private bool ValidateEmail(string email)

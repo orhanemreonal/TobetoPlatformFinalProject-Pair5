@@ -72,5 +72,6 @@
         public static string PointMustBetween = "Girilen puan 0 ile 100 arasında olmalıdır.";
 
         public static string MustFilling = "*Doldurulması zorunlu alan";
+        public static string MustContainAtMaxTwentyChar = "Şifre 20 karakterden uzun olmamalıdır.";
     }
 }
