@@ -58,7 +58,7 @@ namespace Business.Concretes
         {
             Title title = await _titleDal.GetAsync(predicate: t => t.Id == id);
 
-            await _businessRules.CheckIfTitleNotExist(title);
+            await _businessRules.CheckIdIfTitleNotExist(id);
 
 
             GetTitleResponse response = _mapper.Map<GetTitleResponse>(title);

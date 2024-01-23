@@ -18,7 +18,8 @@ namespace Business.Profiles
 
             //Responses
             CreateMap<Like, GetLikeResponse>().ReverseMap();
-            CreateMap<Paginate<Like>, Paginate<GetLikeResponse>>().ReverseMap();
+            CreateMap<Like, GetListLikeResponse>().ReverseMap();
+            CreateMap<Paginate<Like>, Paginate<GetListLikeResponse>>().ReverseMap();
         }
     }
 }

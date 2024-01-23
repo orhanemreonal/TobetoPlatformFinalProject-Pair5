@@ -25,7 +25,8 @@ namespace Business.Profiles
 
             //Responses
             CreateMap<Language, GetLanguageResponse>().ReverseMap();
-            CreateMap<Paginate<Language>, Paginate<GetLanguageResponse>>().ReverseMap();
+            CreateMap<Language, GetListLanguageResponse>().ReverseMap();
+            CreateMap<Paginate<Language>, Paginate<GetListLanguageResponse>>().ReverseMap();
         }
        
     }
