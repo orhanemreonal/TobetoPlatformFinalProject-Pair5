@@ -84,12 +84,13 @@ namespace Business.Concretes
 
         public async Task<GetUserResponse> Update(UpdateUserRequest request)
         {
-            User updatedUser = _mapper.Map<User>(request);
+            var result = await _userDal.GetAsync(predicate: c => c.Id == request.Id);
+            _mapper.Map(request, result);
 
-            await _businessRules.CheckIfUserNotExist(updatedUser);
+            await _businessRules.CheckIfUserNotExist(result);
 
-            await _userDal.UpdateAsync(updatedUser);
-            GetUserResponse response = _mapper.Map<GetUserResponse>(updatedUser);
+            await _userDal.UpdateAsync(result);
+            GetUserResponse response = _mapper.Map<GetUserResponse>(result);
             return response;
         }
     }
