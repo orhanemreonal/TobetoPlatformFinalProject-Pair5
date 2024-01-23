@@ -65,13 +65,11 @@ namespace Business.Concretes
 
         public async Task<GetClassroomResponse> Update(UpdateClassroomRequest request)
         {
-            Classroom updatedClassroom = _mapper.Map<Classroom>(request);
+            var result = await _classroomDal.GetAsync(predicate: a => a.Id == request.Id);
+            _mapper.Map(request, result);
 
-            await _businessRules.CheckIfClassroomNotExist(updatedClassroom);
-
-
-            await _classroomDal.UpdateAsync(updatedClassroom);
-            GetClassroomResponse response = _mapper.Map<GetClassroomResponse>(updatedClassroom);
+            await _classroomDal.UpdateAsync(result);
+            GetClassroomResponse response = _mapper.Map<GetClassroomResponse>(result);
             return response;
         }
     }

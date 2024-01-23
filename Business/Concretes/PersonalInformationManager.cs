@@ -55,14 +55,15 @@ namespace Business.Concretes
             return response;
         }
 
-        public async Task<GetPersonalInformationResponse> Update(UpdatePersonalInformationRequest updatePersonalInformationRequest)
+        public async Task<GetPersonalInformationResponse> Update(UpdatePersonalInformationRequest request)
         {
-            PersonalInformation personalInformation = _mapper.Map<PersonalInformation>(updatePersonalInformationRequest);
-            await _personalInformationBusinessRules.PersonalInformationShouldExistWhenSelected(personalInformation);
+            var result = await _personalInformationDal.GetAsync(predicate: a => a.Id == request.Id);
+            _mapper.Map(request, result);
 
-            await _personalInformationDal.UpdateAsync(personalInformation);
-            GetPersonalInformationResponse response = _mapper.Map<GetPersonalInformationResponse>(personalInformation);
+            await _personalInformationDal.UpdateAsync(result);
+            GetPersonalInformationResponse response = _mapper.Map<GetPersonalInformationResponse>(result);
             return response;
+
         }
     }
 }

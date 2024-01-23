@@ -60,9 +60,11 @@ namespace Business.Concretes
 
         public async Task<GetCertificateResponse> Update(UpdateCertificateRequest request)
         {
-            Certificate certificate = _mapper.Map<Certificate>(request);
-            await _certificateDal.UpdateAsync(certificate);
-            GetCertificateResponse response = _mapper.Map<GetCertificateResponse>(certificate);
+            var result = await _certificateDal.GetAsync(predicate: a => a.Id == request.Id);
+            _mapper.Map(request, result);
+
+            await _certificateDal.UpdateAsync(result);
+            GetCertificateResponse response = _mapper.Map<GetCertificateResponse>(result);
             return response;
 
         }

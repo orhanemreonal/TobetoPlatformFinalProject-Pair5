@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Azure.Core;
 using Business.Abstracts;
 using Business.Dtos.Topic.Requests;
 using Business.Dtos.Topic.Responses;
@@ -31,7 +30,7 @@ namespace Business.Concretes
             await _businessRules.CheckIfTopicExist(topic);
 
             await _topicDal.AddAsync(topic);
-            GetTopicResponse response=_mapper.Map<GetTopicResponse>(request);
+            GetTopicResponse response = _mapper.Map<GetTopicResponse>(request);
             return response;
         }
 
@@ -43,7 +42,7 @@ namespace Business.Concretes
 
 
             await _topicDal.DeleteAsync(topic);
-            GetTopicResponse response=_mapper.Map<GetTopicResponse>(topic);
+            GetTopicResponse response = _mapper.Map<GetTopicResponse>(topic);
             return response;
         }
 
@@ -60,21 +59,24 @@ namespace Business.Concretes
 
         public async Task<IPaginate<GetListTopicResponse>> GetList(PageRequest request)
         {
-            var result = await _topicDal.GetListAsync(index:request.Index,size:request.Size);
-            Paginate<GetListTopicResponse> response=_mapper.Map<Paginate<GetListTopicResponse>>(result); 
+            var result = await _topicDal.GetListAsync(index: request.Index, size: request.Size);
+            Paginate<GetListTopicResponse> response = _mapper.Map<Paginate<GetListTopicResponse>>(result);
             return response;
         }
 
         public async Task<GetTopicResponse> Update(UpdateTopicRequest request)
         {
-            Topic topic = _mapper.Map<Topic>(request);
+            var result = await _topicDal.GetAsync(predicate: a => a.Id == request.Id);
+            _mapper.Map(request, result);
+            //await _businessRules.CheckIfTopicNotExist(topic);
 
-            await _businessRules.CheckIfTopicNotExist(topic);
 
-
-            await _topicDal.UpdateAsync(topic);
-            GetTopicResponse response = _mapper.Map<GetTopicResponse>(request);
+            await _topicDal.UpdateAsync(result);
+            GetTopicResponse response = _mapper.Map<GetTopicResponse>(result);
             return response;
+
+
+
         }
     }
 }

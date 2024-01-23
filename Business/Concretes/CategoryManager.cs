@@ -64,9 +64,11 @@ namespace Business.Concretes
         [CacheRemoveAspect("ICategoryService.Get")]
         public async Task<GetCategoryResponse> Update(UpdateCategoryRequest request)
         {
-            Category category = _mapper.Map<Category>(request);
-            await _categoryDal.UpdateAsync(category);
-            GetCategoryResponse response = _mapper.Map<GetCategoryResponse>(category);
+            var result = await _categoryDal.GetAsync(predicate: a => a.Id == request.Id);
+            _mapper.Map(request, result);
+
+            await _categoryDal.UpdateAsync(result);
+            GetCategoryResponse response = _mapper.Map<GetCategoryResponse>(result);
             return response;
         }
     }

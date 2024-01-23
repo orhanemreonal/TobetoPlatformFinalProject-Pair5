@@ -69,14 +69,16 @@ namespace Business.Concretes
 
         public async Task<GetExamResponse> Update(UpdateExamRequest request)
         {
-            Exam updatedExam = _mapper.Map<Exam>(request);
-
-            await _businessRules.CheckIfExamNotExist(updatedExam);
-
-
-            await _examDal.UpdateAsync(updatedExam);
-            GetExamResponse response = _mapper.Map<GetExamResponse>(updatedExam);
+            var result = await _examDal.GetAsync(predicate: a => a.Id == request.Id);
+            _mapper.Map(request, result);
+            //await _businessRules.CheckIfExamNotExist(updatedExam);
+            await _examDal.UpdateAsync(result);
+            GetExamResponse response = _mapper.Map<GetExamResponse>(result);
             return response;
+
+
+
+
         }
     }
 }

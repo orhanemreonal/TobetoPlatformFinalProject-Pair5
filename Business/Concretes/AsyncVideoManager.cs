@@ -56,9 +56,11 @@ namespace Business.Concretes
 
         public async Task<GetAsyncVideoResponse> Update(UpdateAsyncVideoRequest request)
         {
-            AsyncVideo updatedAsyncVideo = _mapper.Map<AsyncVideo>(request);
-            await _asyncVideoDal.UpdateAsync(updatedAsyncVideo);
-            GetAsyncVideoResponse response = _mapper.Map<GetAsyncVideoResponse>(updatedAsyncVideo);
+            var result = await _asyncVideoDal.GetAsync(predicate: a => a.Id == request.Id);
+            _mapper.Map(request, result);
+
+            await _asyncVideoDal.UpdateAsync(result);
+            GetAsyncVideoResponse response = _mapper.Map<GetAsyncVideoResponse>(result);
             return response;
         }
     }

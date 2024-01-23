@@ -2,6 +2,7 @@
 {
     public class UpdateTitleRequest
     {
+        public Guid Id { get; set; }
         public Guid TopicId { get; set; }
         public Guid LikeId { get; set; }
         public string Name { get; set; }

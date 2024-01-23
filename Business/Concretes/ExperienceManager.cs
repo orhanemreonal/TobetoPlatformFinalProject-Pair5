@@ -67,16 +67,18 @@ namespace Business.Concretes
             return response;
         }
 
-        public async Task<GetExperienceResponse> Update(UpdateExperienceRequest updateExperienceRequest)
+        public async Task<GetExperienceResponse> Update(UpdateExperienceRequest request)
         {
-            Experience updatedExperience = _mapper.Map<Experience>(updateExperienceRequest);
-
-            await _businessRules.CheckIfExperienceNotExist(updatedExperience);
-
-
-            await _experienceDal.UpdateAsync(updatedExperience);
-            GetExperienceResponse response = _mapper.Map<GetExperienceResponse>(updatedExperience);
+            var result = await _experienceDal.GetAsync(predicate: a => a.Id == request.Id);
+            _mapper.Map(request, result);
+            //await _businessRules.CheckIfExperienceNotExist(updatedExperience);
+            await _experienceDal.UpdateAsync(result);
+            GetExperienceResponse response = _mapper.Map<GetExperienceResponse>(result);
             return response;
+
+
+
+
         }
     }
 }

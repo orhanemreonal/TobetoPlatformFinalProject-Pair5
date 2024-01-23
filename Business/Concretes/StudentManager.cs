@@ -5,7 +5,6 @@ using Business.Dtos.Student.Responses;
 using Business.Rules;
 using Core.Business.Requests;
 using Core.DataAccess.Paging;
-using Core.Entities.Concrete;
 using DataAccess.Abstracts;
 using Entities.Concretes;
 
@@ -64,22 +63,13 @@ namespace Business.Concretes
 
         public async Task<GetStudentResponse> Update(UpdateStudentRequest request)
         {
-            Student? student = await _studentDal.GetAsync(predicate: i => i.Id == request.Id);
+            var result = await _studentDal.GetAsync(predicate: a => a.Id == request.Id);
+            _mapper.Map(request, result);
 
-            await _studentBusinessRules.StudentShouldExistWhenSelected(student);
-
-            Student? updatedStudent = _mapper.Map(request, student);
-
-            await _studentDal.UpdateAsync(updatedStudent);
-
-            User? user = await _userDal.GetAsync(predicate: u => u.Id == student.UserId);
-            await _userBusinessRules.CheckIfUserNotExist(user);
-
-            User? updatedUser = _mapper.Map(request, user);
-            await _userDal.UpdateAsync(user!);
-
-            GetStudentResponse response = _mapper.Map<GetStudentResponse>(updatedStudent);
+            await _studentDal.UpdateAsync(result);
+            GetStudentResponse response = _mapper.Map<GetStudentResponse>(result);
             return response;
+
         }
     }
 }

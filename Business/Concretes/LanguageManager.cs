@@ -48,14 +48,15 @@ namespace Business.Concretes
             return response;
         }
 
-        public async Task<GetLanguageResponse> Update(UpdateLanguageRequest updateLanguageRequest)
+        public async Task<GetLanguageResponse> Update(UpdateLanguageRequest request)
         {
-            Language? language = await _languageDal.GetAsync(predicate: l => l.Id == updateLanguageRequest.Id);
-            await _languageBusinessRules.LanguageShouldExistWhenSelected(language);
+            var result = await _languageDal.GetAsync(predicate: a => a.Id == request.Id);
+            _mapper.Map(request, result);
 
-            await _languageDal.UpdateAsync(language);
-            GetLanguageResponse response = _mapper.Map<GetLanguageResponse>(language);
+            await _languageDal.UpdateAsync(result);
+            GetLanguageResponse response = _mapper.Map<GetLanguageResponse>(result);
             return response;
+
         }
 
         public async Task<GetLanguageResponse> Delete(DeleteLanguageRequest deleteLanguageRequest)

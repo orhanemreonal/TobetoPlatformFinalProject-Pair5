@@ -8,9 +8,9 @@ namespace Business.ValidationRules.FluentValidation
     {
         public AnnouncementRequestValidator()
         {
-            RuleFor(p => p.Type).NotEmpty();
+            RuleFor(p => p.Type).NotEmpty().MinimumLength(2).WithMessage(Messages.MustContainAtMinTwoChar);
             RuleFor(p => p.Organization).NotEmpty().MinimumLength(11).WithMessage(Messages.MustContainAtMinElevenChar); ;
-            RuleFor(p => p.Title).NotEmpty();
+            RuleFor(p => p.Title).NotEmpty().MinimumLength(2).WithMessage(Messages.MustContainAtMinTwoChar);
             RuleFor(p => p.Description).NotEmpty().MinimumLength(25).WithMessage(Messages.MustContainAtMinTwentyfiveChar);
 
 

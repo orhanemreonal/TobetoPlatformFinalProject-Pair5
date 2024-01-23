@@ -59,9 +59,11 @@ namespace Business.Concretes
 
         public async Task<GetApplicationResponse> Update(UpdateApplicationRequest request)
         {
-            Application application = _mapper.Map<Application>(request);
-            await _applicationDal.UpdateAsync(application);
-            GetApplicationResponse response = _mapper.Map<GetApplicationResponse>(application);
+            var result = await _applicationDal.GetAsync(predicate: a => a.Id == request.Id);
+            _mapper.Map(request, result);
+
+            await _applicationDal.UpdateAsync(result);
+            GetApplicationResponse response = _mapper.Map<GetApplicationResponse>(result);
             return response;
         }
     }

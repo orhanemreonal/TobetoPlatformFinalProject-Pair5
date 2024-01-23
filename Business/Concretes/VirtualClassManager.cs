@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Azure.Core;
 using Business.Abstracts;
 using Business.Dtos.VirtualClass.Requests;
 using Business.Dtos.VirtualClass.Responses;
@@ -26,18 +25,18 @@ namespace Business.Concretes
 
         public async Task<GetVirtualClassResponse> Add(CreateVirtualClassRequest request)
         {
-            VirtualClass virtualClass=_mapper.Map<VirtualClass>(request);
+            VirtualClass virtualClass = _mapper.Map<VirtualClass>(request);
 
             await _businessRules.CheckIfVirtualClassExist(virtualClass);
 
             await _virtualClassDal.AddAsync(virtualClass);
-            GetVirtualClassResponse response= _mapper.Map<GetVirtualClassResponse>(request);
+            GetVirtualClassResponse response = _mapper.Map<GetVirtualClassResponse>(request);
             return response;
         }
 
         public async Task<GetVirtualClassResponse> Delete(DeleteVirtualClassRequest request)
         {
-            VirtualClass virtualClass = await _virtualClassDal.GetAsync(predicate:vc=>vc.Id==request.Id);
+            VirtualClass virtualClass = await _virtualClassDal.GetAsync(predicate: vc => vc.Id == request.Id);
 
             await _businessRules.CheckIfVirtualClassNotExist(virtualClass);
 
@@ -60,21 +59,22 @@ namespace Business.Concretes
 
         public async Task<IPaginate<GetListVirtualClassResponse>> GetList(PageRequest request)
         {
-            var result = await _virtualClassDal.GetListAsync(index:request.Index,size: request.Size);
-            Paginate<GetListVirtualClassResponse> response =_mapper.Map<Paginate<GetListVirtualClassResponse>>(result);
+            var result = await _virtualClassDal.GetListAsync(index: request.Index, size: request.Size);
+            Paginate<GetListVirtualClassResponse> response = _mapper.Map<Paginate<GetListVirtualClassResponse>>(result);
             return response;
         }
 
         public async Task<GetVirtualClassResponse> Update(UpdateVirtualClassRequest request)
         {
-            VirtualClass virtualClass = _mapper.Map<VirtualClass>(request);
+            var result = await _virtualClassDal.GetAsync(predicate: a => a.Id == request.Id);
+            _mapper.Map(request, result);
 
-            await _businessRules.CheckIfVirtualClassNotExist(virtualClass);
+            //await _businessRules.CheckIfVirtualClassNotExist(virtualClass);
 
-
-            await _virtualClassDal.UpdateAsync(virtualClass);
-            GetVirtualClassResponse response = _mapper.Map<GetVirtualClassResponse>(request);
+            await _virtualClassDal.UpdateAsync(result);
+            GetVirtualClassResponse response = _mapper.Map<GetVirtualClassResponse>(result);
             return response;
+
         }
     }
 }
