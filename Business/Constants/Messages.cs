@@ -59,5 +59,9 @@
         internal static string? LikeNotExists;
         internal static string? StudentLikeNotExists;
         internal static string? CourseTopicNotExists;
+
+
+        public static string MustContainUpperLowerChar = "Şifre en az bir büyük harf, bir küçük harf, bir rakam içermeli";
+        public static string InvalidEmail="Mail adresi uygun formatta değil";
     }
 }
