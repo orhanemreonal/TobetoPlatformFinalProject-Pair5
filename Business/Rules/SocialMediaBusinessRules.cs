@@ -15,21 +15,23 @@ namespace Business.Rules
             _socialMediaDal = socialMediaDal;
         }
 
-        public Task SocialMediaShouldExistWhenSelected(SocialMedia? socialMedia)
+        public Task CheckIfSocialMediaNotExist(SocialMedia? socialMedia)
         {
-            if (socialMedia == null)
-                throw new BusinessException(Messages.SocialMediaNotExists);
+            if (socialMedia == null) throw new BusinessException(Messages.NotBeExist);
+            return Task.CompletedTask;
+
+        }
+
+        public Task CheckIfSocialMediaExist(SocialMedia? socialMedia)
+        {
+            if (socialMedia != null) throw new BusinessException(Messages.AlreadyExist);
             return Task.CompletedTask;
         }
 
-        public async Task SocialMediaIdShouldExistWhenSelected(Guid id, CancellationToken cancellationToken)
+        public async Task CheckIdIfSocialMediaNotExist(Guid id)
         {
-            SocialMedia? socialMedia = await _socialMediaDal.GetAsync(
-                predicate: at => at.Id == id,
-                enableTracking: false,
-                cancellationToken: cancellationToken
-            );
-            await SocialMediaShouldExistWhenSelected(socialMedia);
+            SocialMedia socialMedia = _socialMediaDal.Get(a => a.Id == id);
+            CheckIfSocialMediaNotExist(socialMedia);
         }
     }
 }

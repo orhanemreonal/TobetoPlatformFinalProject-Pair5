@@ -16,21 +16,24 @@ namespace Business.Rules
         }
 
 
-        public Task InstructorShouldExistWhenSelected(Instructor? instructor)
+
+        public Task CheckIfInstructorNotExist(Instructor? instructor)
         {
-            if (instructor == null)
-                throw new BusinessException(Messages.InstructorNotExists);
+            if (instructor == null) throw new BusinessException(Messages.NotBeExist);
+            return Task.CompletedTask;
+
+        }
+
+        public Task CheckIfInstructorExist(Instructor? instructor)
+        {
+            if (instructor != null) throw new BusinessException(Messages.AlreadyExist);
             return Task.CompletedTask;
         }
 
-        public async Task InstructorIdShouldExistWhenSelected(Guid id, CancellationToken cancellationToken)
+        public async Task CheckIdIfInstructorNotExist(Guid id)
         {
-            Instructor? instructor = await _instructorDal.GetAsync(
-                predicate: at => at.Id == id,
-                enableTracking: false,
-                cancellationToken: cancellationToken
-            );
-            await InstructorShouldExistWhenSelected(instructor);
+            Instructor instructor = _instructorDal.Get(a => a.Id == id);
+            CheckIfInstructorNotExist(instructor);
         }
     }
 }

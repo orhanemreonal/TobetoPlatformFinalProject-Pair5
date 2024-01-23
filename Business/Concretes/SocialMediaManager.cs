@@ -14,19 +14,20 @@ namespace Business.Concretes
     {
         ISocialMediaDal _socialMediaDal;
         IMapper _mapper;
-        SocialMediaBusinessRules _socialMediaBusinessRules;
+        SocialMediaBusinessRules _businessRules;
 
-        public SocialMediaManager(ISocialMediaDal socialMediaDal, IMapper mapper, SocialMediaBusinessRules socialMediaBusinessRules)
+        public SocialMediaManager(ISocialMediaDal socialMediaDal, IMapper mapper, SocialMediaBusinessRules businessRules)
         {
             _socialMediaDal = socialMediaDal;
             _mapper = mapper;
-            _socialMediaBusinessRules = socialMediaBusinessRules;
+            _businessRules = businessRules;
         }
 
         public async Task<GetSocialMediaResponse> Add(CreateSocialMediaRequest createSocialMediaRequest)
         {
 
             SocialMedia socialMedia = _mapper.Map<SocialMedia>(createSocialMediaRequest);
+            await _businessRules.CheckIfSocialMediaExist(socialMedia);
             await _socialMediaDal.AddAsync(socialMedia);
             GetSocialMediaResponse response = _mapper.Map<GetSocialMediaResponse>(socialMedia);
             return response;
@@ -36,7 +37,7 @@ namespace Business.Concretes
         {
             SocialMedia socialMedia = await _socialMediaDal.GetAsync(predicate: u => u.Id == deleteSocialMediaRequest.Id);
 
-            await _socialMediaBusinessRules.SocialMediaShouldExistWhenSelected(socialMedia);
+            await _businessRules.CheckIfSocialMediaNotExist(socialMedia);
 
             await _socialMediaDal.DeleteAsync(socialMedia);
             GetSocialMediaResponse response = _mapper.Map<GetSocialMediaResponse>(socialMedia);
@@ -46,6 +47,7 @@ namespace Business.Concretes
         public async Task<GetSocialMediaResponse> Get(Guid id)
         {
             SocialMedia socialMedia = await _socialMediaDal.GetAsync(predicate: u => u.Id == id);
+            await _businessRules.CheckIfSocialMediaNotExist(socialMedia);
             GetSocialMediaResponse response = _mapper.Map<GetSocialMediaResponse>(socialMedia);
             return response;
         }
@@ -61,7 +63,7 @@ namespace Business.Concretes
         {
             var result = await _socialMediaDal.GetAsync(predicate: a => a.Id == request.Id);
             _mapper.Map(request, result);
-
+            //  await _businessRules.CheckIfSocialMediaNotExist(result);
             await _socialMediaDal.UpdateAsync(result);
             GetSocialMediaResponse response = _mapper.Map<GetSocialMediaResponse>(result);
             return response;

@@ -14,18 +14,19 @@ namespace Business.Concretes
     {
         ISurveyDal _surveyDal;
         IMapper _mapper;
-        SurveyBusinessRules _surveyBusinessRules;
+        SurveyBusinessRules _businessRules;
 
-        public SurveyManager(ISurveyDal surveyDal, IMapper mapper, SurveyBusinessRules surveyBusinessRules)
+        public SurveyManager(ISurveyDal surveyDal, IMapper mapper, SurveyBusinessRules businessRules)
         {
             _surveyDal = surveyDal;
             _mapper = mapper;
-            _surveyBusinessRules = surveyBusinessRules;
+            _businessRules = businessRules;
         }
 
         public async Task<GetSurveyResponse> Add(CreateSurveyRequest request)
         {
             Survey survey = _mapper.Map<Survey>(request);
+            await _businessRules.CheckIfSurveyExist(survey);
             await _surveyDal.AddAsync(survey);
             GetSurveyResponse response = _mapper.Map<GetSurveyResponse>(request);
             return response;
@@ -35,7 +36,7 @@ namespace Business.Concretes
         {
             Survey survey = await _surveyDal.GetAsync(predicate: c => c.Id == request.Id);
 
-            await _surveyBusinessRules.SurveyShouldExistWhenSelected(survey);
+            await _businessRules.CheckIfSurveyNotExist(survey);
 
             await _surveyDal.DeleteAsync(survey);
             GetSurveyResponse response = _mapper.Map<GetSurveyResponse>(survey);
@@ -45,6 +46,7 @@ namespace Business.Concretes
         public async Task<GetSurveyResponse> Get(Guid id)
         {
             Survey survey = await _surveyDal.GetAsync(predicate: c => c.Id == id);
+            await _businessRules.CheckIfSurveyNotExist(survey);
             GetSurveyResponse response = _mapper.Map<GetSurveyResponse>(survey);
             return response;
         }
@@ -60,7 +62,7 @@ namespace Business.Concretes
         {
             var result = await _surveyDal.GetAsync(predicate: a => a.Id == request.Id);
             _mapper.Map(request, result);
-
+            // await _businessRules.CheckIfSurveyNotExist(result);
             await _surveyDal.UpdateAsync(result);
             GetSurveyResponse response = _mapper.Map<GetSurveyResponse>(result);
             return response;

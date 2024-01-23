@@ -18,19 +18,20 @@ namespace Business.Concretes
     {
         ICategoryDal _categoryDal;
         IMapper _mapper;
-        CategoryBusinessRules _categoryBusinessRules;
+        CategoryBusinessRules _businessRules;
 
-        public CategoryManager(ICategoryDal categoryDal, IMapper mapper, CategoryBusinessRules categoryBusinessRules)
+        public CategoryManager(ICategoryDal categoryDal, IMapper mapper, CategoryBusinessRules businessRules)
         {
             _categoryDal = categoryDal;
             _mapper = mapper;
-            _categoryBusinessRules = categoryBusinessRules;
+            _businessRules = businessRules;
         }
         [CacheRemoveAspect("ICategoryService.Get")]
         [LogAspect(typeof(FileLogger))]
         public async Task<GetCategoryResponse> Add(CreateCategoryRequest request)
         {
             Category category = _mapper.Map<Category>(request);
+            await _businessRules.CheckIfCategoryExist(category);
             await _categoryDal.AddAsync(category);
             GetCategoryResponse response = _mapper.Map<GetCategoryResponse>(category);
             return response;
@@ -39,8 +40,7 @@ namespace Business.Concretes
         public async Task<GetCategoryResponse> Delete(DeleteCategoryRequest request)
         {
             Category category = await _categoryDal.GetAsync(predicate: c => c.Id == request.Id);
-            await _categoryBusinessRules.CheckIfCategoryExist(category);
-
+            await _businessRules.CheckIfCategoryNotExist(category);
             await _categoryDal.DeleteAsync(category);
             GetCategoryResponse response = _mapper.Map<GetCategoryResponse>(category);
             return response;
@@ -49,6 +49,7 @@ namespace Business.Concretes
         public async Task<GetCategoryResponse> Get(Guid id)
         {
             Category category = await _categoryDal.GetAsync(predicate: c => c.Id == id);
+            await _businessRules.CheckIfCategoryNotExist(category);
             GetCategoryResponse response = _mapper.Map<GetCategoryResponse>(category);
             return response;
         }
@@ -66,7 +67,7 @@ namespace Business.Concretes
         {
             var result = await _categoryDal.GetAsync(predicate: a => a.Id == request.Id);
             _mapper.Map(request, result);
-
+            //await _businessRules.CheckIfCategoryNotExist(result);
             await _categoryDal.UpdateAsync(result);
             GetCategoryResponse response = _mapper.Map<GetCategoryResponse>(result);
             return response;

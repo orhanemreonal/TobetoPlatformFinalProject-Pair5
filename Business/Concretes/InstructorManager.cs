@@ -15,21 +15,20 @@ namespace Business.Concretes
         private readonly IInstructorDal _instructorDal;
         private readonly IUserDal _userDal;
         private readonly IMapper _mapper;
-        private readonly InstructorBusinessRules _instructorBusinessRules;
-        private readonly UserBusinessRules _userBusinessRules;
+        private readonly InstructorBusinessRules _businessRules;
 
-        public InstructorManager(IInstructorDal instructorDal, IMapper mapper, InstructorBusinessRules instructorBusinessRules, UserBusinessRules userBusinessRules, IUserDal userDal)
+        public InstructorManager(IInstructorDal instructorDal, IUserDal userDal, IMapper mapper, InstructorBusinessRules businessRules)
         {
             _instructorDal = instructorDal;
-            _mapper = mapper;
-            _instructorBusinessRules = instructorBusinessRules;
-            _userBusinessRules = userBusinessRules;
             _userDal = userDal;
+            _mapper = mapper;
+            _businessRules = businessRules;
         }
 
         public async Task<GetInstructorResponse> Add(CreateInstructorRequest createInstructorRequest)
         {
             Instructor instructor = _mapper.Map<Instructor>(createInstructorRequest);
+            await _businessRules.CheckIfInstructorExist(instructor);
             await _instructorDal.AddAsync(instructor);
             GetInstructorResponse response = _mapper.Map<GetInstructorResponse>(instructor);
             return response;
@@ -38,7 +37,7 @@ namespace Business.Concretes
         public async Task<GetInstructorResponse> Delete(DeleteInstructorRequest deleteInstructorRequest)
         {
             Instructor instructor = await _instructorDal.GetAsync(predicate: l => l.Id == deleteInstructorRequest.Id);
-            await _instructorBusinessRules.InstructorShouldExistWhenSelected(instructor);
+            await _businessRules.CheckIfInstructorNotExist(instructor);
             await _instructorDal.DeleteAsync(instructor);
             GetInstructorResponse response = _mapper.Map<GetInstructorResponse>(instructor);
             return response;
@@ -47,6 +46,7 @@ namespace Business.Concretes
         public async Task<GetInstructorResponse> Get(Guid id)
         {
             Instructor instructor = await _instructorDal.GetAsync(predicate: l => l.Id == id);
+            await _businessRules.CheckIfInstructorNotExist(instructor);
             GetInstructorResponse response = _mapper.Map<GetInstructorResponse>(instructor);
             return response;
         }
@@ -65,7 +65,7 @@ namespace Business.Concretes
         {
             var result = await _instructorDal.GetAsync(predicate: a => a.Id == request.Id);
             _mapper.Map(request, result);
-            // await _userBusinessRules.CheckIfInstructorNotExist(user);
+            //await _businessRules.CheckIfInstructorNotExist(result);
 
             await _instructorDal.UpdateAsync(result);
             GetInstructorResponse response = _mapper.Map<GetInstructorResponse>(result);

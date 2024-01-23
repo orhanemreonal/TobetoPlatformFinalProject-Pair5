@@ -14,18 +14,19 @@ namespace Business.Concretes
     {
         IStudentLanguageDal _studentLanguageDal;
         IMapper _mapper;
-        StudentLanguageBusinessRules _studentLanguageBusinessRules;
+        StudentLanguageBusinessRules _businessRules;
 
-        public StudentLanguageManager(IStudentLanguageDal studentLanguageDal, IMapper mapper, StudentLanguageBusinessRules studentLanguageBusinessRules)
+        public StudentLanguageManager(IStudentLanguageDal studentLanguageDal, IMapper mapper, StudentLanguageBusinessRules businessRules)
         {
             _studentLanguageDal = studentLanguageDal;
             _mapper = mapper;
-            _studentLanguageBusinessRules = studentLanguageBusinessRules;
+            _businessRules = businessRules;
         }
 
         public async Task<GetStudentLanguageResponse> Add(CreateStudentLanguageRequest createStudentLanguageRequest)
         {
             StudentLanguage studentLanguage = _mapper.Map<StudentLanguage>(createStudentLanguageRequest);
+            await _businessRules.CheckIfStudentLanguageExist(studentLanguage);
             await _studentLanguageDal.AddAsync(studentLanguage);
             GetStudentLanguageResponse response = _mapper.Map<GetStudentLanguageResponse>(studentLanguage);
             return response;
@@ -34,6 +35,7 @@ namespace Business.Concretes
         public async Task<GetStudentLanguageResponse> Delete(DeleteStudentLanguageRequest deleteStudentLanguageRequest)
         {
             StudentLanguage studentLanguage = await _studentLanguageDal.GetAsync(predicate: u => u.Id == deleteStudentLanguageRequest.Id);
+            await _businessRules.CheckIfStudentLanguageNotExist(studentLanguage);
             await _studentLanguageDal.DeleteAsync(studentLanguage);
             GetStudentLanguageResponse response = _mapper.Map<GetStudentLanguageResponse>(studentLanguage);
             return response;
@@ -43,8 +45,7 @@ namespace Business.Concretes
         {
             StudentLanguage studentLanguage = await _studentLanguageDal.GetAsync(predicate: u => u.Id == id);
 
-            await _studentLanguageBusinessRules.StudentLanguageShouldExistWhenSelected(studentLanguage);
-
+            await _businessRules.CheckIfStudentLanguageNotExist(studentLanguage);
             GetStudentLanguageResponse response = _mapper.Map<GetStudentLanguageResponse>(studentLanguage);
             return response;
         }
@@ -60,7 +61,7 @@ namespace Business.Concretes
         {
             var result = await _studentLanguageDal.GetAsync(predicate: a => a.Id == request.Id);
             _mapper.Map(request, result);
-
+            //await _businessRules.CheckIfStudentLanguageNotExist(result);
             await _studentLanguageDal.UpdateAsync(result);
             GetStudentLanguageResponse response = _mapper.Map<GetStudentLanguageResponse>(result);
             return response;

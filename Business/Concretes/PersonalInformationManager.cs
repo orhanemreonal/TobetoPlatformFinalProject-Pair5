@@ -14,19 +14,20 @@ namespace Business.Concretes
     {
         private readonly IPersonalInformationDal _personalInformationDal;
         private readonly IMapper _mapper;
-        private readonly PersonalInformationBusinessRules _personalInformationBusinessRules;
+        private readonly PersonalInformationBusinessRules _businessRules;
 
 
-        public PersonalInformationManager(IPersonalInformationDal personalInformationDal, IMapper mapper, PersonalInformationBusinessRules personalInformationBusinessRules)
+        public PersonalInformationManager(IPersonalInformationDal personalInformationDal, IMapper mapper, PersonalInformationBusinessRules businessRules)
         {
             _personalInformationDal = personalInformationDal;
             _mapper = mapper;
-            _personalInformationBusinessRules = personalInformationBusinessRules;
+            _businessRules = businessRules;
         }
 
         public async Task<GetPersonalInformationResponse> Add(CreatePersonalInformationRequest createUserRequest)
         {
             PersonalInformation personalInformation = _mapper.Map<PersonalInformation>(createUserRequest);
+            await _businessRules.CheckIfPersonalInformationExist(personalInformation);
             await _personalInformationDal.AddAsync(personalInformation);
             GetPersonalInformationResponse response = _mapper.Map<GetPersonalInformationResponse>(personalInformation);
             return response;
@@ -35,6 +36,7 @@ namespace Business.Concretes
         public async Task<GetPersonalInformationResponse> Delete(DeletePersonalInformationRequest deletePersonalInformationRequest)
         {
             PersonalInformation personalInformation = await _personalInformationDal.GetAsync(predicate: u => u.Id == deletePersonalInformationRequest.Id);
+            await _businessRules.CheckIfPersonalInformationNotExist(personalInformation);
             await _personalInformationDal.DeleteAsync(personalInformation);
             GetPersonalInformationResponse response = _mapper.Map<GetPersonalInformationResponse>(personalInformation);
             return response;
@@ -44,6 +46,7 @@ namespace Business.Concretes
         public async Task<GetPersonalInformationResponse> Get(Guid id)
         {
             PersonalInformation personalInformation = await _personalInformationDal.GetAsync(predicate: u => u.Id == id);
+            await _businessRules.CheckIfPersonalInformationNotExist(personalInformation);
             GetPersonalInformationResponse response = _mapper.Map<GetPersonalInformationResponse>(personalInformation);
             return response;
         }
@@ -51,6 +54,7 @@ namespace Business.Concretes
         public async Task<IPaginate<GetListPersonalInformationResponse>> GetList(PageRequest pageRequest)
         {
             var result = await _personalInformationDal.GetListAsync(index: pageRequest.Index, size: pageRequest.Size);
+
             Paginate<GetListPersonalInformationResponse> response = _mapper.Map<Paginate<GetListPersonalInformationResponse>>(result);
             return response;
         }
@@ -59,7 +63,7 @@ namespace Business.Concretes
         {
             var result = await _personalInformationDal.GetAsync(predicate: a => a.Id == request.Id);
             _mapper.Map(request, result);
-
+            // await _businessRules.CheckIfPersonalInformationNotExist(result);
             await _personalInformationDal.UpdateAsync(result);
             GetPersonalInformationResponse response = _mapper.Map<GetPersonalInformationResponse>(result);
             return response;

@@ -15,21 +15,23 @@ namespace Business.Rules
             _personalInformationDal = personalInformationDal;
         }
 
-        public Task PersonalInformationShouldExistWhenSelected(PersonalInformation? personalInformation)
+        public Task CheckIfPersonalInformationNotExist(PersonalInformation personalInformation)
         {
-            if (personalInformation == null)
-                throw new BusinessException(Messages.PersonalInformationNotExists);
+            if (personalInformation == null) throw new BusinessException(Messages.NotBeExist);
+            return Task.CompletedTask;
+
+        }
+
+        public Task CheckIfPersonalInformationExist(PersonalInformation? personalInformation)
+        {
+            if (personalInformation != null) throw new BusinessException(Messages.AlreadyExist);
             return Task.CompletedTask;
         }
 
-        public async Task PersonalInformationIdShouldExistWhenSelected(Guid id, CancellationToken cancellationToken)
+        public async Task CheckIdIfPersonalInformationNotExist(Guid id)
         {
-            PersonalInformation? personalInformation = await _personalInformationDal.GetAsync(
-                predicate: at => at.Id == id,
-                enableTracking: false,
-                cancellationToken: cancellationToken
-            );
-            await PersonalInformationShouldExistWhenSelected(personalInformation);
+            PersonalInformation personalInformation = _personalInformationDal.Get(a => a.Id == id);
+            CheckIfPersonalInformationNotExist(personalInformation);
         }
     }
 }

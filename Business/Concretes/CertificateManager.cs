@@ -14,20 +14,19 @@ namespace Business.Concretes
     {
         ICertificateDal _certificateDal;
         IMapper _mapper;
-        CertificateBusinessRules _certificateBusinessRules;
+        CertificateBusinessRules _businessRules;
 
-        public CertificateManager(ICertificateDal certificateDal, IMapper mapper, CertificateBusinessRules certificateBusinessRules)
+        public CertificateManager(ICertificateDal certificateDal, IMapper mapper, CertificateBusinessRules businessRules)
         {
             _certificateDal = certificateDal;
             _mapper = mapper;
-            _certificateBusinessRules = certificateBusinessRules;
+            _businessRules = businessRules;
         }
 
         public async Task<GetCertificateResponse> Add(CreateCertificateRequest request)
         {
             Certificate certificate = _mapper.Map<Certificate>(request);
-            await _certificateBusinessRules.CertificateShouldExistWhenSelected(certificate);
-
+            await _businessRules.CheckIfCertificateExist(certificate);
             await _certificateDal.AddAsync(certificate);
             GetCertificateResponse response = _mapper.Map<GetCertificateResponse>(request);
             return response;
@@ -36,7 +35,7 @@ namespace Business.Concretes
         public async Task<GetCertificateResponse> Delete(DeleteCertificateRequest request)
         {
             Certificate certificate = await _certificateDal.GetAsync(predicate: c => c.Id == request.Id);
-
+            await _businessRules.CheckIfCertificateNotExist(certificate);
             await _certificateDal.DeleteAsync(certificate);
             GetCertificateResponse response = _mapper.Map<GetCertificateResponse>(certificate);
             return response;
@@ -45,6 +44,7 @@ namespace Business.Concretes
         public async Task<GetCertificateResponse> Get(Guid id)
         {
             Certificate certificate = await _certificateDal.GetAsync(predicate: c => c.Id == id);
+            await _businessRules.CheckIfCertificateNotExist(certificate);
             GetCertificateResponse response = _mapper.Map<GetCertificateResponse>(certificate);
             return response;
 
@@ -62,7 +62,7 @@ namespace Business.Concretes
         {
             var result = await _certificateDal.GetAsync(predicate: a => a.Id == request.Id);
             _mapper.Map(request, result);
-
+            // await _businessRules.CheckIfCertificateNotExist(result);
             await _certificateDal.UpdateAsync(result);
             GetCertificateResponse response = _mapper.Map<GetCertificateResponse>(result);
             return response;

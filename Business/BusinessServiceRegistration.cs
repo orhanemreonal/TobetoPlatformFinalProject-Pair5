@@ -17,10 +17,10 @@ namespace Business
             services.AddScoped<IApplicationService, ApplicationManager>();
             services.AddScoped<IAsyncVideoService, AsyncVideoManager>();
             services.AddScoped<ICertificateService, CertificateManager>();
-            services.AddScoped<IClassroomCourseService, ClassroomCourseManager>();
+
             services.AddScoped<ICompetenceService, CompetenceManager>();
             services.AddScoped<ICourseService, CourseManager>();
-            services.AddScoped<ICourseTopicService, CourseTopicManager>();
+
             services.AddScoped<IEducationService, EducationManager>();
             services.AddScoped<IExamService, ExamManager>();
             services.AddScoped<IExperienceService, ExperienceManager>();
@@ -36,8 +36,7 @@ namespace Business
             services.AddScoped<ICompanyService, CompanyManager>();
             services.AddScoped<IClassroomService, ClassroomManager>();
             services.AddScoped<IStudentLanguageService, StudentLanguageManager>();
-            services.AddScoped<IStudentLikeService, StudentLikeManager>();
-            services.AddScoped<IClassAnnouncementService, ClassAnnouncementManager>();
+
             services.AddScoped<ITitleService, TitleManager>();
             services.AddScoped<ITopicService, TopicManager>();
             services.AddScoped<IVirtualClassService, VirtualClassManager>();
@@ -49,13 +48,13 @@ namespace Business
             services.AddScoped<AsyncVideoBusinessRules>();
             services.AddScoped<CategoryBusinessRules>();
             services.AddScoped<CertificateBusinessRules>();
-            services.AddScoped<ClassAnnouncementBusinessRules>();
+
             services.AddScoped<ClassroomBusinessRules>();
-            services.AddScoped<ClassroomCourseBusinessRules>();
+
             services.AddScoped<CompanyBusinessRules>();
             services.AddScoped<CompetenceBusinessRules>();
             services.AddScoped<CourseBusinessRules>();
-            services.AddScoped<CourseTopicBusinessRules>();
+
             services.AddScoped<EducationBusinessRules>();
             services.AddScoped<ExamBusinessRules>();
             services.AddScoped<ExperienceBusinessRules>();
@@ -65,7 +64,7 @@ namespace Business
             services.AddScoped<SocialMediaBusinessRules>();
             services.AddScoped<StudentBusinessRules>();
             services.AddScoped<StudentLanguageBusinessRules>();
-            services.AddScoped<StudentLikeBusinessRules>();
+
             services.AddScoped<SurveyBusinessRules>();
             services.AddScoped<TitleBusinessRules>();
             services.AddScoped<TopicBusinessRules>();

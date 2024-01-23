@@ -16,21 +16,23 @@ namespace Business.Rules
         }
 
 
-        public Task ApplicationShouldExistWhenSelected(Application? application)
+        public Task CheckIfApplicationNotExist(Application? application)
         {
-            if (application == null)
-                throw new BusinessException(Messages.ApplicationNotExists);
+            if (application == null) throw new BusinessException(Messages.NotBeExist);
+            return Task.CompletedTask;
+
+        }
+
+        public Task CheckIfApplicationExist(Application? application)
+        {
+            if (application != null) throw new BusinessException(Messages.AlreadyExist);
             return Task.CompletedTask;
         }
 
-        public async Task ApplicationIdShouldExistWhenSelected(Guid id, CancellationToken cancellationToken)
+        public async Task CheckIdIfApplicationNotExist(Guid id)
         {
-            Application? application = await _applicationDal.GetAsync(
-                predicate: at => at.Id == id,
-                enableTracking: false,
-                cancellationToken: cancellationToken
-            );
-            await ApplicationShouldExistWhenSelected(application);
+            Application application = _applicationDal.Get(a => a.Id == id);
+            CheckIfApplicationNotExist(application);
         }
     }
 }

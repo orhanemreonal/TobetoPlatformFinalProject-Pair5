@@ -15,21 +15,24 @@ namespace Business.Rules
             _asyncVideoDal = asyncVideoDal;
         }
 
-        public Task AsyncVideoShouldExistWhenSelected(AsyncVideo? asyncVideo)
+
+        public Task CheckIfAsyncVideoNotExist(AsyncVideo? asyncVideo)
         {
-            if (asyncVideo == null)
-                throw new BusinessException(Messages.AsyncVideoNotExists);
+            if (asyncVideo == null) throw new BusinessException(Messages.NotBeExist);
+            return Task.CompletedTask;
+
+        }
+
+        public Task CheckIfAsyncVideoExist(AsyncVideo? asyncVideo)
+        {
+            if (asyncVideo != null) throw new BusinessException(Messages.AlreadyExist);
             return Task.CompletedTask;
         }
 
-        public async Task AsyncVideoIdShouldExistWhenSelected(Guid id, CancellationToken cancellationToken)
+        public async Task CheckIdIfAsyncVideoNotExist(Guid id)
         {
-            AsyncVideo? asyncVideo = await _asyncVideoDal.GetAsync(
-                predicate: at => at.Id == id,
-                enableTracking: false,
-                cancellationToken: cancellationToken
-            );
-            await AsyncVideoShouldExistWhenSelected(asyncVideo);
+            AsyncVideo asyncVideo = _asyncVideoDal.Get(a => a.Id == id);
+            CheckIfAsyncVideoNotExist(asyncVideo);
         }
     }
 }

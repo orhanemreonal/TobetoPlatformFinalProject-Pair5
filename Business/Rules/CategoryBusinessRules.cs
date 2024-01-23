@@ -14,25 +14,25 @@ namespace Business.Rules
         {
             _categoryDal = categoryDal;
         }
+
+
         public Task CheckIfCategoryNotExist(Category? category)
         {
-            if (category == null)
-                throw new BusinessException(Messages.CategoryNotExists);
+            if (category == null) throw new BusinessException(Messages.NotBeExist);
             return Task.CompletedTask;
+
         }
+
         public Task CheckIfCategoryExist(Category? category)
         {
             if (category != null) throw new BusinessException(Messages.AlreadyExist);
             return Task.CompletedTask;
         }
-        public async Task CheckIdIfCategoryNotExist(Guid id, CancellationToken cancellationToken)
+
+        public async Task CheckIdIfCategoryNotExist(Guid id)
         {
-            Category? category = await _categoryDal.GetAsync(
-                predicate: at => at.Id == id,
-                enableTracking: false,
-                cancellationToken: cancellationToken
-            );
-            await CheckIfCategoryNotExist(category);
+            Category category = _categoryDal.Get(a => a.Id == id);
+            CheckIfCategoryNotExist(category);
         }
     }
 }

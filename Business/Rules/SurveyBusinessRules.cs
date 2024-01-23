@@ -14,21 +14,23 @@ namespace Business.Rules
         {
             _surveyDal = surveyDal;
         }
-        public Task SurveyShouldExistWhenSelected(Survey? survey)
+        public Task CheckIfSurveyNotExist(Survey? survey)
         {
-            if (survey == null)
-                throw new BusinessException(Messages.SurveyNotExists);
+            if (survey == null) throw new BusinessException(Messages.NotBeExist);
+            return Task.CompletedTask;
+
+        }
+
+        public Task CheckIfSurveyExist(Survey? survey)
+        {
+            if (survey != null) throw new BusinessException(Messages.AlreadyExist);
             return Task.CompletedTask;
         }
 
-        public async Task SurveyIdShouldExistWhenSelected(Guid id, CancellationToken cancellationToken)
+        public async Task CheckIdIfSurveyNotExist(Guid id)
         {
-            Survey? survey = await _surveyDal.GetAsync(
-                predicate: at => at.Id == id,
-                enableTracking: false,
-                cancellationToken: cancellationToken
-            );
-            await SurveyShouldExistWhenSelected(survey);
+            Survey survey = _surveyDal.Get(a => a.Id == id);
+            CheckIfSurveyNotExist(survey);
         }
     }
 }

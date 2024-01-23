@@ -15,22 +15,23 @@ namespace Business.Rules
             _likeDal = likeDal;
         }
 
-        public Task LikeShouldExistWhenSelected(Like? like)
+        public Task CheckIfLikeNotExist(Like? like)
         {
-            if (like == null)
-                throw new BusinessException(Messages.LikeNotExists);
+            if (like == null) throw new BusinessException(Messages.NotBeExist);
+            return Task.CompletedTask;
+
+        }
+
+        public Task CheckIfLikeExist(Like? like)
+        {
+            if (like != null) throw new BusinessException(Messages.AlreadyExist);
             return Task.CompletedTask;
         }
 
-        public async Task LikeIdShouldExistWhenSelected(Guid id, CancellationToken cancellationToken)
+        public async Task CheckIdIfLikeNotExist(Guid id)
         {
-            Like? like = await _likeDal.GetAsync(
-                predicate: at => at.Id == id,
-                enableTracking: false,
-                cancellationToken: cancellationToken
-            );
-            await LikeShouldExistWhenSelected(like);
+            Like like = _likeDal.Get(a => a.Id == id);
+            CheckIfLikeNotExist(like);
         }
-
     }
 }

@@ -14,18 +14,19 @@ namespace Business.Concretes
     {
         private readonly ILanguageDal _languageDal;
         private readonly IMapper _mapper;
-        private readonly LanguageBusinessRules _languageBusinessRules;
+        private readonly LanguageBusinessRules _businessRules;
 
-        public LanguageManager(ILanguageDal languageDal, IMapper mapper, LanguageBusinessRules languageBusinessRules)
+        public LanguageManager(ILanguageDal languageDal, IMapper mapper, LanguageBusinessRules businessRules)
         {
             _languageDal = languageDal;
             _mapper = mapper;
-            _languageBusinessRules = languageBusinessRules;
+            _businessRules = businessRules;
         }
 
         public async Task<GetLanguageResponse> Add(CreateLanguageRequest createLanguageRequest)
         {
             Language language = _mapper.Map<Language>(createLanguageRequest);
+            await _businessRules.CheckIfLanguageExist(language);
             await _languageDal.AddAsync(language);
             GetLanguageResponse response = _mapper.Map<GetLanguageResponse>(language);
             return response;
@@ -34,6 +35,7 @@ namespace Business.Concretes
         public async Task<GetLanguageResponse> Get(Guid id)
         {
             Language language = await _languageDal.GetAsync(predicate: l => l.Id == id);
+            await _businessRules.CheckIfLanguageNotExist(language);
             GetLanguageResponse response = _mapper.Map<GetLanguageResponse>(language);
             return response;
         }
@@ -52,7 +54,7 @@ namespace Business.Concretes
         {
             var result = await _languageDal.GetAsync(predicate: a => a.Id == request.Id);
             _mapper.Map(request, result);
-
+            //await _businessRules.CheckIfLanguageNotExist(result);
             await _languageDal.UpdateAsync(result);
             GetLanguageResponse response = _mapper.Map<GetLanguageResponse>(result);
             return response;
@@ -62,8 +64,7 @@ namespace Business.Concretes
         public async Task<GetLanguageResponse> Delete(DeleteLanguageRequest deleteLanguageRequest)
         {
             Language language = await _languageDal.GetAsync(predicate: l => l.Id == deleteLanguageRequest.Id);
-            await _languageBusinessRules.LanguageShouldExistWhenSelected(language);
-
+            await _businessRules.CheckIfLanguageNotExist(language);
             await _languageDal.DeleteAsync(language!);
             GetLanguageResponse response = _mapper.Map<GetLanguageResponse>(language);
             return response;

@@ -14,17 +14,19 @@ namespace Business.Concretes
     {
         IAsyncVideoDal _asyncVideoDal;
         IMapper _mapper;
-        AsyncVideoBusinessRules _asyncVideoBusinessRules;
-        public AsyncVideoManager(IAsyncVideoDal asyncVideoDal, IMapper mapper, AsyncVideoBusinessRules asyncVideoBusinessRules)
+        AsyncVideoBusinessRules _businessRules;
+        public AsyncVideoManager(IAsyncVideoDal asyncVideoDal, IMapper mapper, AsyncVideoBusinessRules businessRules)
         {
             _asyncVideoDal = asyncVideoDal;
             _mapper = mapper;
-            _asyncVideoBusinessRules = asyncVideoBusinessRules;
+            _businessRules = businessRules;
         }
 
         public async Task<GetAsyncVideoResponse> Add(CreateAsyncVideoRequest request)
         {
             AsyncVideo asyncVideo = _mapper.Map<AsyncVideo>(request);
+            await _businessRules.CheckIfAsyncVideoExist(asyncVideo);
+
             await _asyncVideoDal.AddAsync(asyncVideo);
             GetAsyncVideoResponse response = _mapper.Map<GetAsyncVideoResponse>(asyncVideo);
             return response;
@@ -33,7 +35,7 @@ namespace Business.Concretes
         public async Task<GetAsyncVideoResponse> Delete(DeleteAsyncVideoRequest request)
         {
             AsyncVideo asyncVideo = await _asyncVideoDal.GetAsync(predicate: u => u.Id == request.Id);
-            await _asyncVideoBusinessRules.AsyncVideoShouldExistWhenSelected(asyncVideo);
+            await _businessRules.CheckIfAsyncVideoNotExist(asyncVideo);
 
             await _asyncVideoDal.DeleteAsync(asyncVideo);
             GetAsyncVideoResponse response = _mapper.Map<GetAsyncVideoResponse>(asyncVideo);
@@ -41,8 +43,8 @@ namespace Business.Concretes
         }
         public async Task<GetAsyncVideoResponse> Get(Guid id)
         {
-
             AsyncVideo asyncVideo = await _asyncVideoDal.GetAsync(predicate: u => u.Id == id);
+            await _businessRules.CheckIfAsyncVideoNotExist(asyncVideo);
             GetAsyncVideoResponse response = _mapper.Map<GetAsyncVideoResponse>(asyncVideo);
             return response;
         }
@@ -58,7 +60,7 @@ namespace Business.Concretes
         {
             var result = await _asyncVideoDal.GetAsync(predicate: a => a.Id == request.Id);
             _mapper.Map(request, result);
-
+            //  await _businessRules.CheckIfAsyncVideoNotExist(result);
             await _asyncVideoDal.UpdateAsync(result);
             GetAsyncVideoResponse response = _mapper.Map<GetAsyncVideoResponse>(result);
             return response;
