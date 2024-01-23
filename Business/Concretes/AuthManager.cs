@@ -4,6 +4,8 @@ using Business.Abstracts;
 using Business.Constants;
 using Business.Dtos.Auth.Requests;
 using Business.Dtos.Users.Requests;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Exceptions.Types;
 using Core.Entities.Concrete;
 using Core.Utilities.Security.Hashing;
@@ -23,6 +25,8 @@ namespace Business.Concrete
             _tokenHelper = tokenHelper;
             _mapper = mapper;
         }
+
+        [ValidationAspect(typeof(UserRequestValidator))]
 
         public async Task<User> Register(RegisterAuthRequest request, string password)
         {
