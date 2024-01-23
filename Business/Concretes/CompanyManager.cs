@@ -8,7 +8,6 @@ using Core.Business.Requests;
 using Core.DataAccess.Paging;
 using DataAccess.Abstracts;
 using Entities.Concretes;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Business.Concretes
 {
@@ -70,14 +69,17 @@ namespace Business.Concretes
 
         public async Task<GetCompanyResponse> Update(UpdateCompanyRequest request)
         {
-            Company updatedCompany = _mapper.Map<Company>(request);
 
-            await _businessRules.CheckIfCompanyNotExist(updatedCompany);
-
-
-            await _companyDal.UpdateAsync(updatedCompany);
-            GetCompanyResponse response = _mapper.Map<GetCompanyResponse>(updatedCompany);
+            var result = await _companyDal.GetAsync(predicate: a => a.Id == request.Id);
+            _mapper.Map(request, result);
+            //await _businessRules.CheckIfCompanyNotExist(updatedCompany);
+            await _companyDal.UpdateAsync(result);
+            GetCompanyResponse response = _mapper.Map<GetCompanyResponse>(result);
             return response;
+
+
+
+
         }
     }
 }

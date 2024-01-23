@@ -18,7 +18,8 @@ namespace Business.Profiles
 
             //Responses
             CreateMap<Survey, GetSurveyResponse>().ReverseMap();
-            CreateMap<Paginate<Survey>, Paginate<GetSurveyResponse>>().ReverseMap();
+            CreateMap<Survey, GetListSurveyResponse>().ReverseMap();
+            CreateMap<Paginate<Survey>, Paginate<GetListSurveyResponse>>().ReverseMap();
         }
     }
 }

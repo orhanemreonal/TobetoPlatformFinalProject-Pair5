@@ -5,7 +5,6 @@ using Business.Dtos.Instructor.Responses;
 using Business.Rules;
 using Core.Business.Requests;
 using Core.DataAccess.Paging;
-using Core.Entities.Concrete;
 using DataAccess.Abstracts;
 using Entities.Concretes;
 
@@ -62,22 +61,17 @@ namespace Business.Concretes
             return response;
         }
 
-        public async Task<GetInstructorResponse> Update(UpdateInstructorRequest updateInstructorRequest)
+        public async Task<GetInstructorResponse> Update(UpdateInstructorRequest request)
         {
-            Instructor? instructor = await _instructorDal.GetAsync(predicate: i => i.Id == updateInstructorRequest.Id);
-            await _instructorBusinessRules.InstructorShouldExistWhenSelected(instructor);
+            var result = await _instructorDal.GetAsync(predicate: a => a.Id == request.Id);
+            _mapper.Map(request, result);
+            // await _userBusinessRules.CheckIfInstructorNotExist(user);
 
-            Instructor? updatedInstructor = _mapper.Map(updateInstructorRequest, instructor);
-            await _instructorDal.UpdateAsync(updatedInstructor);
-
-            User? user = await _userDal.GetAsync(predicate: u => u.Id == instructor.UserId);
-            await _userBusinessRules.CheckIfUserNotExist(user);
-
-            User? updatedUser = _mapper.Map(updateInstructorRequest, user);
-            await _userDal.UpdateAsync(user!);
-
-            GetInstructorResponse response = _mapper.Map<GetInstructorResponse>(updatedInstructor);
+            await _instructorDal.UpdateAsync(result);
+            GetInstructorResponse response = _mapper.Map<GetInstructorResponse>(result);
             return response;
+
+
 
         }
     }

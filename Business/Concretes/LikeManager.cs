@@ -52,10 +52,13 @@ namespace Business.Concretes
 
         public async Task<GetLikeResponse> Update(UpdateLikeRequest request)
         {
-            Like updatedLike = _mapper.Map<Like>(request);
-            await _likeDal.UpdateAsync(updatedLike);
-            GetLikeResponse response = _mapper.Map<GetLikeResponse>(updatedLike);
+            var result = await _likeDal.GetAsync(predicate: a => a.Id == request.Id);
+            _mapper.Map(request, result);
+
+            await _likeDal.UpdateAsync(result);
+            GetLikeResponse response = _mapper.Map<GetLikeResponse>(result);
             return response;
+
         }
     }
 }

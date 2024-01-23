@@ -22,6 +22,7 @@ namespace Business.Profiles
             CreateMap<StudentLanguage, UpdateStudentLanguageRequest>().ReverseMap();
 
             CreateMap<StudentLanguage, GetStudentLanguageResponse>().ReverseMap();
+            CreateMap<StudentLanguage, GetListStudentLanguageResponse>().ReverseMap();
             CreateMap<Paginate<StudentLanguage>, Paginate<GetListStudentLanguageResponse>>().ReverseMap();
 
         }

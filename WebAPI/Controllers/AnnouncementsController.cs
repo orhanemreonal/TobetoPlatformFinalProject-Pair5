@@ -22,7 +22,7 @@ namespace WebAPI.Controllers
             var result = await _announcementService.Get(Id);
             return Ok(result);
         }
-        [HttpGet("getList")]
+        [HttpGet("getlist")]
         public async Task<IActionResult> GetList([FromQuery] PageRequest pageRequest)
         {
             var result = await _announcementService.GetList(pageRequest);

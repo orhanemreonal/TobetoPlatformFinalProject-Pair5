@@ -7,7 +7,7 @@ namespace Business.ValidationRules.FluentValidation
     {
         public SurveyRequestValidator()
         {
-
+            RuleFor(r => r.Description).NotEmpty().MaximumLength(200);
         }
     }
 }

@@ -18,6 +18,7 @@ namespace Business.Profiles
 
             //Responses
             CreateMap<Title, GetTitleResponse>().ReverseMap();
+            CreateMap<Title, GetListTitleResponse>().ReverseMap();
             CreateMap<Paginate<Title>, Paginate<GetListTitleResponse>>().ReverseMap();
 
 

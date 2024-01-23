@@ -8,7 +8,7 @@ namespace Business.ValidationRules.FluentValidation
     {
         public AsyncVideoRequestValidator()
         {
-            RuleFor(p => p.Name).NotEmpty();
+            RuleFor(p => p.Name).NotEmpty().MinimumLength(2).WithMessage(Messages.MustContainAtMinTwoChar); ;
             RuleFor(p => p.Description).NotEmpty().MinimumLength(25).WithMessage(Messages.MustContainAtMinTwentyfiveChar);
 
         }

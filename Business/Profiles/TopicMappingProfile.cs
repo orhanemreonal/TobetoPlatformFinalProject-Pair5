@@ -18,6 +18,7 @@ namespace Business.Profiles
 
             //Responses
             CreateMap<Topic,GetTopicResponse>().ReverseMap();
+            CreateMap<Topic,GetListTopicResponse>().ReverseMap();
             CreateMap<Paginate<Topic>,Paginate<GetListTopicResponse>>().ReverseMap();
 
         }

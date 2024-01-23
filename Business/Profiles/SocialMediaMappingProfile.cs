@@ -22,6 +22,7 @@ namespace Business.Profiles
             CreateMap<SocialMedia, UpdateSocialMediaRequest>().ReverseMap();
 
             CreateMap<SocialMedia, GetSocialMediaResponse>().ReverseMap();
+            CreateMap<SocialMedia, GetListSocialMediaResponse>().ReverseMap();
             CreateMap<Paginate<SocialMedia>, Paginate<GetListSocialMediaResponse>>().ReverseMap();
         }
 

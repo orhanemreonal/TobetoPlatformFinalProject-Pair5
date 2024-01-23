@@ -15,6 +15,7 @@ namespace Business.Profiles
             CreateMap<Education, UpdateEducationRequest>().ReverseMap();
 
             CreateMap<Education, GetEducationResponse>().ReverseMap();
+            CreateMap<Education, GetListEducationResponse>().ReverseMap();
             CreateMap<Paginate<Education>, Paginate<GetListEducationResponse>>().ReverseMap();
         }
     }

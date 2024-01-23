@@ -50,12 +50,15 @@ namespace Business.Concretes
             return response;
         }
 
-        public async Task<GetStudentLikeResponse> Update(UpdateStudentLikeRequest updateStudentLikeRequest)
+        public async Task<GetStudentLikeResponse> Update(UpdateStudentLikeRequest request)
         {
-            StudentLike updatedStudentLike = _mapper.Map<StudentLike>(updateStudentLikeRequest);
-            await _studentLikeDal.UpdateAsync(updatedStudentLike);
-            GetStudentLikeResponse response = _mapper.Map<GetStudentLikeResponse>(updatedStudentLike);
+            var result = await _studentLikeDal.GetAsync(predicate: a => a.Id == request.Id);
+            _mapper.Map(request, result);
+
+            await _studentLikeDal.UpdateAsync(result);
+            GetStudentLikeResponse response = _mapper.Map<GetStudentLikeResponse>(result);
             return response;
+
         }
     }
 }

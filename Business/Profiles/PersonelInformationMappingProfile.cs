@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
 using Business.Dtos.PersonelInformations.Requests;
 using Business.Dtos.PersonelInformations.Responses;
-using Business.Dtos.Users.Requests;
-using Business.Dtos.Users.Responses;
 using Core.DataAccess.Paging;
 using Entities.Concretes;
 using Microsoft.VisualBasic;
@@ -23,6 +21,7 @@ namespace Business.Profiles
             CreateMap<PersonalInformation, UpdatePersonalInformationRequest>().ReverseMap();
 
             CreateMap<PersonalInformation, GetPersonalInformationResponse>().ReverseMap();
+            CreateMap<PersonalInformation, GetListPersonalInformationResponse>().ReverseMap();
             CreateMap<Paginate<PersonalInformation>, Paginate<GetListPersonalInformationResponse>>().ReverseMap();
         }
         

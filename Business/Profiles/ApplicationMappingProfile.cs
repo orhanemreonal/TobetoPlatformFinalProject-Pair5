@@ -18,7 +18,9 @@ namespace Business.Profiles
 
             //Responses
             CreateMap<Application, GetApplicationResponse>().ReverseMap();
-            CreateMap<Paginate<Application>, Paginate<GetApplicationResponse>>().ReverseMap();
+            CreateMap<Application, GetListApplicationResponse>().ReverseMap();
+
+            CreateMap<Paginate<Application>, Paginate<GetListApplicationResponse>>().ReverseMap();
         }
     }
 }

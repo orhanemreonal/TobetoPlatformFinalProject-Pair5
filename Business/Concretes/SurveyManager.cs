@@ -58,13 +58,13 @@ namespace Business.Concretes
 
         public async Task<GetSurveyResponse> Update(UpdateSurveyRequest request)
         {
-            Survey survey = _mapper.Map<Survey>(request);
+            var result = await _surveyDal.GetAsync(predicate: a => a.Id == request.Id);
+            _mapper.Map(request, result);
 
-            await _surveyBusinessRules.SurveyShouldExistWhenSelected(survey);
-
-            await _surveyDal.UpdateAsync(survey);
-            GetSurveyResponse response = _mapper.Map<GetSurveyResponse>(survey);
+            await _surveyDal.UpdateAsync(result);
+            GetSurveyResponse response = _mapper.Map<GetSurveyResponse>(result);
             return response;
+
         }
     }
 }

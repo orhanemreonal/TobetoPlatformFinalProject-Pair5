@@ -22,8 +22,9 @@ namespace Business.Profiles
 
             //Responses
             CreateMap<Announcement, GetAnnouncementResponse>().ReverseMap();
+            CreateMap<Announcement, GetListAnnouncementResponse>().ReverseMap();
 
-            CreateMap<Paginate<Announcement>, Paginate<GetAnnouncementResponse>>().ReverseMap();
+            CreateMap<Paginate<Announcement>, Paginate<GetListAnnouncementResponse>>().ReverseMap();
         }
 
     }

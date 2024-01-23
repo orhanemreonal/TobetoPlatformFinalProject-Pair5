@@ -18,6 +18,7 @@ namespace Business.Profiles
 
             //Responses
             CreateMap<Certificate, GetCertificateResponse>().ReverseMap();
+            CreateMap<Certificate, GetListCertificateResponse>().ReverseMap();
             CreateMap<Paginate<Certificate>, Paginate<GetListCertificateResponse>>().ReverseMap();
         }
     }

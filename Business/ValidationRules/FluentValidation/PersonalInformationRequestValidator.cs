@@ -1,11 +1,6 @@
 ﻿using Business.Constants;
 using Business.Dtos.PersonelInformations.Requests;
 using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Business.ValidationRules.FluentValidation
 {
@@ -13,7 +8,7 @@ namespace Business.ValidationRules.FluentValidation
     {
         public PersonalInformationRequestValidator()
         {
-            RuleFor(p => p.IdentityNo).NotEmpty();
+            RuleFor(p => p.About).NotEmpty().MinimumLength(2).WithMessage(Messages.MustContainAtMinTwoChar);
             RuleFor(p => p.IdentityNo).NotEmpty().MinimumLength(11).WithMessage(Messages.MustContainAtMinElevenChar); ;
             RuleFor(p => p.Address).NotEmpty();
             RuleFor(p => p.PhoneNumber).NotEmpty();

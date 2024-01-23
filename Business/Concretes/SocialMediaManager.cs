@@ -57,15 +57,15 @@ namespace Business.Concretes
             return response;
         }
 
-        public async Task<GetSocialMediaResponse> Update(UpdateSocialMediaRequest updateSocialMediaRequest)
+        public async Task<GetSocialMediaResponse> Update(UpdateSocialMediaRequest request)
         {
-            SocialMedia? socialMedia = await _socialMediaDal.GetAsync(predicate: l => l.Id == updateSocialMediaRequest.Id);
+            var result = await _socialMediaDal.GetAsync(predicate: a => a.Id == request.Id);
+            _mapper.Map(request, result);
 
-            await _socialMediaBusinessRules.SocialMediaShouldExistWhenSelected(socialMedia);
-
-            await _socialMediaDal.UpdateAsync(socialMedia);
-            GetSocialMediaResponse response = _mapper.Map<GetSocialMediaResponse>(socialMedia);
+            await _socialMediaDal.UpdateAsync(result);
+            GetSocialMediaResponse response = _mapper.Map<GetSocialMediaResponse>(result);
             return response;
+
         }
     }
 }

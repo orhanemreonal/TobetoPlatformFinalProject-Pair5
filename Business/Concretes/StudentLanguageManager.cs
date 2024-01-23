@@ -56,15 +56,15 @@ namespace Business.Concretes
             return response;
         }
 
-        public async Task<GetStudentLanguageResponse> Update(UpdateStudentLanguageRequest updateStudentLanguageRequest)
+        public async Task<GetStudentLanguageResponse> Update(UpdateStudentLanguageRequest request)
         {
-            StudentLanguage studentLanguage = _mapper.Map<StudentLanguage>(updateStudentLanguageRequest);
+            var result = await _studentLanguageDal.GetAsync(predicate: a => a.Id == request.Id);
+            _mapper.Map(request, result);
 
-            await _studentLanguageBusinessRules.StudentLanguageShouldExistWhenSelected(studentLanguage);
-
-            await _studentLanguageDal.UpdateAsync(studentLanguage);
-            GetStudentLanguageResponse response = _mapper.Map<GetStudentLanguageResponse>(studentLanguage);
+            await _studentLanguageDal.UpdateAsync(result);
+            GetStudentLanguageResponse response = _mapper.Map<GetStudentLanguageResponse>(result);
             return response;
+
         }
     }
 }

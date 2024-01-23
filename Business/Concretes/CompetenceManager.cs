@@ -67,14 +67,18 @@ namespace Business.Concretes
 
         public async Task<GetCompetenceResponse> Update(UpdateCompetenceRequest request)
         {
-            Competence updatedCompetence = _mapper.Map<Competence>(request);
+            var result = await _competenceDal.GetAsync(predicate: a => a.Id == request.Id);
+            _mapper.Map(request, result);
 
-            await _businessRules.CheckIfCompetenceNotExist(updatedCompetence);
-
-
-            await _competenceDal.UpdateAsync(updatedCompetence);
-            GetCompetenceResponse response = _mapper.Map<GetCompetenceResponse>(updatedCompetence);
+            // await _businessRules.CheckIfCompetenceNotExist(updatedCompetence);
+            await _competenceDal.UpdateAsync(result);
+            GetCompetenceResponse response = _mapper.Map<GetCompetenceResponse>(result);
             return response;
+
+
+
+
+
         }
     }
 }
