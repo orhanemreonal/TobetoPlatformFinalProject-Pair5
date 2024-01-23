@@ -29,6 +29,7 @@ namespace Business.Profiles
 
 
             CreateMap<User, GetUserResponse>().ReverseMap();
+            CreateMap<User, GetListUserResponse>().ReverseMap();
             CreateMap<Paginate<User>, Paginate<GetListUserResponse>>().ReverseMap();
 
 
