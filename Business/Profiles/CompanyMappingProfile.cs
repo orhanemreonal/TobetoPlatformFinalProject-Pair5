@@ -15,6 +15,7 @@ namespace Business.Profiles
             CreateMap<Company, UpdateCompanyRequest>().ReverseMap();
 
             CreateMap<Company, GetCompanyResponse>().ReverseMap();
+            CreateMap<Company, GetListCompanyResponse>().ReverseMap();
             CreateMap<Paginate<Company>, Paginate<GetListCompanyResponse>>().ReverseMap();
         }
     }

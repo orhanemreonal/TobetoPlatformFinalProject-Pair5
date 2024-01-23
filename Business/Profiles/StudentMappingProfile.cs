@@ -18,7 +18,8 @@ namespace Business.Profiles
 
             //Responses
             CreateMap<Student, GetStudentResponse>().ReverseMap();
-            CreateMap<Paginate<Student>, Paginate<GetStudentResponse>>().ReverseMap();
+            CreateMap<Student, GetListStudentResponse>().ReverseMap();
+            CreateMap<Paginate<Student>, Paginate<GetListStudentResponse>>().ReverseMap();
         }
     }
 }

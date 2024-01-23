@@ -18,7 +18,9 @@ namespace Business.Profiles
 
             //Responses
             CreateMap<AsyncVideo, GetAsyncVideoResponse>().ReverseMap();
-            CreateMap<Paginate<AsyncVideo>, Paginate<GetAsyncVideoResponse>>().ReverseMap();
+            CreateMap<AsyncVideo, GetListAsyncVideoResponse>().ReverseMap();
+
+            CreateMap<Paginate<AsyncVideo>, Paginate<GetListAsyncVideoResponse>>().ReverseMap();
         }
 
     }

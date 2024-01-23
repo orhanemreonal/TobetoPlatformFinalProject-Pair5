@@ -19,7 +19,6 @@ namespace Business.Profiles
             CreateMap<User, LoginAuthRequest>().ReverseMap();
             CreateMap<User, LoginAuthResponse>().ReverseMap();
 
-
             CreateMap<User, RegisterAuthRequest>().ReverseMap();
             CreateMap<User, RegisterAuthResponse>().ReverseMap();
             //CreateMap<CreateUserRequest, RegisterUserRequest>().ReverseMap();
@@ -29,8 +28,8 @@ namespace Business.Profiles
             CreateMap<GetUserResponse, LoginAuthResponse>().ReverseMap();
 
 
-
             CreateMap<User, GetUserResponse>().ReverseMap();
+            CreateMap<User, GetListUserResponse>().ReverseMap();
             CreateMap<Paginate<User>, Paginate<GetListUserResponse>>().ReverseMap();
 
 

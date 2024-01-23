@@ -19,6 +19,7 @@ namespace Business.Profiles
 
             //Responses
             CreateMap<Instructor, GetInstructorResponse>().ReverseMap();
+            CreateMap<Instructor, GetListInstructorResponse>().ReverseMap();
             CreateMap<Paginate<Instructor>, Paginate<GetListInstructorResponse>>().ReverseMap();
         }
 

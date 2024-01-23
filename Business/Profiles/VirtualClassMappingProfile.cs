@@ -18,6 +18,7 @@ namespace Business.Profiles
 
             //Responses
             CreateMap<VirtualClass, GetVirtualClassResponse>().ReverseMap();
+            CreateMap<VirtualClass, GetListVirtualClassResponse>().ReverseMap();
             CreateMap<Paginate<VirtualClass>, Paginate<GetListVirtualClassResponse>>().ReverseMap();
 
 

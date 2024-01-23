@@ -8,7 +8,8 @@ namespace Business.ValidationRules.FluentValidation
     {
         public VirtualClassRequestValidator()
         {
-            
+            RuleFor(r=>r.StartTime).NotEmpty().WithMessage(Messages.NotBeEmpty);
+            RuleFor(r=>r.FinishTime).NotEmpty().WithMessage(Messages.NotBeEmpty);
 
         }
 

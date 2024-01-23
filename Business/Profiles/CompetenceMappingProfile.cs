@@ -16,6 +16,7 @@ namespace Business.Profiles
             CreateMap<Competence, UpdateCompetenceRequest>().ReverseMap();
 
             CreateMap<Competence, GetCompetenceResponse>().ReverseMap();
+            CreateMap<Competence, GetListCompetenceResponse>().ReverseMap();
             CreateMap<Paginate<Competence>, Paginate<GetListCompetenceResponse>>().ReverseMap();
         }
     }

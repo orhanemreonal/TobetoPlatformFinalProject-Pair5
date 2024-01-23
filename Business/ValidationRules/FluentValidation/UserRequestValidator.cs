@@ -13,12 +13,39 @@ namespace Business.ValidationRules.FluentValidation
             RuleFor(r => r.LastName).NotEmpty().WithMessage(Messages.MustFilling);
             RuleFor(r => r.LastName).MinimumLength(2).WithMessage(Messages.MustContainAtMinTwoChar);
             RuleFor(r => r.Email).NotEmpty().WithMessage(Messages.MustFilling);
-            RuleFor(r => r.Email).EmailAddress();
-            RuleFor(r => r.Email).NotEmpty().WithMessage(Messages.MustFilling);
-            RuleFor(r => r.Password).MinimumLength(8).MaximumLength(10).WithMessage(Messages.MustContainAtMinTwoChar).WithMessage(Messages.MustContainAtMaxTenChar);
+            RuleFor(r => r.Email).NotEmpty().Must(ValidateEmail).WithMessage(Messages.InvalidEmail);
+            RuleFor(r => r.Password).NotEmpty().WithMessage(Messages.MustFilling);
+            RuleFor(r => r.Password).MinimumLength(6).MaximumLength(20).NotEmpty().Must(ValidatePassword).WithMessage(Messages.MustContainAtMinTwoChar).WithMessage(Messages.MustContainAtMaxTwentyChar).WithMessage(Messages.MustContainUpperLowerChar);
 
         }
-
+        private bool ValidateEmail(string email)
+        {
+            try
+            {
+                var mailAddress = new System.Net.Mail.MailAddress(email);
+                return true;
+            }
+            catch (FormatException)
+            {
+                return false;
+            }
+        }
+        private bool ValidatePassword(string password)
+        {
+            if (!password.Any(char.IsUpper))
+            {
+                return false;
+            }
+            if(!password.Any(char.IsLower))
+            {
+                return false;
+            }
+            if (!password.Any(char.IsDigit))
+            {
+                return false;
+            }
+            return true;
+        }
 
     }
 }

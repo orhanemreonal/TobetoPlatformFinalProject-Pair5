@@ -58,5 +58,23 @@
         public static object? AccessTokenCreated = "Token Oluşturuldu";
         internal static string? PasswordDontMatch;
 
+        internal static string? AsyncVideoNotExists;
+        internal static string? LikeNotExists;
+        internal static string? StudentLikeNotExists;
+        internal static string? CourseTopicNotExists;
+
+
+        public static string MustContainUpperLowerChar = "Şifre en az bir büyük harf, bir küçük harf, bir rakam içermeli";
+        public static string InvalidEmail="Mail adresi uygun formatta değil";
+        public static string MustContainMinEightChar="En az sekiz karakter uzunluğunda olmalıdır.";
+        public static string NotBeEmpty = "Doldurulması zorunlu alan";
+        public static string MustContainAtMaxFiftyChar = "En fazla 50 karakter";
+        public static string MustContainAtMinTenChar = "En az 10 karakter";
+        public static string MaximumCharCount = "200 Karakter sınırını aştınız";
+
+        public static string PointMustBetween = "Girilen puan 0 ile 100 arasında olmalıdır.";
+
+        public static string MustFilling = "*Doldurulması zorunlu alan";
+        public static string MustContainAtMaxTwentyChar = "Şifre 20 karakterden uzun olmamalıdır.";
     }
 }

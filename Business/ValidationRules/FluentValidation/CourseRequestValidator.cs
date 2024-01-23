@@ -10,11 +10,9 @@ namespace Business.ValidationRules.FluentValidation
     {
         public CourseRequestValidator()
         {
-            RuleFor(p => p.Name).NotEmpty().NotEmpty().MinimumLength(2).WithMessage(Messages.MustContainAtMinTwoChar);
-            RuleFor(p => p.ImageUrl).NotEmpty().MinimumLength(2).WithMessage(Messages.MustContainAtMinTwoChar); ;
-            RuleFor(p => p.About).NotEmpty().MinimumLength(2).WithMessage(Messages.MustContainAtMinTwoChar); ;
-
-
+            RuleFor(r => r.Name).NotEmpty().MinimumLength(2).WithMessage(Messages.MustContainAtMinTwoChar);
+            RuleFor(r => r.ImageUrl).NotEmpty().MinimumLength(8).WithMessage(Messages.MustContainMinEightChar);
+            RuleFor(r => r.About).NotEmpty().MinimumLength(8).WithMessage(Messages.MustContainMinEightChar);
         }
     }
 }

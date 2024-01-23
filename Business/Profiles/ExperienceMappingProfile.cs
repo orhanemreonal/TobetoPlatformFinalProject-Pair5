@@ -23,7 +23,9 @@ namespace Business.Profiles
 
             //Responses
             CreateMap<Experience, GetExperienceResponse>().ReverseMap();
-            CreateMap<Paginate<Experience>, Paginate<GetExperienceResponse>>().ReverseMap();
+            CreateMap<Experience, GetListExperienceResponse>().ReverseMap();
+
+            CreateMap<Paginate<Experience>, Paginate<GetListExperienceResponse>>().ReverseMap();
         }
         
     }
