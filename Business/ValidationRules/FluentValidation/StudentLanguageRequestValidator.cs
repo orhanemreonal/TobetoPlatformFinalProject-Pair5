@@ -17,4 +17,6 @@ namespace Business.ValidationRules.FluentValidation
         }
         
     }
+
+   
 }

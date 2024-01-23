@@ -8,6 +8,7 @@ namespace Business.ValidationRules.FluentValidation
     {
         public ClassAnnouncementRequestValidator()
         {
+            //Ara tablo silinmeli
         }
     }
 }

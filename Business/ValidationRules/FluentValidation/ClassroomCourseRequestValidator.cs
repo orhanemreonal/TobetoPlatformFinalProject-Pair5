@@ -7,6 +7,7 @@ namespace Business.ValidationRules.FluentValidation
     {
         public ClassroomCourseRequestValidator()
         {
+            //Ara tablo silinmeli
         }
     }
 }
