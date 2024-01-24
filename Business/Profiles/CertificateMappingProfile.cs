@@ -15,6 +15,10 @@ namespace Business.Profiles
             CreateMap<Certificate, DeleteCertificateRequest>().ReverseMap();
             CreateMap<Certificate, UpdateCertificateRequest>().ReverseMap();
 
+            CreateMap<GetCertificateResponse, CreateCertificateRequest>().ReverseMap();
+            CreateMap<GetCertificateResponse, DeleteCertificateRequest>().ReverseMap();
+            CreateMap<GetCertificateResponse, UpdateCertificateRequest>().ReverseMap();
+
 
             //Responses
             CreateMap<Certificate, GetCertificateResponse>().ReverseMap();

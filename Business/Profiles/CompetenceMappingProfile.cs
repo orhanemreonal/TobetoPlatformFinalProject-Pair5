@@ -15,6 +15,11 @@ namespace Business.Profiles
             CreateMap<Competence, DeleteCompetenceRequest>().ReverseMap();
             CreateMap<Competence, UpdateCompetenceRequest>().ReverseMap();
 
+            CreateMap<GetCompetenceResponse, CreateCompetenceRequest>().ReverseMap();
+            CreateMap<GetCompetenceResponse, DeleteCompetenceRequest>().ReverseMap();
+            CreateMap<GetCompetenceResponse, UpdateCompetenceRequest>().ReverseMap();
+
+
             CreateMap<Competence, GetCompetenceResponse>().ReverseMap();
             CreateMap<Competence, GetListCompetenceResponse>().ReverseMap();
             CreateMap<Paginate<Competence>, Paginate<GetListCompetenceResponse>>().ReverseMap();

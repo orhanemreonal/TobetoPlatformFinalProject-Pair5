@@ -14,7 +14,9 @@ namespace Business.Profiles
             CreateMap<Category, CreateCategoryRequest>().ReverseMap();
             CreateMap<Category, DeleteCategoryRequest>().ReverseMap();
             CreateMap<Category, UpdateCategoryRequest>().ReverseMap();
-
+            CreateMap<GetCategoryResponse, CreateCategoryRequest>().ReverseMap();
+            CreateMap<GetCategoryResponse, DeleteCategoryRequest>().ReverseMap();
+            CreateMap<GetCategoryResponse, UpdateCategoryRequest>().ReverseMap();
 
             //Responses
             CreateMap<Category, GetCategoryResponse>().ReverseMap();

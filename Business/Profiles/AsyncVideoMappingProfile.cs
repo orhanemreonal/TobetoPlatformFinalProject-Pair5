@@ -14,6 +14,9 @@ namespace Business.Profiles
             CreateMap<AsyncVideo, CreateAsyncVideoRequest>().ReverseMap();
             CreateMap<AsyncVideo, DeleteAsyncVideoRequest>().ReverseMap();
             CreateMap<AsyncVideo, UpdateAsyncVideoRequest>().ReverseMap();
+            CreateMap<GetAsyncVideoResponse, CreateAsyncVideoRequest>().ReverseMap();
+            CreateMap<GetAsyncVideoResponse, DeleteAsyncVideoRequest>().ReverseMap();
+            CreateMap<GetAsyncVideoResponse, UpdateAsyncVideoRequest>().ReverseMap();
 
 
             //Responses

@@ -14,7 +14,9 @@ namespace Business.Profiles
             CreateMap<Application, CreateApplicationRequest>().ReverseMap();
             CreateMap<Application, DeleteApplicationRequest>().ReverseMap();
             CreateMap<Application, UpdateApplicationRequest>().ReverseMap();
-
+            CreateMap<GetApplicationResponse, CreateApplicationRequest>().ReverseMap();
+            CreateMap<GetApplicationResponse, DeleteApplicationRequest>().ReverseMap();
+            CreateMap<GetApplicationResponse, UpdateApplicationRequest>().ReverseMap();
 
             //Responses
             CreateMap<Application, GetApplicationResponse>().ReverseMap();

@@ -13,6 +13,10 @@ namespace Business.Profiles
             CreateMap<Classroom, CreateClassroomRequest>().ReverseMap();
             CreateMap<Classroom, DeleteClassroomRequest>().ReverseMap();
             CreateMap<Classroom, UpdateClassroomRequest>().ReverseMap();
+            CreateMap<GetClassroomResponse, CreateClassroomRequest>().ReverseMap();
+            CreateMap<GetClassroomResponse, DeleteClassroomRequest>().ReverseMap();
+            CreateMap<GetClassroomResponse, UpdateClassroomRequest>().ReverseMap();
+
 
             CreateMap<Classroom, GetClassroomResponse>().ReverseMap();
             CreateMap<Classroom, GetListClassroomResponse>().ReverseMap();
