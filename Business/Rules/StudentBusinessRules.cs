@@ -14,23 +14,29 @@ namespace Business.Rules
         {
             _studentDal = studentDal;
         }
-        public Task CheckIfStudentNotExist(Student? student)
-        {
-            if (student == null) throw new BusinessException(Messages.NotBeExist);
-            return Task.CompletedTask;
 
+        public async Task CheckIfUserAlreadyStudent(Guid id)
+        {
+            bool doesExist = await _studentDal.AnyAsync(predicate: u => u.UserId == id, enableTracking: false);
+            if (doesExist)
+                throw new BusinessException(Messages.StudentAlreadyExits);
         }
 
-        public Task CheckIfStudentExist(Student? student)
+        public Task StudentShouldExistWhenSelected(Student? student)
         {
-            if (student != null) throw new BusinessException(Messages.AlreadyExist);
+            if (student == null)
+                throw new BusinessException(Messages.StudentNotExists);
             return Task.CompletedTask;
         }
 
-        public async Task CheckIdIfStudentNotExist(Guid id)
+        public async Task StudentIdShouldExistWhenSelected(Guid id, CancellationToken cancellationToken)
         {
-            Student student = _studentDal.Get(a => a.Id == id);
-            CheckIfStudentNotExist(student);
+            Student? student = await _studentDal.GetAsync(
+                predicate: s => s.Id == id,
+                enableTracking: false,
+                cancellationToken: cancellationToken
+            );
+            await StudentShouldExistWhenSelected(student);
         }
     }
 }

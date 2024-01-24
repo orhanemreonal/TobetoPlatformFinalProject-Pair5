@@ -1,9 +1,7 @@
 ﻿using Business.Constants;
 using Core.Business.Rules;
 using Core.CrossCuttingConcerns.Exceptions.Types;
-using Core.Entities.Concrete;
 using DataAccess.Abstracts;
-using DataAccess.Concretes;
 using Entities.Concretes;
 
 namespace Business.Rules
@@ -16,6 +14,7 @@ namespace Business.Rules
         {
             _classroomDal = classroomDal;
         }
+
         public Task CheckIfClassroomNotExist(Classroom? classroom)
         {
             if (classroom == null) throw new BusinessException(Messages.NotBeExist);
@@ -25,7 +24,7 @@ namespace Business.Rules
 
         public Task CheckIfClassroomExist(Classroom? classroom)
         {
-            if (classroom != null) throw new BusinessException(Messages.AlreadyExist);
+            if (classroom == null) throw new BusinessException(Messages.AlreadyExist);
             return Task.CompletedTask;
         }
 

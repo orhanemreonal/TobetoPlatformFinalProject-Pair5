@@ -16,6 +16,7 @@ namespace Business.Rules
             _announcementDal = announcementDal;
         }
 
+
         public Task AnnouncementShouldExistWhenSelected(Announcement? announcement)
         {
             if (announcement == null)
@@ -26,11 +27,28 @@ namespace Business.Rules
         public async Task AnnouncementIdShouldExistWhenSelected(Guid id, CancellationToken cancellationToken)
         {
             Announcement? announcement = await _announcementDal.GetAsync(
-                predicate: at => at.Id == id,
+                predicate: a => a.Id == id,
                 enableTracking: false,
                 cancellationToken: cancellationToken
             );
             await AnnouncementShouldExistWhenSelected(announcement);
         }
+
+        //public Task AnnouncementShouldExistWhenSelected(Announcement? announcement)
+        //{
+        //    if (announcement == null)
+        //        throw new BusinessException(Messages.AnnouncementNotExists);
+        //    return Task.CompletedTask;
+        //}
+
+        //public async Task AnnouncementIdShouldExistWhenSelected(Guid id, CancellationToken cancellationToken)
+        //{
+        //    Announcement? announcement = await _announcementDal.GetAsync(
+        //        predicate: at => at.Id == id,
+        //        enableTracking: false,
+        //        cancellationToken: cancellationToken
+        //    );
+        //    await AnnouncementShouldExistWhenSelected(announcement);
+        //}
     }
 }

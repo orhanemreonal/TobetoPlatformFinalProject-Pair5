@@ -16,35 +16,40 @@ namespace Business.Rules
             _userDal = userDal;
         }
 
-        public Task CheckIfUserNotExist(User? user)
-        {
-            if (user == null) throw new BusinessException(Messages.NotBeExist);
-            return Task.CompletedTask;
 
-        }
-
-        public Task CheckIfUserExist(User? user)
+        public Task UserShouldBeExistsWhenSelected(User? user)
         {
-            if (user != null) throw new BusinessException(Messages.AlreadyExist);
+            if (user == null)
+                throw new BusinessException(Messages.UserAlreadyExists);
             return Task.CompletedTask;
         }
 
-        public async Task CheckIdIfUserNotExist(Guid id)
+        public async Task UserIdShouldBeExistsWhenSelected(Guid id)
         {
-            User user = _userDal.Get(a => a.Id == id);
-            CheckIfUserNotExist(user);
+            bool doesExist = await _userDal.AnyAsync(predicate: u => u.Id == id, enableTracking: false);
+            if (doesExist)
+                throw new BusinessException(Messages.UserNotBeExist);
         }
 
-        public Task UserPasswordMustBeMatched(User user, string password)
+
+
+        public Task UserPasswordShouldBeMatched(User user, string password)
         {
             if (!HashingHelper.VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
                 throw new BusinessException(Messages.PasswordDontMatch);
             return Task.CompletedTask;
         }
 
-        public async Task UserEmailMustBeUnique(string email)
+        public async Task UserEmailShouldNotExistsWhenInsert(string email)
         {
             bool doesExists = await _userDal.AnyAsync(predicate: u => u.Email == email, enableTracking: false);
+            if (doesExists)
+                throw new BusinessException(Messages.UserMailAlreadyExists);
+        }
+
+        public async Task UserEmailShouldNotExistsWhenUpdate(Guid id, string email)
+        {
+            bool doesExists = await _userDal.AnyAsync(predicate: u => u.Id != id && u.Email == email, enableTracking: false);
             if (doesExists)
                 throw new BusinessException(Messages.UserMailAlreadyExists);
         }

@@ -15,7 +15,7 @@ namespace DataAccess.EntityConfigurations
             builder.Property(b => b.Email).HasColumnName("Email").IsRequired();
             builder.Property(b => b.PasswordSalt).HasColumnName("PasswordSalt").IsRequired();
             builder.Property(b => b.PasswordHash).HasColumnName("PasswordHash").IsRequired();
-            builder.Property(b => b.Status).HasColumnName("Status").IsRequired();
+            builder.Property(b => b.Status).HasColumnName("Status");
 
             //builder.HasData(new User { Id = Guid.NewGuid(), FirstName = "Engin", LastName = "Demiroğ", Email = "deneme@gmail.com", PasswordHash = "123asd", PasswordSalt = "123asd" });
 

@@ -44,7 +44,7 @@ namespace Business.Concretes
         {
             User user = await _userDal.GetAsync(predicate: u => u.Id == request.Id);
 
-            await _businessRules.CheckIfUserNotExist(user);
+            await _businessRules.UserShouldBeExistsWhenSelected(user);
 
             await _userDal.DeleteAsync(user);
             GetUserResponse response = _mapper.Map<GetUserResponse>(user);
@@ -56,7 +56,7 @@ namespace Business.Concretes
         {
             User user = await _userDal.GetAsync(predicate: u => u.Id == id);
 
-            await _businessRules.CheckIfUserNotExist(user);
+            await _businessRules.UserShouldBeExistsWhenSelected(user);
 
             GetUserResponse response = _mapper.Map<GetUserResponse>(user);
 
@@ -84,13 +84,15 @@ namespace Business.Concretes
 
         public async Task<GetUserResponse> Update(UpdateUserRequest request)
         {
-            var result = await _userDal.GetAsync(predicate: c => c.Id == request.Id);
-            _mapper.Map(request, result);
+            User user = await _userDal.GetAsync(predicate: c => c.Id == request.Id);
 
-            await _businessRules.CheckIfUserNotExist(result);
+            await _businessRules.UserShouldBeExistsWhenSelected(user);
 
-            await _userDal.UpdateAsync(result);
-            GetUserResponse response = _mapper.Map<GetUserResponse>(result);
+            User updatedUser = _mapper.Map(request, user);
+
+            await _userDal.UpdateAsync(updatedUser);
+
+            GetUserResponse response = _mapper.Map<GetUserResponse>(updatedUser);
             return response;
         }
     }

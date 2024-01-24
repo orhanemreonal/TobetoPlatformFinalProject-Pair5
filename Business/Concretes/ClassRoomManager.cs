@@ -27,7 +27,7 @@ namespace Business.Concretes
         {
             Classroom classroom = _mapper.Map<Classroom>(request);
 
-            await _businessRules.CheckIfClassroomExist(classroom);
+            await _businessRules.CheckIfClassroomNotExist(classroom);
 
             await _classroomDal.AddAsync(classroom);
             //await _personalInformationDal.AddAsync(new PersonalInformation());
