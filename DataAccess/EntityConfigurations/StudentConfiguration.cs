@@ -10,8 +10,10 @@ namespace DataAccess.EntityConfigurations
         {
             builder.ToTable("Students").HasKey(s => s.Id);
             builder.Property(s => s.UserId).HasColumnName("UserId").IsRequired();
-            builder.Property(s => s.ClassroomId).HasColumnName("ClassroomId").IsRequired();
-            builder.Property(s => s.PersonalInformationId).HasColumnName("PersonalInformationId").IsRequired();
+            builder.Property(s => s.ClassroomId).HasColumnName("ClassroomId");
+            builder.Property(s => s.PersonalInformationId).HasColumnName("PersonalInformationId");
+
+
             builder.HasMany(s => s.Experiences);
             builder.HasMany(s => s.Educations);
             builder.HasMany(s => s.Competences);

@@ -81,5 +81,6 @@
         public static string MustContainAtMaxTwentyChar = "Şifre 20 karakterden uzun olmamalıdır.";
         internal static string? AlreadyExist;
         internal static string? NotBeExist;
+        public static string? StudentAlreadyExits = "Böyle bir öğrenci mevcut";
     }
 }

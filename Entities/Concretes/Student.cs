@@ -6,7 +6,7 @@ namespace Entities.Concretes
     public class Student : Entity<Guid>
     {
         public Guid UserId { get; set; }
-        public Guid ClassroomId { get; set; }
+        public Guid? ClassroomId { get; set; }
         public Guid? PersonalInformationId { get; set; }
         public List<Experience>? Experiences { get; set; }
         public List<Education>? Educations { get; set; }

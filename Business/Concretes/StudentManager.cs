@@ -27,10 +27,14 @@ namespace Business.Concretes
 
         public async Task<GetStudentResponse> Add(CreateStudentRequest request)
         {
+            //_userDal.GetAsync(predicate: c => c.Id == request.UserId);
+
+            await _businessRules.CheckIfUserAlreadyStudent(request.UserId);
+
             Student student = _mapper.Map<Student>(request);
-            await _businessRules.CheckIfStudentExist(student);
+
             await _studentDal.AddAsync(student);
-            GetStudentResponse response = _mapper.Map<GetStudentResponse>(request);
+            GetStudentResponse response = _mapper.Map<GetStudentResponse>(student);
             return response;
         }
 
@@ -38,7 +42,7 @@ namespace Business.Concretes
         {
             Student student = await _studentDal.GetAsync(predicate: c => c.Id == request.Id);
 
-            await _businessRules.CheckIfStudentNotExist(student);
+            await _businessRules.StudentShouldExistWhenSelected(student);
 
             await _studentDal.DeleteAsync(student);
 
@@ -49,7 +53,7 @@ namespace Business.Concretes
         public async Task<GetStudentResponse> Get(Guid id)
         {
             Student student = await _studentDal.GetAsync(predicate: c => c.Id == id);
-            await _businessRules.CheckIfStudentNotExist(student);
+            await _businessRules.StudentShouldExistWhenSelected(student);
             GetStudentResponse response = _mapper.Map<GetStudentResponse>(student);
             return response;
         }
@@ -64,10 +68,11 @@ namespace Business.Concretes
         public async Task<GetStudentResponse> Update(UpdateStudentRequest request)
         {
             var result = await _studentDal.GetAsync(predicate: a => a.Id == request.Id);
-            _mapper.Map(request, result);
-            //await _businessRules.CheckIfStudentNotExist(result);
-            await _studentDal.UpdateAsync(result);
-            GetStudentResponse response = _mapper.Map<GetStudentResponse>(result);
+            await _businessRules.StudentShouldExistWhenSelected(result);
+            Student student = _mapper.Map(request, result);
+
+            await _studentDal.UpdateAsync(student);
+            GetStudentResponse response = _mapper.Map<GetStudentResponse>(student);
             return response;
 
         }

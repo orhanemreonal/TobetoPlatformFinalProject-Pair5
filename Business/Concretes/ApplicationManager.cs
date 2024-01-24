@@ -29,6 +29,7 @@ namespace Business.Concretes
         {
             Application application = _mapper.Map<Application>(request);
 
+
             await _applicationDal.AddAsync(application);
             GetApplicationResponse response = _mapper.Map<GetApplicationResponse>(application);
             return response;
