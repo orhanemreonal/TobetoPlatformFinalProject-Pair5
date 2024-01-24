@@ -31,7 +31,6 @@ namespace Business.Concretes
         public async Task<GetCategoryResponse> Add(CreateCategoryRequest request)
         {
             Category category = _mapper.Map<Category>(request);
-            await _businessRules.CheckIfCategoryExist(category);
             await _categoryDal.AddAsync(category);
             GetCategoryResponse response = _mapper.Map<GetCategoryResponse>(category);
             return response;
@@ -40,7 +39,7 @@ namespace Business.Concretes
         public async Task<GetCategoryResponse> Delete(DeleteCategoryRequest request)
         {
             Category category = await _categoryDal.GetAsync(predicate: c => c.Id == request.Id);
-            await _businessRules.CheckIfCategoryNotExist(category);
+            await _businessRules.CategoryShouldExistWhenSelected(category);
             await _categoryDal.DeleteAsync(category);
             GetCategoryResponse response = _mapper.Map<GetCategoryResponse>(category);
             return response;
@@ -49,7 +48,7 @@ namespace Business.Concretes
         public async Task<GetCategoryResponse> Get(Guid id)
         {
             Category category = await _categoryDal.GetAsync(predicate: c => c.Id == id);
-            await _businessRules.CheckIfCategoryNotExist(category);
+            await _businessRules.CategoryShouldExistWhenSelected(category);
             GetCategoryResponse response = _mapper.Map<GetCategoryResponse>(category);
             return response;
         }
@@ -67,7 +66,7 @@ namespace Business.Concretes
         {
             var result = await _categoryDal.GetAsync(predicate: a => a.Id == request.Id);
             _mapper.Map(request, result);
-            //await _businessRules.CheckIfCategoryNotExist(result);
+            await _businessRules.CategoryShouldExistWhenSelected(result);
             await _categoryDal.UpdateAsync(result);
             GetCategoryResponse response = _mapper.Map<GetCategoryResponse>(result);
             return response;

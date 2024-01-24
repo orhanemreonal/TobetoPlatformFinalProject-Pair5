@@ -17,14 +17,14 @@ namespace Business.Rules
 
         public Task CheckIfCourseNotExist(Course? course)
         {
-            if (course == null) throw new BusinessException(Messages.NotBeExist);
+            if (course == null) throw new BusinessException(Messages.CourseNotBeExist);
             return Task.CompletedTask;
 
         }
 
         public Task CheckIfCourseExist(Course? course)
         {
-            if (course != null) throw new BusinessException(Messages.AlreadyExist);
+            if (course != null) throw new BusinessException(Messages.AlreadyCourseExist);
             return Task.CompletedTask;
         }
 

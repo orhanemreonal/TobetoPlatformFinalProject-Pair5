@@ -15,23 +15,21 @@ namespace Business.Rules
             _companyDal = companyDal;
         }
 
-        public Task CheckIfCompanyNotExist(Company? company)
+        public Task CompanyShouldExistWhenSelected(Company? company)
         {
-            if (company == null) throw new BusinessException(Messages.NotBeExist);
-            return Task.CompletedTask;
-
-        }
-
-        public Task CheckIfCompanyExist(Company? company)
-        {
-            if (company != null) throw new BusinessException(Messages.AlreadyExist);
+            if (company == null)
+                throw new BusinessException(Messages.CompanyNotExists);
             return Task.CompletedTask;
         }
 
-        public async Task CheckIdIfCompanyNotExist(Guid id)
+        public async Task CompanyIdShouldExistWhenSelected(Guid id, CancellationToken cancellationToken)
         {
-            Company company = _companyDal.Get(a => a.Id == id);
-            CheckIfCompanyNotExist(company);
+            Company? company = await _companyDal.GetAsync(
+                predicate: at => at.Id == id,
+                enableTracking: false,
+                cancellationToken: cancellationToken
+            );
+            await CompanyShouldExistWhenSelected(company);
         }
     }
 }

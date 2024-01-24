@@ -15,23 +15,21 @@ namespace Business.Rules
             _competenceDal = competenceDal;
         }
 
-        public Task CheckIfCompetenceNotExist(Competence? competence)
+        public Task CompetenceShouldExistWhenSelected(Competence? competence)
         {
-            if (competence == null) throw new BusinessException(Messages.NotBeExist);
-            return Task.CompletedTask;
-
-        }
-
-        public Task CheckIfCompetenceExist(Competence? competence)
-        {
-            if (competence != null) throw new BusinessException(Messages.AlreadyExist);
+            if (competence == null)
+                throw new BusinessException(Messages.CompetenceNotExists);
             return Task.CompletedTask;
         }
 
-        public async Task CheckIdIfCompetenceNotExist(Guid id)
+        public async Task CompetenceIdShouldExistWhenSelected(Guid id, CancellationToken cancellationToken)
         {
-            Competence competence = _competenceDal.Get(a => a.Id == id);
-            CheckIfCompetenceNotExist(competence);
+            Competence? competence = await _competenceDal.GetAsync(
+                predicate: at => at.Id == id,
+                enableTracking: false,
+                cancellationToken: cancellationToken
+            );
+            await CompetenceShouldExistWhenSelected(competence);
         }
     }
 }

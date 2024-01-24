@@ -3,24 +3,32 @@
     public class Messages
     {
 
-        internal static readonly string NotBeExist;
-        internal static readonly string AlreadyExist;
-        internal static readonly string CurriculumVitaeAlreadyExist;
-        internal static readonly string CurriculumVitaeNotBeExist;
+        //BusinessRules
+
+        public static string AnnouncementNotExists = "Duyuru bulunamadı.";
+        public static string ApplicationNotExists = "Başvuru bulunamadı.";
+        public static string AsyncVideoNotExists = "Asenkron video bulunamadı.";
+        public static string AuthNotExists = "İzin bulunamadı.";
+        public static string CategoryNotExists = "Kategori bulunamadı.";
+        public static string CertificateNotExists = "Sertifika bulunamadı.";
+        public static string ClassroomNotExists = "Sınıf bulunamadı.";
+        public static string CompanyNotExists = "Şirket bulunamadı.";
+        public static string CompetenceNotExists = "Yeterlilik bulunamadı.";
+
+
+
+
 
         public static string MustFilling = "*Doldurulması zorunlu alan";
         public static string MustContainAtMinTwoChar = "En az 2 karakter girilmelidir.";
 
         public static string MustContainAtMinTwentyfiveChar = "En az 25 karakter girilmelidir.";//Announcement
 
-        public static string AnnouncementNotExists = "Duyuru bulunamadı.";
-        public static string ApplicationNotExists = "Başvuru bulunamadı.";
-        public static string AuthNotExists = "İzin bulunamadı.";
-        public static string CategoryNotExists = "Kategori bulunamadı.";
-        public static string CertificateNotExists = "Sertifika bulunamadı.";
-        internal static string? AsyncVideoNotExists = "Asenkron videoo bulunamadı.";
-        internal static string? LikeNotExists = "Beğeniler bulunamadı.";
-        internal static string? StudentLikeNotExists = "Öğrenci beğenileri bulunamadı.";
+
+
+
+        public static string? LikeNotExists = "Beğeniler bulunamadı.";
+        public static string? StudentLikeNotExists = "Öğrenci beğenileri bulunamadı.";
 
 
 
@@ -71,5 +79,7 @@
         public static string PointMustBetween = "Girilen puan 0 ile 100 arasında olmalıdır.";
 
         public static string MustContainAtMaxTwentyChar = "Şifre 20 karakterden uzun olmamalıdır.";
+        internal static string? AlreadyExist;
+        internal static string? NotBeExist;
     }
 }

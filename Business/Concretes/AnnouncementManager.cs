@@ -28,7 +28,6 @@ namespace Business.Concretes
         {
             Announcement announcement = _mapper.Map<Announcement>(request);
             await _announcementDal.AddAsync(announcement);
-
             GetAnnouncementResponse response = _mapper.Map<GetAnnouncementResponse>(announcement);
             return response;
         }
@@ -36,9 +35,7 @@ namespace Business.Concretes
         public async Task<GetAnnouncementResponse> Delete(DeleteAnnouncementRequest request)
         {
             Announcement announcement = await _announcementDal.GetAsync(predicate: c => c.Id == request.Id);
-
             await _announcementBusinessRules.AnnouncementShouldExistWhenSelected(announcement);
-
             await _announcementDal.DeleteAsync(announcement);
             GetAnnouncementResponse response = _mapper.Map<GetAnnouncementResponse>(announcement);
             return response;
@@ -47,6 +44,7 @@ namespace Business.Concretes
         public async Task<GetAnnouncementResponse> Get(Guid id)
         {
             Announcement announcement = await _announcementDal.GetAsync(predicate: c => c.Id == id);
+            await _announcementBusinessRules.AnnouncementShouldExistWhenSelected(announcement);
             GetAnnouncementResponse response = _mapper.Map<GetAnnouncementResponse>(announcement);
             return response;
         }
@@ -62,7 +60,7 @@ namespace Business.Concretes
         {
             var result = await _announcementDal.GetAsync(predicate: a => a.Id == request.Id);
             _mapper.Map(request, result);
-
+            await _announcementBusinessRules.AnnouncementShouldExistWhenSelected(result);
             await _announcementDal.UpdateAsync(result);
             GetAnnouncementResponse response = _mapper.Map<GetAnnouncementResponse>(result);
             return response;

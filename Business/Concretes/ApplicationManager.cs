@@ -28,7 +28,6 @@ namespace Business.Concretes
         public async Task<GetApplicationResponse> Add(CreateApplicationRequest request)
         {
             Application application = _mapper.Map<Application>(request);
-            await _businessRules.CheckIfApplicationExist(application);
 
             await _applicationDal.AddAsync(application);
             GetApplicationResponse response = _mapper.Map<GetApplicationResponse>(application);
@@ -38,7 +37,7 @@ namespace Business.Concretes
         public async Task<GetApplicationResponse> Delete(DeleteApplicationRequest request)
         {
             Application application = await _applicationDal.GetAsync(predicate: c => c.Id == request.Id);
-            await _businessRules.CheckIfApplicationNotExist(application);
+            await _businessRules.ApplicationShouldExistWhenSelected(application);
 
             await _applicationDal.DeleteAsync(application);
             GetApplicationResponse response = _mapper.Map<GetApplicationResponse>(application);
@@ -48,8 +47,8 @@ namespace Business.Concretes
         public async Task<GetApplicationResponse> Get(Guid id)
         {
             Application application = await _applicationDal.GetAsync(predicate: c => c.Id == id);
-            await _businessRules.CheckIfApplicationNotExist(application);
 
+            await _businessRules.ApplicationShouldExistWhenSelected(application);
             GetApplicationResponse response = _mapper.Map<GetApplicationResponse>(application);
             return response;
         }
@@ -65,7 +64,7 @@ namespace Business.Concretes
         {
             var result = await _applicationDal.GetAsync(predicate: a => a.Id == request.Id);
             _mapper.Map(request, result);
-            // await _businessRules.CheckIfApplicationNotExist(result);
+            await _businessRules.ApplicationShouldExistWhenSelected(result);
 
             await _applicationDal.UpdateAsync(result);
             GetApplicationResponse response = _mapper.Map<GetApplicationResponse>(result);

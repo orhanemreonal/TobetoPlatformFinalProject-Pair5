@@ -29,8 +29,6 @@ namespace Business.Concretes
         {
             Company company = _mapper.Map<Company>(request);
 
-            await _businessRules.CheckIfCompanyExist(company);
-
             await _companyDal.AddAsync(company);
 
             GetCompanyResponse response = _mapper.Map<GetCompanyResponse>(company);
@@ -41,9 +39,7 @@ namespace Business.Concretes
         {
             Company company = await _companyDal.GetAsync(predicate: c => c.Id == request.Id);
 
-            await _businessRules.CheckIfCompanyNotExist(company);
-
-
+            await _businessRules.CompanyShouldExistWhenSelected(company);
             await _companyDal.DeleteAsync(company);
             GetCompanyResponse response = _mapper.Map<GetCompanyResponse>(company);
             return response;
@@ -53,9 +49,7 @@ namespace Business.Concretes
         {
             Company company = await _companyDal.GetAsync(predicate: cm => cm.Id == id);
 
-            await _businessRules.CheckIfCompanyNotExist(company);
-
-
+            await _businessRules.CompanyShouldExistWhenSelected(company);
             GetCompanyResponse response = _mapper.Map<GetCompanyResponse>(company);
             return response;
         }
@@ -72,7 +66,7 @@ namespace Business.Concretes
 
             var result = await _companyDal.GetAsync(predicate: a => a.Id == request.Id);
             _mapper.Map(request, result);
-            //await _businessRules.CheckIfCompanyNotExist(updatedCompany);
+            await _businessRules.CompanyShouldExistWhenSelected(result);
             await _companyDal.UpdateAsync(result);
             GetCompanyResponse response = _mapper.Map<GetCompanyResponse>(result);
             return response;

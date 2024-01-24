@@ -27,8 +27,6 @@ namespace Business.Concretes
         {
             Competence competence = _mapper.Map<Competence>(request);
 
-            await _businessRules.CheckIfCompetenceExist(competence);
-
             await _competenceDal.AddAsync(competence);
 
             GetCompetenceResponse response = _mapper.Map<GetCompetenceResponse>(competence);
@@ -38,9 +36,7 @@ namespace Business.Concretes
         public async Task<GetCompetenceResponse> Delete(DeleteCompetenceRequest request)
         {
             Competence competence = await _competenceDal.GetAsync(predicate: cm => cm.Id == request.Id);
-
-            await _businessRules.CheckIfCompetenceNotExist(competence);
-
+            await _businessRules.CompetenceShouldExistWhenSelected(competence);
 
             await _competenceDal.DeleteAsync(competence);
             GetCompetenceResponse response = _mapper.Map<GetCompetenceResponse>(competence);
@@ -51,8 +47,7 @@ namespace Business.Concretes
         {
             Competence competence = await _competenceDal.GetAsync(predicate: cm => cm.Id == id);
 
-            await _businessRules.CheckIfCompetenceNotExist(competence);
-
+            await _businessRules.CompetenceShouldExistWhenSelected(competence);
 
             GetCompetenceResponse response = _mapper.Map<GetCompetenceResponse>(competence);
             return response;
@@ -70,7 +65,7 @@ namespace Business.Concretes
             var result = await _competenceDal.GetAsync(predicate: a => a.Id == request.Id);
             _mapper.Map(request, result);
 
-            // await _businessRules.CheckIfCompetenceNotExist(updatedCompetence);
+            await _businessRules.CompetenceShouldExistWhenSelected(result);
             await _competenceDal.UpdateAsync(result);
             GetCompetenceResponse response = _mapper.Map<GetCompetenceResponse>(result);
             return response;

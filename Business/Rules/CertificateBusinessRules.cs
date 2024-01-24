@@ -15,24 +15,21 @@ namespace Business.Rules
             _certificateDal = certificateDal;
         }
 
-
-        public Task CheckIfCertificateNotExist(Certificate? certificate)
+        public Task CertificateShouldExistWhenSelected(Certificate? certificate)
         {
-            if (certificate == null) throw new BusinessException(Messages.NotBeExist);
-            return Task.CompletedTask;
-
-        }
-
-        public Task CheckIfCertificateExist(Certificate? certificate)
-        {
-            if (certificate != null) throw new BusinessException(Messages.AlreadyExist);
+            if (certificate == null)
+                throw new BusinessException(Messages.CertificateNotExists);
             return Task.CompletedTask;
         }
 
-        public async Task CheckIdIfCertificateNotExist(Guid id)
+        public async Task CertificateIdShouldExistWhenSelected(Guid id, CancellationToken cancellationToken)
         {
-            Certificate certificate = _certificateDal.Get(a => a.Id == id);
-            CheckIfCertificateNotExist(certificate);
+            Certificate? certificate = await _certificateDal.GetAsync(
+                predicate: at => at.Id == id,
+                enableTracking: false,
+                cancellationToken: cancellationToken
+            );
+            await CertificateShouldExistWhenSelected(certificate);
         }
     }
 }

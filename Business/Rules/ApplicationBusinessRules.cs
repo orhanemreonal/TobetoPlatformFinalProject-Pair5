@@ -6,6 +6,7 @@ using Entities.Concretes;
 
 namespace Business.Rules
 {
+
     public class ApplicationBusinessRules : BaseBusinessRules
     {
         IApplicationDal _applicationDal;
@@ -15,24 +16,21 @@ namespace Business.Rules
             _applicationDal = applicationDal;
         }
 
-
-        public Task CheckIfApplicationNotExist(Application? application)
+        public Task ApplicationShouldExistWhenSelected(Application? application)
         {
-            if (application == null) throw new BusinessException(Messages.NotBeExist);
-            return Task.CompletedTask;
-
-        }
-
-        public Task CheckIfApplicationExist(Application? application)
-        {
-            if (application != null) throw new BusinessException(Messages.AlreadyExist);
+            if (application == null)
+                throw new BusinessException(Messages.ApplicationNotExists);
             return Task.CompletedTask;
         }
 
-        public async Task CheckIdIfApplicationNotExist(Guid id)
+        public async Task ApplicationIdShouldExistWhenSelected(Guid id, CancellationToken cancellationToken)
         {
-            Application application = _applicationDal.Get(a => a.Id == id);
-            CheckIfApplicationNotExist(application);
+            Application? application = await _applicationDal.GetAsync(
+                predicate: at => at.Id == id,
+                enableTracking: false,
+                cancellationToken: cancellationToken
+            );
+            await ApplicationShouldExistWhenSelected(application);
         }
     }
 }

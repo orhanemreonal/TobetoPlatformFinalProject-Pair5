@@ -27,10 +27,8 @@ namespace Business.Concretes
         {
             Classroom classroom = _mapper.Map<Classroom>(request);
 
-            await _businessRules.CheckIfClassroomExist(classroom);
-
             await _classroomDal.AddAsync(classroom);
-            //await _personalInformationDal.AddAsync(new PersonalInformation());
+
             GetClassroomResponse response = _mapper.Map<GetClassroomResponse>(classroom);
             return response;
         }
@@ -39,7 +37,7 @@ namespace Business.Concretes
         {
             Classroom classroom = await _classroomDal.GetAsync(predicate: c => c.Id == request.Id);
 
-            await _businessRules.CheckIfClassroomNotExist(classroom);
+            await _businessRules.ClassroomShouldExistWhenSelected(classroom);
 
             await _classroomDal.DeleteAsync(classroom);
             GetClassroomResponse response = _mapper.Map<GetClassroomResponse>(classroom);
@@ -50,7 +48,7 @@ namespace Business.Concretes
         {
             Classroom classroom = await _classroomDal.GetAsync(predicate: cm => cm.Id == id);
 
-            await _businessRules.CheckIfClassroomNotExist(classroom);
+            await _businessRules.ClassroomShouldExistWhenSelected(classroom);
 
             GetClassroomResponse response = _mapper.Map<GetClassroomResponse>(classroom);
             return response;
@@ -67,7 +65,7 @@ namespace Business.Concretes
         {
             var result = await _classroomDal.GetAsync(predicate: a => a.Id == request.Id);
             _mapper.Map(request, result);
-
+            await _businessRules.ClassroomShouldExistWhenSelected(result);
             await _classroomDal.UpdateAsync(result);
             GetClassroomResponse response = _mapper.Map<GetClassroomResponse>(result);
             return response;

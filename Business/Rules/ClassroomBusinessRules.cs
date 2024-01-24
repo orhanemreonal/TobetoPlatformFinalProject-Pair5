@@ -1,9 +1,7 @@
 ﻿using Business.Constants;
 using Core.Business.Rules;
 using Core.CrossCuttingConcerns.Exceptions.Types;
-using Core.Entities.Concrete;
 using DataAccess.Abstracts;
-using DataAccess.Concretes;
 using Entities.Concretes;
 
 namespace Business.Rules
@@ -16,23 +14,21 @@ namespace Business.Rules
         {
             _classroomDal = classroomDal;
         }
-        public Task CheckIfClassroomNotExist(Classroom? classroom)
+        public Task ClassroomShouldExistWhenSelected(Classroom? classroom)
         {
-            if (classroom == null) throw new BusinessException(Messages.NotBeExist);
-            return Task.CompletedTask;
-
-        }
-
-        public Task CheckIfClassroomExist(Classroom? classroom)
-        {
-            if (classroom != null) throw new BusinessException(Messages.AlreadyExist);
+            if (classroom == null)
+                throw new BusinessException(Messages.ClassroomNotExists);
             return Task.CompletedTask;
         }
 
-        public async Task CheckIdIfClassroomNotExist(Guid id)
+        public async Task ClassroomIdShouldExistWhenSelected(Guid id, CancellationToken cancellationToken)
         {
-            Classroom classroom = _classroomDal.Get(a => a.Id == id);
-            CheckIfClassroomNotExist(classroom);
+            Classroom? classroom = await _classroomDal.GetAsync(
+                predicate: at => at.Id == id,
+                enableTracking: false,
+                cancellationToken: cancellationToken
+            );
+            await ClassroomShouldExistWhenSelected(classroom);
         }
 
     }
