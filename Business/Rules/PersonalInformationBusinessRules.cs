@@ -2,6 +2,7 @@
 using Core.Business.Rules;
 using Core.CrossCuttingConcerns.Exceptions.Types;
 using DataAccess.Abstracts;
+using DataAccess.Concretes;
 using Entities.Concretes;
 
 namespace Business.Rules
@@ -15,23 +16,21 @@ namespace Business.Rules
             _personalInformationDal = personalInformationDal;
         }
 
-        public Task CheckIfPersonalInformationNotExist(PersonalInformation personalInformation)
+        public Task PersonalInformationShouldExistWhenSelected(PersonalInformation? personalInformation)
         {
-            if (personalInformation == null) throw new BusinessException(Messages.NotBeExist);
-            return Task.CompletedTask;
-
-        }
-
-        public Task CheckIfPersonalInformationExist(PersonalInformation? personalInformation)
-        {
-            if (personalInformation != null) throw new BusinessException(Messages.AlreadyExist);
+            if (personalInformation == null)
+                throw new BusinessException(Messages.PersonalInformationNotExists);
             return Task.CompletedTask;
         }
 
-        public async Task CheckIdIfPersonalInformationNotExist(Guid id)
+        public async Task PersonalInformationIdShouldExistWhenSelected(Guid id, CancellationToken cancellationToken)
         {
-            PersonalInformation personalInformation = _personalInformationDal.Get(a => a.Id == id);
-            CheckIfPersonalInformationNotExist(personalInformation);
+            PersonalInformation? personalInformation = await _personalInformationDal.GetAsync(
+                predicate: a => a.Id == id,
+                enableTracking: false,
+                cancellationToken: cancellationToken
+            );
+            await PersonalInformationShouldExistWhenSelected(personalInformation);
         }
     }
 }

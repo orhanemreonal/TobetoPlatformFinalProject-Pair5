@@ -13,28 +13,21 @@ namespace Business.Rules
     {
         IExperienceDal _experienceDal;
 
-        public ExperienceBusinessRules(IExperienceDal experienceDal)
+        public Task ExperienceShouldExistWhenSelected(Experience? experience)
         {
-            _experienceDal = experienceDal;
-        }
-
-        public Task CheckIfExperienceNotExist(Experience? experience)
-        {
-            if (experience == null) throw new BusinessException(Messages.NotBeExist);
-            return Task.CompletedTask;
-
-        }
-
-        public Task CheckIfExperienceExist(Experience? experience)
-        {
-            if (experience != null) throw new BusinessException(Messages.AlreadyExist);
+            if (experience == null)
+                throw new BusinessException(Messages.ExperienceNotExists);
             return Task.CompletedTask;
         }
 
-        public async Task CheckIdIfExperienceNotExist(Guid id)
+        public async Task ExperienceIdShouldExistWhenSelected(Guid id, CancellationToken cancellationToken)
         {
-            Experience experience = _experienceDal.Get(a => a.Id == id);
-            CheckIfExperienceNotExist(experience);
+            Experience? experience = await _experienceDal.GetAsync(
+                predicate: a => a.Id == id,
+                enableTracking: false,
+                cancellationToken: cancellationToken
+            );
+            await ExperienceShouldExistWhenSelected(experience);
         }
     }
 }

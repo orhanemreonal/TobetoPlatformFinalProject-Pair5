@@ -27,7 +27,6 @@ namespace Business.Concretes
         public async Task<GetPersonalInformationResponse> Add(CreatePersonalInformationRequest createUserRequest)
         {
             PersonalInformation personalInformation = _mapper.Map<PersonalInformation>(createUserRequest);
-            await _businessRules.CheckIfPersonalInformationExist(personalInformation);
             await _personalInformationDal.AddAsync(personalInformation);
             GetPersonalInformationResponse response = _mapper.Map<GetPersonalInformationResponse>(personalInformation);
             return response;
@@ -36,7 +35,7 @@ namespace Business.Concretes
         public async Task<GetPersonalInformationResponse> Delete(DeletePersonalInformationRequest deletePersonalInformationRequest)
         {
             PersonalInformation personalInformation = await _personalInformationDal.GetAsync(predicate: u => u.Id == deletePersonalInformationRequest.Id);
-            await _businessRules.CheckIfPersonalInformationNotExist(personalInformation);
+            await _businessRules.PersonalInformationShouldExistWhenSelected(personalInformation);
             await _personalInformationDal.DeleteAsync(personalInformation);
             GetPersonalInformationResponse response = _mapper.Map<GetPersonalInformationResponse>(personalInformation);
             return response;
@@ -46,7 +45,7 @@ namespace Business.Concretes
         public async Task<GetPersonalInformationResponse> Get(Guid id)
         {
             PersonalInformation personalInformation = await _personalInformationDal.GetAsync(predicate: u => u.Id == id);
-            await _businessRules.CheckIfPersonalInformationNotExist(personalInformation);
+            await _businessRules.PersonalInformationShouldExistWhenSelected(personalInformation);
             GetPersonalInformationResponse response = _mapper.Map<GetPersonalInformationResponse>(personalInformation);
             return response;
         }
@@ -63,7 +62,7 @@ namespace Business.Concretes
         {
             var result = await _personalInformationDal.GetAsync(predicate: a => a.Id == request.Id);
             _mapper.Map(request, result);
-            // await _businessRules.CheckIfPersonalInformationNotExist(result);
+            await _businessRules.PersonalInformationShouldExistWhenSelected(result);
             await _personalInformationDal.UpdateAsync(result);
             GetPersonalInformationResponse response = _mapper.Map<GetPersonalInformationResponse>(result);
             return response;

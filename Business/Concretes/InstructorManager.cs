@@ -28,7 +28,6 @@ namespace Business.Concretes
         public async Task<GetInstructorResponse> Add(CreateInstructorRequest createInstructorRequest)
         {
             Instructor instructor = _mapper.Map<Instructor>(createInstructorRequest);
-            await _businessRules.CheckIfInstructorExist(instructor);
             await _instructorDal.AddAsync(instructor);
             GetInstructorResponse response = _mapper.Map<GetInstructorResponse>(instructor);
             return response;
@@ -37,7 +36,7 @@ namespace Business.Concretes
         public async Task<GetInstructorResponse> Delete(DeleteInstructorRequest deleteInstructorRequest)
         {
             Instructor instructor = await _instructorDal.GetAsync(predicate: l => l.Id == deleteInstructorRequest.Id);
-            await _businessRules.CheckIfInstructorNotExist(instructor);
+            await _businessRules.InstructorShouldExistWhenSelected(instructor);
             await _instructorDal.DeleteAsync(instructor);
             GetInstructorResponse response = _mapper.Map<GetInstructorResponse>(instructor);
             return response;
@@ -46,7 +45,7 @@ namespace Business.Concretes
         public async Task<GetInstructorResponse> Get(Guid id)
         {
             Instructor instructor = await _instructorDal.GetAsync(predicate: l => l.Id == id);
-            await _businessRules.CheckIfInstructorNotExist(instructor);
+            await _businessRules.InstructorShouldExistWhenSelected(instructor);
             GetInstructorResponse response = _mapper.Map<GetInstructorResponse>(instructor);
             return response;
         }
@@ -65,7 +64,7 @@ namespace Business.Concretes
         {
             var result = await _instructorDal.GetAsync(predicate: a => a.Id == request.Id);
             _mapper.Map(request, result);
-            //await _businessRules.CheckIfInstructorNotExist(result);
+            await _businessRules.InstructorShouldExistWhenSelected(result);
 
             await _instructorDal.UpdateAsync(result);
             GetInstructorResponse response = _mapper.Map<GetInstructorResponse>(result);

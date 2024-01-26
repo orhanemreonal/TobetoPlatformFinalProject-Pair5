@@ -20,6 +20,10 @@ namespace Business.Profiles
             CreateMap<PersonalInformation, DeletePersonalInformationRequest>().ReverseMap();
             CreateMap<PersonalInformation, UpdatePersonalInformationRequest>().ReverseMap();
 
+            CreateMap<GetPersonalInformationResponse, CreatePersonalInformationRequest>().ReverseMap();
+            CreateMap<GetPersonalInformationResponse, DeletePersonalInformationRequest>().ReverseMap();
+            CreateMap<GetPersonalInformationResponse, UpdatePersonalInformationRequest>().ReverseMap();
+
             CreateMap<PersonalInformation, GetPersonalInformationResponse>().ReverseMap();
             CreateMap<PersonalInformation, GetListPersonalInformationResponse>().ReverseMap();
             CreateMap<Paginate<PersonalInformation>, Paginate<GetListPersonalInformationResponse>>().ReverseMap();

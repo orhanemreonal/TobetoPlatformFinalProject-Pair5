@@ -16,6 +16,10 @@ namespace Business.Profiles
             CreateMap<Instructor, DeleteInstructorRequest>().ReverseMap();
             CreateMap<Instructor, UpdateInstructorRequest>().ReverseMap();
 
+            CreateMap<GetInstructorResponse, CreateInstructorRequest>().ReverseMap();
+            CreateMap<GetInstructorResponse, DeleteInstructorRequest>().ReverseMap();
+            CreateMap<GetInstructorResponse, UpdateInstructorRequest>().ReverseMap();
+
 
             //Responses
             CreateMap<Instructor, GetInstructorResponse>().ReverseMap();

@@ -2,6 +2,7 @@
 using Core.Business.Rules;
 using Core.CrossCuttingConcerns.Exceptions.Types;
 using DataAccess.Abstracts;
+using DataAccess.Concretes;
 using Entities.Concretes;
 
 namespace Business.Rules
@@ -15,23 +16,21 @@ namespace Business.Rules
             _examDal = examDal;
         }
 
-        public Task CheckIfExamNotExist(Exam? exam)
+        public Task ExamShouldExistWhenSelected(Exam? exam)
         {
-            if (exam == null) throw new BusinessException(Messages.NotBeExist);
-            return Task.CompletedTask;
-
-        }
-
-        public Task CheckIfExamExist(Exam? exam)
-        {
-            if (exam != null) throw new BusinessException(Messages.AlreadyExist);
+            if (exam == null)
+                throw new BusinessException(Messages.ExamNotExists);
             return Task.CompletedTask;
         }
 
-        public async Task CheckIdIfExamNotExist(Guid id)
+        public async Task ExamIdShouldExistWhenSelected(Guid id, CancellationToken cancellationToken)
         {
-            Exam exam = _examDal.Get(a => a.Id == id);
-            CheckIfExamNotExist(exam);
+            Exam? exam = await _examDal.GetAsync(
+                predicate: a => a.Id == id,
+                enableTracking: false,
+                cancellationToken: cancellationToken
+            );
+            await ExamShouldExistWhenSelected(exam);
         }
 
     }

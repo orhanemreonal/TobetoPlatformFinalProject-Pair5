@@ -27,8 +27,6 @@ namespace Business.Concretes
         {
             Exam exam = _mapper.Map<Exam>(request);
 
-            await _businessRules.CheckIfExamExist(exam);
-
             await _examDal.AddAsync(exam);
             GetExamResponse response = _mapper.Map<GetExamResponse>(exam);
             return response;
@@ -40,7 +38,7 @@ namespace Business.Concretes
         {
             Exam exam = await _examDal.GetAsync(predicate: u => u.Id == request.Id);
 
-            await _businessRules.CheckIfExamNotExist(exam);
+            await _businessRules.ExamShouldExistWhenSelected(exam);
 
 
             await _examDal.DeleteAsync(exam);
@@ -53,7 +51,7 @@ namespace Business.Concretes
         {
             Exam exam = await _examDal.GetAsync(predicate: u => u.Id == id);
 
-            await _businessRules.CheckIfExamNotExist(exam);
+            await _businessRules.ExamShouldExistWhenSelected(exam);
 
 
             GetExamResponse response = _mapper.Map<GetExamResponse>(exam);
@@ -71,7 +69,7 @@ namespace Business.Concretes
         {
             var result = await _examDal.GetAsync(predicate: a => a.Id == request.Id);
             _mapper.Map(request, result);
-            //await _businessRules.CheckIfExamNotExist(updatedExam);
+            await _businessRules.ExamShouldExistWhenSelected(result);
             await _examDal.UpdateAsync(result);
             GetExamResponse response = _mapper.Map<GetExamResponse>(result);
             return response;
