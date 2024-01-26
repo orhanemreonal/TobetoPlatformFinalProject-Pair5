@@ -39,7 +39,7 @@ namespace Business.Concretes
         {
             Company company = await _companyDal.GetAsync(predicate: c => c.Id == request.Id);
 
-            await _businessRules.CompanyShouldExistWhenSelected(company);
+            //await _businessRules.CompanyShouldExistWhenSelected(company);
             await _companyDal.DeleteAsync(company);
             GetCompanyResponse response = _mapper.Map<GetCompanyResponse>(company);
             return response;

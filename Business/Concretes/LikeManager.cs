@@ -2,10 +2,12 @@
 using Business.Abstracts;
 using Business.Dtos.Like.Requests;
 using Business.Dtos.Like.Responses;
+using Business.Rules;
 using Core.Business.Requests;
 using Core.DataAccess.Paging;
 using DataAccess.Abstracts;
 using Entities.Concretes;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Business.Concretes
 {
@@ -31,6 +33,7 @@ namespace Business.Concretes
         public async Task<GetLikeResponse> Delete(DeleteLikeRequest request)
         {
             Like like = await _likeDal.GetAsync(predicate: u => u.Id == request.Id);
+            
             await _likeDal.DeleteAsync(like);
             GetLikeResponse response = _mapper.Map<GetLikeResponse>(like);
             return response;

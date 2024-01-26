@@ -20,6 +20,9 @@ namespace Business.Profiles
             CreateMap<Experience, DeleteExperienceRequest>().ReverseMap();
             CreateMap<Experience, UpdateExperienceRequest>().ReverseMap();
 
+            CreateMap<GetExperienceResponse, CreateExperienceRequest>().ReverseMap();
+            CreateMap<GetExperienceResponse, DeleteExperienceRequest>().ReverseMap();
+            CreateMap<GetExperienceResponse, UpdateExperienceRequest>().ReverseMap();
 
             //Responses
             CreateMap<Experience, GetExperienceResponse>().ReverseMap();

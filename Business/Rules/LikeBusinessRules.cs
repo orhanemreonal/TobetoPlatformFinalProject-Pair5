@@ -2,6 +2,7 @@
 using Core.Business.Rules;
 using Core.CrossCuttingConcerns.Exceptions.Types;
 using DataAccess.Abstracts;
+using DataAccess.Concretes;
 using Entities.Concretes;
 
 namespace Business.Rules
@@ -15,23 +16,21 @@ namespace Business.Rules
             _likeDal = likeDal;
         }
 
-        public Task CheckIfLikeNotExist(Like? like)
+        public Task LikeShouldExistWhenSelected(Like? like)
         {
-            if (like == null) throw new BusinessException(Messages.NotBeExist);
-            return Task.CompletedTask;
-
-        }
-
-        public Task CheckIfLikeExist(Like? like)
-        {
-            if (like != null) throw new BusinessException(Messages.AlreadyExist);
+            if (like == null)
+                throw new BusinessException(Messages.LikeNotExists);
             return Task.CompletedTask;
         }
 
-        public async Task CheckIdIfLikeNotExist(Guid id)
+        public async Task LikeIdShouldExistWhenSelected(Guid id, CancellationToken cancellationToken)
         {
-            Like like = _likeDal.Get(a => a.Id == id);
-            CheckIfLikeNotExist(like);
+            Like? like = await _likeDal.GetAsync(
+                predicate: a => a.Id == id,
+                enableTracking: false,
+                cancellationToken: cancellationToken
+            );
+            await LikeShouldExistWhenSelected(like);
         }
     }
 }

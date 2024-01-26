@@ -15,6 +15,10 @@ namespace Business.Profiles
             CreateMap<Like, DeleteLikeRequest>().ReverseMap();
             CreateMap<Like, UpdateLikeRequest>().ReverseMap();
 
+            CreateMap<GetLikeResponse, CreateLikeRequest>().ReverseMap();
+            CreateMap<GetLikeResponse, DeleteLikeRequest>().ReverseMap();
+            CreateMap<GetLikeResponse, UpdateLikeRequest>().ReverseMap();
+
 
             //Responses
             CreateMap<Like, GetLikeResponse>().ReverseMap();

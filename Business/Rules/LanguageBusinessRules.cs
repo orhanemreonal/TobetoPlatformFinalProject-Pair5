@@ -2,7 +2,9 @@
 using Core.Business.Rules;
 using Core.CrossCuttingConcerns.Exceptions.Types;
 using DataAccess.Abstracts;
+using DataAccess.Concretes;
 using Entities;
+using Entities.Concretes;
 
 namespace Business.Rules
 {
@@ -15,23 +17,21 @@ namespace Business.Rules
             _languageDal = languageDal;
         }
 
-        public Task CheckIfLanguageNotExist(Language? language)
+        public Task LanguageShouldExistWhenSelected(Language? language)
         {
-            if (language == null) throw new BusinessException(Messages.NotBeExist);
-            return Task.CompletedTask;
-
-        }
-
-        public Task CheckIfLanguageExist(Language? language)
-        {
-            if (language != null) throw new BusinessException(Messages.AlreadyExist);
+            if (language == null)
+                throw new BusinessException(Messages.LanguageNotExists);
             return Task.CompletedTask;
         }
 
-        public async Task CheckIdIfLanguageNotExist(Guid id)
+        public async Task LanguageIdShouldExistWhenSelected(Guid id, CancellationToken cancellationToken)
         {
-            Language language = _languageDal.Get(a => a.Id == id);
-            CheckIfLanguageNotExist(language);
+            Language? language = await _languageDal.GetAsync(
+                predicate: a => a.Id == id,
+                enableTracking: false,
+                cancellationToken: cancellationToken
+            );
+            await LanguageShouldExistWhenSelected(language);
         }
     }
 }

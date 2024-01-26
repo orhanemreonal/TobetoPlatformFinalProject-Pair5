@@ -26,7 +26,6 @@ namespace Business.Concretes
         public async Task<GetLanguageResponse> Add(CreateLanguageRequest createLanguageRequest)
         {
             Language language = _mapper.Map<Language>(createLanguageRequest);
-            await _businessRules.CheckIfLanguageExist(language);
             await _languageDal.AddAsync(language);
             GetLanguageResponse response = _mapper.Map<GetLanguageResponse>(language);
             return response;
@@ -35,7 +34,7 @@ namespace Business.Concretes
         public async Task<GetLanguageResponse> Get(Guid id)
         {
             Language language = await _languageDal.GetAsync(predicate: l => l.Id == id);
-            await _businessRules.CheckIfLanguageNotExist(language);
+            await _businessRules.LanguageShouldExistWhenSelected(language);
             GetLanguageResponse response = _mapper.Map<GetLanguageResponse>(language);
             return response;
         }
@@ -54,7 +53,7 @@ namespace Business.Concretes
         {
             var result = await _languageDal.GetAsync(predicate: a => a.Id == request.Id);
             _mapper.Map(request, result);
-            //await _businessRules.CheckIfLanguageNotExist(result);
+            await _businessRules.LanguageShouldExistWhenSelected(result);
             await _languageDal.UpdateAsync(result);
             GetLanguageResponse response = _mapper.Map<GetLanguageResponse>(result);
             return response;
@@ -64,7 +63,7 @@ namespace Business.Concretes
         public async Task<GetLanguageResponse> Delete(DeleteLanguageRequest deleteLanguageRequest)
         {
             Language language = await _languageDal.GetAsync(predicate: l => l.Id == deleteLanguageRequest.Id);
-            await _businessRules.CheckIfLanguageNotExist(language);
+            await _businessRules.LanguageShouldExistWhenSelected(language);
             await _languageDal.DeleteAsync(language!);
             GetLanguageResponse response = _mapper.Map<GetLanguageResponse>(language);
             return response;

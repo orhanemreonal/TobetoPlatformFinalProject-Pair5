@@ -82,9 +82,9 @@
         internal static string? AlreadyExist;
         internal static string? NotBeExist;
         public static string? StudentAlreadyExits = "Böyle bir öğrenci mevcut";
-        internal static string? TitleNotExists;
-        internal static string? TopicNotExists;
-        internal static string? VirtualClassNotExists;
-        internal static string? EducationNotExists;
+        public static string? CourseNotExists = "Kurs bulunamadı.";
+        public static string? EducationNotExists = "Eğitim bilgisi bulunamadı.";
+        public static string? ExamNotExists = "Sınav bilgisi bulunamadı.";
+        public static string? ExperienceNotExists = "Deneyim bulunamadı.";
     }
 }

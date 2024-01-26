@@ -27,8 +27,6 @@ namespace Business.Concretes
         {
             Experience experience = _mapper.Map<Experience>(createExperienceRequest);
 
-            await _businessRules.CheckIfExperienceExist(experience);
-
             await _experienceDal.AddAsync(experience);
             GetExperienceResponse response = _mapper.Map<GetExperienceResponse>(experience);
             return response;
@@ -38,7 +36,7 @@ namespace Business.Concretes
         {
             Experience experience = await _experienceDal.GetAsync(predicate: l => l.Id == deleteExperienceRequest.Id);
 
-            await _businessRules.CheckIfExperienceNotExist(experience);
+            await _businessRules.ExperienceShouldExistWhenSelected(experience);
 
 
             await _experienceDal.DeleteAsync(experience);
@@ -50,7 +48,7 @@ namespace Business.Concretes
         {
             Experience experience = await _experienceDal.GetAsync(predicate: l => l.Id == id);
 
-            await _businessRules.CheckIfExperienceNotExist(experience);
+            await _businessRules.ExperienceShouldExistWhenSelected(experience);
 
 
             GetExperienceResponse response = _mapper.Map<GetExperienceResponse>(experience);
@@ -71,7 +69,7 @@ namespace Business.Concretes
         {
             var result = await _experienceDal.GetAsync(predicate: a => a.Id == request.Id);
             _mapper.Map(request, result);
-            //await _businessRules.CheckIfExperienceNotExist(updatedExperience);
+            await _businessRules.ExperienceShouldExistWhenSelected(result);
             await _experienceDal.UpdateAsync(result);
             GetExperienceResponse response = _mapper.Map<GetExperienceResponse>(result);
             return response;

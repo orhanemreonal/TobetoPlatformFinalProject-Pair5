@@ -15,23 +15,21 @@ namespace Business.Rules
             _courseDal = courseDal;
         }
 
-        public Task CheckIfCourseNotExist(Course? course)
+        public Task CourseShouldExistWhenSelected(Course? course)
         {
-            if (course == null) throw new BusinessException(Messages.CourseNotBeExist);
-            return Task.CompletedTask;
-
-        }
-
-        public Task CheckIfCourseExist(Course? course)
-        {
-            if (course != null) throw new BusinessException(Messages.AlreadyCourseExist);
+            if (course == null)
+                throw new BusinessException(Messages.CourseNotExists);
             return Task.CompletedTask;
         }
 
-        public async Task CheckIdIfCourseNotExist(Guid id)
+        public async Task CourseIdShouldExistWhenSelected(Guid id, CancellationToken cancellationToken)
         {
-            Course course = _courseDal.Get(a => a.Id == id);
-            CheckIfCourseNotExist(course);
+            Course? course = await _courseDal.GetAsync(
+                predicate: a => a.Id == id,
+                enableTracking: false,
+                cancellationToken: cancellationToken
+            );
+            await CourseShouldExistWhenSelected(course);
         }
     }
 }

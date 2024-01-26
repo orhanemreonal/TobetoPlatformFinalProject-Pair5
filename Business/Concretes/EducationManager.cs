@@ -27,8 +27,6 @@ namespace Business.Concretes
         {
             Education education = _mapper.Map<Education>(request);
 
-            await _businessRules.CheckIfEducationExist(education);
-
             await _educationDal.AddAsync(education);
             GetEducationResponse response = _mapper.Map<GetEducationResponse>(education);
             return response;
@@ -40,7 +38,7 @@ namespace Business.Concretes
         {
             Education education = await _educationDal.GetAsync(predicate: u => u.Id == request.Id);
 
-            await _businessRules.CheckIfEducationNotExist(education);
+            await _businessRules.EducationShouldExistWhenSelected(education);
 
 
             await _educationDal.DeleteAsync(education);
@@ -53,7 +51,7 @@ namespace Business.Concretes
         {
             Education education = await _educationDal.GetAsync(predicate: u => u.Id == id);
 
-            await _businessRules.CheckIfEducationNotExist(education);
+            await _businessRules.EducationShouldExistWhenSelected(education);
 
 
             GetEducationResponse response = _mapper.Map<GetEducationResponse>(education);
@@ -72,7 +70,7 @@ namespace Business.Concretes
 
             var result = await _educationDal.GetAsync(predicate: a => a.Id == request.Id);
             _mapper.Map(request, result);
-            //await _businessRules.CheckIfEducationNotExist(updatedEducation);
+            await _businessRules.EducationShouldExistWhenSelected(result);
             await _educationDal.UpdateAsync(result);
             GetEducationResponse response = _mapper.Map<GetEducationResponse>(result);
             return response;

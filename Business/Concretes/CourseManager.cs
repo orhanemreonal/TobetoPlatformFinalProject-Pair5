@@ -27,8 +27,6 @@ namespace Business.Concretes
         {
             Course course = _mapper.Map<Course>(request);
 
-            await _businessRules.CheckIfCourseExist(course);
-
             await _courseDal.AddAsync(course);
             GetCourseResponse response = _mapper.Map<GetCourseResponse>(course);
             return response;
@@ -40,8 +38,7 @@ namespace Business.Concretes
         {
             Course course = await _courseDal.GetAsync(predicate: u => u.Id == request.Id);
 
-            await _businessRules.CheckIfCourseNotExist(course);
-
+            await _businessRules.CourseShouldExistWhenSelected(course);
 
             await _courseDal.DeleteAsync(course);
             GetCourseResponse response = _mapper.Map<GetCourseResponse>(course);
@@ -53,7 +50,7 @@ namespace Business.Concretes
         {
             Course course = await _courseDal.GetAsync(predicate: u => u.Id == id);
 
-            await _businessRules.CheckIfCourseNotExist(course);
+            await _businessRules.CourseShouldExistWhenSelected(course);
 
 
             GetCourseResponse response = _mapper.Map<GetCourseResponse>(course);
@@ -71,7 +68,7 @@ namespace Business.Concretes
         {
             var result = await _courseDal.GetAsync(predicate: a => a.Id == request.Id);
             _mapper.Map(request, result);
-            //await _businessRules.CheckIfCourseNotExist(updatedCourse);
+            await _businessRules.CourseShouldExistWhenSelected(result);
             await _courseDal.UpdateAsync(result);
             GetCourseResponse response = _mapper.Map<GetCourseResponse>(result);
             return response;
