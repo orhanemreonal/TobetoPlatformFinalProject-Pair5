@@ -26,7 +26,7 @@ namespace Business.Concretes
         public async Task<GetStudentLanguageResponse> Add(CreateStudentLanguageRequest createStudentLanguageRequest)
         {
             StudentLanguage studentLanguage = _mapper.Map<StudentLanguage>(createStudentLanguageRequest);
-            await _businessRules.CheckIfStudentLanguageExist(studentLanguage);
+
             await _studentLanguageDal.AddAsync(studentLanguage);
             GetStudentLanguageResponse response = _mapper.Map<GetStudentLanguageResponse>(studentLanguage);
             return response;
@@ -35,7 +35,7 @@ namespace Business.Concretes
         public async Task<GetStudentLanguageResponse> Delete(DeleteStudentLanguageRequest deleteStudentLanguageRequest)
         {
             StudentLanguage studentLanguage = await _studentLanguageDal.GetAsync(predicate: u => u.Id == deleteStudentLanguageRequest.Id);
-            await _businessRules.CheckIfStudentLanguageNotExist(studentLanguage);
+            await _businessRules.StudentLanguageShouldExistWhenSelected(studentLanguage);
             await _studentLanguageDal.DeleteAsync(studentLanguage);
             GetStudentLanguageResponse response = _mapper.Map<GetStudentLanguageResponse>(studentLanguage);
             return response;
@@ -45,7 +45,7 @@ namespace Business.Concretes
         {
             StudentLanguage studentLanguage = await _studentLanguageDal.GetAsync(predicate: u => u.Id == id);
 
-            await _businessRules.CheckIfStudentLanguageNotExist(studentLanguage);
+            await _businessRules.StudentLanguageShouldExistWhenSelected(studentLanguage);
             GetStudentLanguageResponse response = _mapper.Map<GetStudentLanguageResponse>(studentLanguage);
             return response;
         }
@@ -60,6 +60,7 @@ namespace Business.Concretes
         public async Task<GetStudentLanguageResponse> Update(UpdateStudentLanguageRequest request)
         {
             var result = await _studentLanguageDal.GetAsync(predicate: a => a.Id == request.Id);
+            await _businessRules.StudentLanguageShouldExistWhenSelected(result);
             _mapper.Map(request, result);
             //await _businessRules.CheckIfStudentLanguageNotExist(result);
             await _studentLanguageDal.UpdateAsync(result);

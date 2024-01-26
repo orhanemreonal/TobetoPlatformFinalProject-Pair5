@@ -16,23 +16,21 @@ namespace Business.Rules
             _studentLanguageDal = studentLanguageDal;
         }
 
-        public Task CheckIfStudentLanguageNotExist(StudentLanguage? studentLanguage)
+        public Task StudentLanguageShouldExistWhenSelected(StudentLanguage? studentLanguage)
         {
-            if (studentLanguage == null) throw new BusinessException(Messages.NotBeExist);
-            return Task.CompletedTask;
-
-        }
-
-        public Task CheckIfStudentLanguageExist(StudentLanguage? studentLanguage)
-        {
-            if (studentLanguage != null) throw new BusinessException(Messages.AlreadyExist);
+            if (studentLanguage == null)
+                throw new BusinessException(Messages.StudentLanguageNotExists);
             return Task.CompletedTask;
         }
 
-        public async Task CheckIdIfStudentLanguageNotExist(Guid id)
+        public async Task StudentLanguageIdShouldExistWhenSelected(Guid id, CancellationToken cancellationToken)
         {
-            StudentLanguage studentLanguage = _studentLanguageDal.Get(a => a.Id == id);
-            CheckIfStudentLanguageNotExist(studentLanguage);
+            StudentLanguage? studentLanguage = await _studentLanguageDal.GetAsync(
+                predicate: a => a.Id == id,
+                enableTracking: false,
+                cancellationToken: cancellationToken
+            );
+            await StudentLanguageShouldExistWhenSelected(studentLanguage);
         }
     }
 }

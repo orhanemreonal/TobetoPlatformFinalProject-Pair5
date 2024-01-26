@@ -3,11 +3,6 @@ using Core.Business.Rules;
 using Core.CrossCuttingConcerns.Exceptions.Types;
 using DataAccess.Abstracts;
 using Entities.Concretes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Business.Rules
 {
@@ -19,23 +14,21 @@ namespace Business.Rules
         {
             _topicDal = topicDal;
         }
-        public Task CheckIfTopicNotExist(Topic? topic)
+        public Task TopicShouldExistWhenSelected(Topic? topic)
         {
-            if (topic == null) throw new BusinessException(Messages.NotBeExist);
-            return Task.CompletedTask;
-
-        }
-
-        public Task CheckIfTopicExist(Topic? topic)
-        {
-            if (topic != null) throw new BusinessException(Messages.AlreadyExist);
+            if (topic == null)
+                throw new BusinessException(Messages.TopicNotExists);
             return Task.CompletedTask;
         }
 
-        public async Task CheckIdIfTopicNotExist(Guid id)
+        public async Task TopicIdShouldExistWhenSelected(Guid id, CancellationToken cancellationToken)
         {
-            Topic topic = _topicDal.Get(a => a.Id == id);
-            CheckIfTopicNotExist(topic);
+            Topic? topic = await _topicDal.GetAsync(
+                predicate: a => a.Id == id,
+                enableTracking: false,
+                cancellationToken: cancellationToken
+            );
+            await TopicShouldExistWhenSelected(topic);
         }
     }
 }

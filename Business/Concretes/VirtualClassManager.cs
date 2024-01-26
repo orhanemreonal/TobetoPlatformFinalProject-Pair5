@@ -27,7 +27,7 @@ namespace Business.Concretes
         {
             VirtualClass virtualClass = _mapper.Map<VirtualClass>(request);
 
-            await _businessRules.CheckIfVirtualClassExist(virtualClass);
+
 
             await _virtualClassDal.AddAsync(virtualClass);
             GetVirtualClassResponse response = _mapper.Map<GetVirtualClassResponse>(request);
@@ -38,7 +38,7 @@ namespace Business.Concretes
         {
             VirtualClass virtualClass = await _virtualClassDal.GetAsync(predicate: vc => vc.Id == request.Id);
 
-            await _businessRules.CheckIfVirtualClassNotExist(virtualClass);
+            await _businessRules.VirtualClassShouldExistWhenSelected(virtualClass);
 
 
             await _virtualClassDal.DeleteAsync(virtualClass);
@@ -50,7 +50,7 @@ namespace Business.Concretes
         {
             VirtualClass virtualClass = await _virtualClassDal.GetAsync(predicate: vc => vc.Id == id);
 
-            await _businessRules.CheckIfVirtualClassNotExist(virtualClass);
+            await _businessRules.VirtualClassShouldExistWhenSelected(virtualClass);
 
 
             GetVirtualClassResponse response = _mapper.Map<GetVirtualClassResponse>(virtualClass);
@@ -67,6 +67,7 @@ namespace Business.Concretes
         public async Task<GetVirtualClassResponse> Update(UpdateVirtualClassRequest request)
         {
             var result = await _virtualClassDal.GetAsync(predicate: a => a.Id == request.Id);
+            await _businessRules.VirtualClassShouldExistWhenSelected(result);
             _mapper.Map(request, result);
 
             //await _businessRules.CheckIfVirtualClassNotExist(virtualClass);

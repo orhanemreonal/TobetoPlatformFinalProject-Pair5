@@ -82,5 +82,9 @@
         internal static string? AlreadyExist;
         internal static string? NotBeExist;
         public static string? StudentAlreadyExits = "Böyle bir öğrenci mevcut";
+        internal static string? TitleNotExists;
+        internal static string? TopicNotExists;
+        internal static string? VirtualClassNotExists;
+        internal static string? EducationNotExists;
     }
 }

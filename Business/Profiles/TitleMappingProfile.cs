@@ -11,9 +11,14 @@ namespace Business.Profiles
         public TitleMappingProfile()
         {
             //Requests
-            CreateMap<Title,CreateTitleRequest>().ReverseMap();
-            CreateMap<Title,DeleteTitleRequest>().ReverseMap();
-            CreateMap<Title,UpdateTitleRequest>().ReverseMap();
+            CreateMap<Title, CreateTitleRequest>().ReverseMap();
+            CreateMap<Title, DeleteTitleRequest>().ReverseMap();
+            CreateMap<Title, UpdateTitleRequest>().ReverseMap();
+
+
+            CreateMap<GetTitleResponse, CreateTitleRequest>().ReverseMap();
+            CreateMap<GetTitleResponse, DeleteTitleRequest>().ReverseMap();
+            CreateMap<GetTitleResponse, UpdateTitleRequest>().ReverseMap();
 
 
             //Responses

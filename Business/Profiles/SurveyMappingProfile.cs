@@ -15,6 +15,10 @@ namespace Business.Profiles
             CreateMap<Survey, DeleteSurveyRequest>().ReverseMap();
             CreateMap<Survey, UpdateSurveyRequest>().ReverseMap();
 
+            CreateMap<GetSurveyResponse, UpdateSurveyRequest>().ReverseMap();
+            CreateMap<GetSurveyResponse, DeleteSurveyRequest>().ReverseMap();
+            CreateMap<GetSurveyResponse, CreateSurveyRequest>().ReverseMap();
+
 
             //Responses
             CreateMap<Survey, GetSurveyResponse>().ReverseMap();

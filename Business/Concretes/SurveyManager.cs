@@ -26,7 +26,7 @@ namespace Business.Concretes
         public async Task<GetSurveyResponse> Add(CreateSurveyRequest request)
         {
             Survey survey = _mapper.Map<Survey>(request);
-            await _businessRules.CheckIfSurveyExist(survey);
+
             await _surveyDal.AddAsync(survey);
             GetSurveyResponse response = _mapper.Map<GetSurveyResponse>(request);
             return response;
@@ -36,7 +36,7 @@ namespace Business.Concretes
         {
             Survey survey = await _surveyDal.GetAsync(predicate: c => c.Id == request.Id);
 
-            await _businessRules.CheckIfSurveyNotExist(survey);
+            await _businessRules.SurveyShouldExistWhenSelected(survey);
 
             await _surveyDal.DeleteAsync(survey);
             GetSurveyResponse response = _mapper.Map<GetSurveyResponse>(survey);
@@ -46,7 +46,7 @@ namespace Business.Concretes
         public async Task<GetSurveyResponse> Get(Guid id)
         {
             Survey survey = await _surveyDal.GetAsync(predicate: c => c.Id == id);
-            await _businessRules.CheckIfSurveyNotExist(survey);
+            await _businessRules.SurveyShouldExistWhenSelected(survey);
             GetSurveyResponse response = _mapper.Map<GetSurveyResponse>(survey);
             return response;
         }
@@ -61,8 +61,10 @@ namespace Business.Concretes
         public async Task<GetSurveyResponse> Update(UpdateSurveyRequest request)
         {
             var result = await _surveyDal.GetAsync(predicate: a => a.Id == request.Id);
+            await _businessRules.SurveyShouldExistWhenSelected(result);
+
             _mapper.Map(request, result);
-            // await _businessRules.CheckIfSurveyNotExist(result);
+
             await _surveyDal.UpdateAsync(result);
             GetSurveyResponse response = _mapper.Map<GetSurveyResponse>(result);
             return response;

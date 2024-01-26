@@ -11,9 +11,13 @@ namespace Business.Profiles
         public VirtualClassMappingProfile()
         {
             //Requests
-            CreateMap<VirtualClass,CreateVirtualClassRequest>().ReverseMap();
-            CreateMap<VirtualClass,DeleteVirtualClassRequest>().ReverseMap();
-            CreateMap<VirtualClass,UpdateVirtualClassRequest>().ReverseMap();
+            CreateMap<VirtualClass, CreateVirtualClassRequest>().ReverseMap();
+            CreateMap<VirtualClass, DeleteVirtualClassRequest>().ReverseMap();
+            CreateMap<VirtualClass, UpdateVirtualClassRequest>().ReverseMap();
+
+            CreateMap<GetVirtualClassResponse, UpdateVirtualClassRequest>().ReverseMap();
+            CreateMap<GetVirtualClassResponse, CreateVirtualClassRequest>().ReverseMap();
+            CreateMap<GetVirtualClassResponse, DeleteVirtualClassRequest>().ReverseMap();
 
 
             //Responses

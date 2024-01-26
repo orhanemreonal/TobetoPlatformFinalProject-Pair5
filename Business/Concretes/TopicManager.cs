@@ -27,8 +27,6 @@ namespace Business.Concretes
         {
             Topic topic = _mapper.Map<Topic>(request);
 
-            await _businessRules.CheckIfTopicExist(topic);
-
             await _topicDal.AddAsync(topic);
             GetTopicResponse response = _mapper.Map<GetTopicResponse>(request);
             return response;
@@ -38,7 +36,7 @@ namespace Business.Concretes
         {
             Topic topic = await _topicDal.GetAsync(predicate: t => t.Id == request.Id);
 
-            await _businessRules.CheckIfTopicNotExist(topic);
+            await _businessRules.TopicShouldExistWhenSelected(topic);
 
 
             await _topicDal.DeleteAsync(topic);
@@ -50,7 +48,7 @@ namespace Business.Concretes
         {
             Topic topic = await _topicDal.GetAsync(predicate: t => t.Id == id);
 
-            await _businessRules.CheckIfTopicNotExist(topic);
+            await _businessRules.TopicShouldExistWhenSelected(topic);
 
 
             GetTopicResponse response = _mapper.Map<GetTopicResponse>(topic);
@@ -67,6 +65,8 @@ namespace Business.Concretes
         public async Task<GetTopicResponse> Update(UpdateTopicRequest request)
         {
             var result = await _topicDal.GetAsync(predicate: a => a.Id == request.Id);
+
+            await _businessRules.TopicShouldExistWhenSelected(result);
             _mapper.Map(request, result);
             //await _businessRules.CheckIfTopicNotExist(topic);
 

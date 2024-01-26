@@ -15,23 +15,21 @@ namespace Business.Rules
             _titleDal = titleDal;
         }
 
-        public Task CheckIfTitleNotExist(Title? title)
+        public Task TitleShouldExistWhenSelected(Title? title)
         {
-            if (title == null) throw new BusinessException(Messages.NotBeExist);
-            return Task.CompletedTask;
-
-        }
-
-        public Task CheckIfTitleExist(Title? title)
-        {
-            if (title != null) throw new BusinessException(Messages.AlreadyExist);
+            if (title == null)
+                throw new BusinessException(Messages.TitleNotExists);
             return Task.CompletedTask;
         }
 
-        public async Task CheckIdIfTitleNotExist(Guid id)
+        public async Task TitleIdShouldExistWhenSelected(Guid id, CancellationToken cancellationToken)
         {
-            Title title = _titleDal.Get(a => a.Id == id);
-            CheckIfTitleNotExist(title);
+            Title? title = await _titleDal.GetAsync(
+                predicate: a => a.Id == id,
+                enableTracking: false,
+                cancellationToken: cancellationToken
+            );
+            await TitleShouldExistWhenSelected(title);
         }
     }
 }

@@ -15,23 +15,21 @@ namespace Business.Rules
             _virtualClassDal = virtualClassDal;
         }
 
-        public Task CheckIfVirtualClassNotExist(VirtualClass? virtualClass)
+        public Task VirtualClassShouldExistWhenSelected(VirtualClass? virtualClass)
         {
-            if (virtualClass == null) throw new BusinessException(Messages.NotBeExist);
-            return Task.CompletedTask;
-
-        }
-
-        public Task CheckIfVirtualClassExist(VirtualClass? virtualClass)
-        {
-            if (virtualClass != null) throw new BusinessException(Messages.AlreadyExist);
+            if (virtualClass == null)
+                throw new BusinessException(Messages.VirtualClassNotExists);
             return Task.CompletedTask;
         }
 
-        public async Task CheckIdIfVirtualClassNotExist(Guid id)
+        public async Task VirtualClassIdShouldExistWhenSelected(Guid id, CancellationToken cancellationToken)
         {
-            VirtualClass virtualClass = _virtualClassDal.Get(a => a.Id == id);
-            CheckIfVirtualClassNotExist(virtualClass);
+            VirtualClass? virtualClass = await _virtualClassDal.GetAsync(
+                predicate: a => a.Id == id,
+                enableTracking: false,
+                cancellationToken: cancellationToken
+            );
+            await VirtualClassShouldExistWhenSelected(virtualClass);
         }
     }
 }

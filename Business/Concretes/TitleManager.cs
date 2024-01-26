@@ -27,7 +27,7 @@ namespace Business.Concretes
         {
             Title title = _mapper.Map<Title>(request);
 
-            await _businessRules.CheckIfTitleExist(title);
+
 
             await _titleDal.AddAsync(title);
             GetTitleResponse response = _mapper.Map<GetTitleResponse>(request);
@@ -38,7 +38,7 @@ namespace Business.Concretes
         {
             Title title = await _titleDal.GetAsync(predicate: t => t.Id == request.Id);
 
-            await _businessRules.CheckIfTitleNotExist(title);
+            await _businessRules.TitleShouldExistWhenSelected(title);
 
 
             await _titleDal.DeleteAsync(title);
@@ -50,7 +50,7 @@ namespace Business.Concretes
         {
             Title title = await _titleDal.GetAsync(predicate: t => t.Id == id);
 
-            await _businessRules.CheckIdIfTitleNotExist(id);
+            await _businessRules.TitleShouldExistWhenSelected(title);
 
 
             GetTitleResponse response = _mapper.Map<GetTitleResponse>(title);
@@ -67,6 +67,8 @@ namespace Business.Concretes
         public async Task<GetTitleResponse> Update(UpdateTitleRequest request)
         {
             var result = await _titleDal.GetAsync(predicate: a => a.Id == request.Id);
+
+            await _businessRules.TitleShouldExistWhenSelected(result);
             _mapper.Map(request, result);
 
             await _titleDal.UpdateAsync(result);

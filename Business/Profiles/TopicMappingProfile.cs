@@ -16,10 +16,15 @@ namespace Business.Profiles
             CreateMap<Topic, UpdateTopicRequest>().ReverseMap();
 
 
+            CreateMap<GetTopicResponse, UpdateTopicRequest>().ReverseMap();
+            CreateMap<GetTopicResponse, CreateTopicRequest>().ReverseMap();
+            CreateMap<GetTopicResponse, DeleteTopicRequest>().ReverseMap();
+
+
             //Responses
-            CreateMap<Topic,GetTopicResponse>().ReverseMap();
-            CreateMap<Topic,GetListTopicResponse>().ReverseMap();
-            CreateMap<Paginate<Topic>,Paginate<GetListTopicResponse>>().ReverseMap();
+            CreateMap<Topic, GetTopicResponse>().ReverseMap();
+            CreateMap<Topic, GetListTopicResponse>().ReverseMap();
+            CreateMap<Paginate<Topic>, Paginate<GetListTopicResponse>>().ReverseMap();
 
         }
 
