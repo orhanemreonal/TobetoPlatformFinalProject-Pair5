@@ -19,7 +19,9 @@ namespace Business.Rules
         public Task EducationShouldExistWhenSelected(Education? education)
         {
             if (education == null)
+            {
                 throw new BusinessException(Messages.EducationNotExists);
+            }
             return Task.CompletedTask;
         }
 
@@ -33,3 +35,4 @@ namespace Business.Rules
             await EducationShouldExistWhenSelected(education);
         }
     }
+}

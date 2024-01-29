@@ -3,6 +3,7 @@ using Business.Abstract;
 using Business.Abstracts;
 using Business.Constants;
 using Business.Dtos.Auth.Requests;
+using Business.Dtos.Student.Requests;
 using Business.Dtos.Users.Requests;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
@@ -39,14 +40,15 @@ namespace Business.Concrete
 
             CreateUserRequest createUserRequest = _mapper.Map<CreateUserRequest>(user);
 
-            await _userService.Add(createUserRequest);
+            var response = await _userService.Add(createUserRequest);
 
+            return _mapper.Map<User>(response);
 
-            return user;
 
 
         }
 
+    
         public async Task<User> Login(LoginAuthRequest request)
         {
             User user = _mapper.Map<User>(request);

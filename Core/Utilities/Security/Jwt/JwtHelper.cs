@@ -50,12 +50,13 @@ namespace Core.Utilities.Security.Jwt
             return jwt;
         }
 
-        private IEnumerable<Claim> SetClaims(User user, List<OperationClaim> operationClaims)
+        private IEnumerable<Claim> SetClaims(User user,List<OperationClaim> operationClaims)
         {
             var claims = new List<Claim>();
             claims.AddNameIdentifier(user.Id.ToString());
             claims.AddEmail(user.Email);
-            claims.AddName($"{user.FirstName} {user.LastName}");
+            claims.AddFirstName(user.FirstName);
+            claims.AddLastName(user.LastName);
             claims.AddRoles(operationClaims.Select(c => c.Name).ToArray());
 
             return claims;
