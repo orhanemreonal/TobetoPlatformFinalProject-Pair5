@@ -17,7 +17,8 @@ namespace DataAccess.EntityConfigurations
             builder.Property(b => b.Department).HasColumnName("Department").IsRequired();
             builder.Property(b => b.StartYear).HasColumnName("StartYear").IsRequired();
             builder.Property(b => b.GraduationYear).HasColumnName("GraduationYear").IsRequired();
-            
+            builder.Property(b => b.IsContinued).HasColumnName("IsContinued").IsRequired();
+
 
             builder.HasOne(c => c.Student).WithMany(s => s.Educations).HasForeignKey(e => e.StudentId);
             builder.HasQueryFilter(b => !b.DeletedDate.HasValue);

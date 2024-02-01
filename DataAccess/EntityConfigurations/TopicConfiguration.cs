@@ -15,8 +15,7 @@ namespace DataAccess.EntityConfigurations
             builder.HasMany(t => t.AsyncVideos).WithOne(av => av.Topic).HasForeignKey(av => av.TopicId);
             builder.HasMany(t => t.VirtualClasses).WithOne(v => v.Topic).HasForeignKey(v => v.TopicId);
             builder.HasMany(t => t.CourseTopics).WithOne(c => c.Topic).HasForeignKey(c => c.TopicId);
-
-
+            builder.HasMany(t => t.Titles).WithOne(t => t.Topic).HasForeignKey(t => t.TopicId); ;
             builder.HasQueryFilter(b => !b.DeletedDate.HasValue);
 
 
