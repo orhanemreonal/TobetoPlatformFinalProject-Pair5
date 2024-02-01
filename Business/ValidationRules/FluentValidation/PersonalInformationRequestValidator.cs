@@ -8,12 +8,12 @@ namespace Business.ValidationRules.FluentValidation
     {
         public PersonalInformationRequestValidator()
         {
-            RuleFor(p => p.About).NotEmpty().MinimumLength(2).WithMessage(Messages.MustContainAtMinTwoChar);
-            RuleFor(p => p.IdentityNo).NotEmpty().MinimumLength(11).WithMessage(Messages.MustContainAtMinElevenChar); ;
-            RuleFor(p => p.Address).NotEmpty();
-            RuleFor(p => p.PhoneNumber).NotEmpty();
-            RuleFor(p => p.PhoneNumber).MinimumLength(11).WithMessage(Messages.MustContainAtMinElevenChar); ;
+            
+            RuleFor(p => p.IdentityNo).NotEmpty().WithMessage(Messages.MustFilling).Length(11).WithMessage(Messages.MustFillingForSubscribtions); 
+            RuleFor(p => p.Address).NotEmpty().WithMessage(Messages.MustFilling);
+            RuleFor(p => p.PhoneNumber).NotEmpty().WithMessage(Messages.MustFilling).MinimumLength(11).WithMessage(Messages.MustContainAtMinElevenChar); ;
             RuleFor(p => p.BirthDate).NotEmpty();
+            
 
         }
 
