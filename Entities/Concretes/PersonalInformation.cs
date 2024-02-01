@@ -7,11 +7,6 @@ namespace Entities.Concretes
         public Guid StudentId { get; set; }
         public string? About { get; set; }
         public string IdentityNo { get; set; }
-        //public Country Country { get; set; }
-        //public City City { get; set; }
-        //public County County { get; set; }
-        //public Neighbourhood Neighbourhood { get; set; }
-        //public Street Street { get; set; }
 
         public string Address { get; set; }
 

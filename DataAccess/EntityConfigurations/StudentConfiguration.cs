@@ -24,9 +24,12 @@ namespace DataAccess.EntityConfigurations
             builder.HasMany(s => s.Exams);
             builder.HasMany(s => s.Announcements);
             builder.HasMany(s => s.Applications);
+            builder.HasMany(s => s.StudentLikes);
 
-            builder.HasOne(s => s.PersonalInformation);
-
+            builder.HasOne(s => s.PersonalInformation)
+                .WithOne(p => p.Student)
+                .HasForeignKey<Student>(s => s.PersonalInformationId);
+            builder.HasOne(s => s.User);
             builder.HasOne(s => s.Classroom)
                 .WithMany(u => u.Students)
                 .HasForeignKey(s => s.ClassroomId);

@@ -18,6 +18,10 @@ namespace DataAccess.EntityConfigurations
             .HasForeignKey<Like>(l => l.CourseId);
             //.HasForeignKey<Course>(c => c.LikeId);
 
+            builder.HasOne(l => l.Title)
+                .WithOne(t => t.Like)
+                .HasForeignKey<Like>(l => l.TitleId);
+
             builder.HasMany(l => l.StudentLikes).WithOne(s => s.Like).HasForeignKey(s => s.LikeId);
 
             builder.HasMany(l => l.AsyncVideos).WithOne(a => a.Like).HasForeignKey(a => a.LikeId);

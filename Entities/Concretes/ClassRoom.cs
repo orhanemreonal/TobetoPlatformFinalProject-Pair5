@@ -8,5 +8,7 @@ namespace Entities.Concretes
         public List<Student>? Students { get; set; }
         public List<ClassroomCourse>? ClassroomCourses { get; set; }
         public List<ClassAnnouncement>? ClassAnnouncements { get; set; }
+
+        public List<Survey>? Surveys { get; set; }
     }
 }

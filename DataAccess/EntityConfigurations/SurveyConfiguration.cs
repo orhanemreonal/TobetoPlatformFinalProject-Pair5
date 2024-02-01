@@ -10,8 +10,11 @@ namespace DataAccess.EntityConfigurations
         {
             builder.ToTable("Surveys").HasKey(b => b.Id);
             builder.Property(b => b.Id).HasColumnName("Id").IsRequired();
-            builder.Property(b => b.Id).HasColumnName("Description");
+            builder.Property(b => b.Description).HasColumnName("Description");
             builder.Property(s => s.ClassroomId).HasColumnName("ClassroomId").IsRequired();
+
+            builder.HasOne(s => s.Classroom)
+                .WithMany(c => c.Surveys).HasForeignKey(s => s.ClassroomId);
         }
     }
 }
