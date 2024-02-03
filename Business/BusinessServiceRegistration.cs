@@ -61,6 +61,8 @@ namespace Business
             services.AddScoped<InstructorBusinessRules>();
             services.AddScoped<LanguageBusinessRules>();
             services.AddScoped<LikeBusinessRules>();
+            services.AddScoped<PersonalInformationBusinessRules>();
+
             services.AddScoped<SocialMediaBusinessRules>();
             services.AddScoped<StudentBusinessRules>();
             services.AddScoped<StudentLanguageBusinessRules>();

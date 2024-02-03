@@ -8,14 +8,10 @@ namespace Business.ValidationRules.FluentValidation
     {
         public UserRequestValidator()
         {
-            RuleFor(r => r.FirstName).NotEmpty().WithMessage(Messages.MustFilling);
-            RuleFor(r => r.FirstName).MinimumLength(2).WithMessage(Messages.MustContainAtMinTwoChar);
-            RuleFor(r => r.LastName).NotEmpty().WithMessage(Messages.MustFilling);
-            RuleFor(r => r.LastName).MinimumLength(2).WithMessage(Messages.MustContainAtMinTwoChar);
-            RuleFor(r => r.Email).NotEmpty().WithMessage(Messages.MustFilling);
-            RuleFor(r => r.Email).NotEmpty().Must(ValidateEmail).WithMessage(Messages.InvalidEmail);
-            RuleFor(r => r.Password).NotEmpty().WithMessage(Messages.MustFilling);
-            RuleFor(r => r.Password).MinimumLength(6).MaximumLength(20).NotEmpty().Must(ValidatePassword).WithMessage(Messages.MustContainAtMinTwoChar).WithMessage(Messages.MustContainAtMaxTwentyChar).WithMessage(Messages.MustContainUpperLowerChar);
+            RuleFor(r => r.FirstName).NotEmpty().WithMessage(Messages.MustFilling).MinimumLength(2).WithMessage(Messages.MustContainAtMinTwoChar);
+            RuleFor(r => r.LastName).NotEmpty().WithMessage(Messages.MustFilling).MinimumLength(2).WithMessage(Messages.MustContainAtMinTwoChar);
+            RuleFor(r => r.Email).NotEmpty().WithMessage(Messages.MustFilling).Must(ValidateEmail).WithMessage(Messages.InvalidEmail);
+            RuleFor(r => r.Password).NotEmpty().WithMessage(Messages.MustFilling).MinimumLength(8).MaximumLength(50).Must(ValidatePassword).WithMessage(Messages.MustContainAtMinTwoChar).WithMessage(Messages.MustContainAtMaxTwentyChar).WithMessage(Messages.MustContainUpperLowerChar);
 
         }
         private bool ValidateEmail(string email)

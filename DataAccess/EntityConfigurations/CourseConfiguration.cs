@@ -33,6 +33,10 @@ namespace DataAccess.EntityConfigurations
                 .WithOne(ct => ct.Course)
                 .HasForeignKey<Course>(c => c.LikeId);
 
+            builder.HasMany(c => c.ClassroomCourses);
+
+            builder.HasMany(c => c.CourseTopics);
+
 
             builder.HasQueryFilter(b => !b.DeletedDate.HasValue);
         }

@@ -20,7 +20,7 @@
 
 
         public static string MustFilling = "*Doldurulması zorunlu alan";
-        public static string MustContainAtMinTwoChar = "En az 2 karakter girilmelidir.";
+        public static string MustContainAtMinTwoChar = "En az 2  karakter girmelisiniz.";
 
         public static string MustContainAtMinTwentyfiveChar = "En az 25 karakter girilmelidir.";//Announcement
 
@@ -64,30 +64,31 @@
 
 
         public static object? AccessTokenCreated = "Token Oluşturuldu";
-        internal static string? PasswordDontMatch = "";
+        public static string? PasswordDontMatch = "";
 
 
 
         public static string MustContainUpperLowerChar = "Şifre en az bir büyük harf, bir küçük harf, bir rakam içermeli";
-        public static string InvalidEmail = "Mail adresi uygun formatta değil";
+        public static string InvalidEmail = "Girdiğiniz -posta adresi geçersizdir.";
         public static string MustContainMinEightChar = "En az sekiz karakter uzunluğunda olmalıdır.";
-        public static string NotBeEmpty = "Doldurulması zorunlu alan";
-        public static string MustContainAtMaxFiftyChar = "En fazla 50 karakter";
+        public static string MustContainAtMaxFiftyChar = "En fazla 50 karakter girebilirsiniz";
         public static string MustContainAtMinTenChar = "En az 10 karakter";
         public static string MaximumCharCount = "200 Karakter sınırını aştınız";
 
         public static string PointMustBetween = "Girilen puan 0 ile 100 arasında olmalıdır.";
 
         public static string MustContainAtMaxTwentyChar = "Şifre 20 karakterden uzun olmamalıdır.";
-        internal static string? AlreadyExist = "";
-        internal static string? NotBeExist ="";
+        public static string? AlreadyExist = "";
+        public static string? NotBeExist ="";
         public static string? StudentAlreadyExits = "Böyle bir öğrenci mevcut";
         public static string? CourseNotExists = "Kurs bulunamadı.";
         public static string? EducationNotExists = "Eğitim bilgisi bulunamadı.";
         public static string? ExamNotExists = "Sınav bilgisi bulunamadı.";
         public static string? ExperienceNotExists = "Deneyim bulunamadı.";
-        internal static string? TitleNotExists = "";
-        internal static string? VirtualClassNotExists ="";
-        internal static string? TopicNotExists ="";
+        public static string? TitleNotExists = "";
+        public static string? VirtualClassNotExists ="";
+        public static string? TopicNotExists ="";
+        public static string MustFillingForSubscribtions= "Aboneliklerde fatura için doldurulması zorunlu alan.";
+        public static string MaxJobDescriptionChar="Karakter uzunluğu en fazla 300 karakter olmalıdır.";
     }
 }

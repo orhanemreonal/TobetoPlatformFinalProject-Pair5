@@ -9,9 +9,9 @@ namespace Business.ValidationRules.FluentValidation
         public EducationRequestValidator()
         {
             RuleFor(r => r.EducationalStatus).NotEmpty().MinimumLength(2).WithMessage(Messages.MustContainAtMinTwoChar);
-            RuleFor(r => r.University).NotEmpty().MinimumLength(11).WithMessage(Messages.MustContainAtMinElevenChar);
+            RuleFor(r => r.University).NotEmpty().MinimumLength(2).WithMessage(Messages.MustContainAtMinTwoChar).MaximumLength(50).WithMessage(Messages.MustContainAtMaxFiftyChar);
             RuleFor(r => r.EducationalStatus).NotEmpty().MinimumLength(2).WithMessage(Messages.MustContainAtMinTwoChar);
-            RuleFor(r => r.Department).NotEmpty().MinimumLength(2).WithMessage(Messages.MustContainAtMinTwoChar);
+            RuleFor(r => r.Department).NotEmpty().MinimumLength(2).WithMessage(Messages.MustContainAtMinTwoChar).MaximumLength(50).WithMessage(Messages.MustContainAtMaxFiftyChar);
 
 
         }
