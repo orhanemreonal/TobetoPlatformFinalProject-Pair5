@@ -12,9 +12,9 @@ namespace Business.Concretes
 {
     public class PersonalInformationManager : IPersonalInformationService
     {
-        private readonly IPersonalInformationDal _personalInformationDal;
-        private readonly IMapper _mapper;
-        private readonly PersonalInformationBusinessRules _businessRules;
+        IPersonalInformationDal _personalInformationDal;
+        IMapper _mapper;
+        PersonalInformationBusinessRules _businessRules;
 
 
         public PersonalInformationManager(IPersonalInformationDal personalInformationDal, IMapper mapper, PersonalInformationBusinessRules businessRules)

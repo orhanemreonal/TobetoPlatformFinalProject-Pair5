@@ -12,7 +12,7 @@ namespace DataAccess
         public static IServiceCollection AddDataAccessServices(this IServiceCollection services, IConfiguration configuration)
         {
             //services.AddDbContext<CourseAcademyContext>(options => options.UseInMemoryDatabase("nArchitecture"));
-            services.AddDbContext<TobetoPlatformContext>(options => options.UseSqlServer(configuration.GetConnectionString("TobetoPlatform")));
+            services.AddDbContext<TobetoPlatformContext>(options => options.UseSqlServer(configuration.GetConnectionString("TobetoPlatform")), contextLifetime: ServiceLifetime.Transient);
 
             services.AddScoped<IAnnouncementDal, EfAnnouncementDal>();
             services.AddScoped<IApplicationDal, EfApplicationDal>();
