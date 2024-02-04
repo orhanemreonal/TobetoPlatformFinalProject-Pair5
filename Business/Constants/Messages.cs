@@ -90,5 +90,6 @@
         public static string? TopicNotExists ="";
         public static string MustFillingForSubscribtions= "Aboneliklerde fatura için doldurulması zorunlu alan.";
         public static string MaxJobDescriptionChar="Karakter uzunluğu en fazla 300 karakter olmalıdır.";
+        internal static string NotBeEmpty;
     }
 }

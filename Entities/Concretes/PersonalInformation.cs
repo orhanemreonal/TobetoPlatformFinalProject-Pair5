@@ -1,4 +1,6 @@
-﻿namespace Entities.Concretes
+﻿using Core.Entities;
+
+namespace Entities.Concretes
 {
     public class PersonalInformation : Entity<Guid>
     {

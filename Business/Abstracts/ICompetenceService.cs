@@ -11,6 +11,7 @@ namespace Business.Abstracts
         Task<GetCompetenceResponse> Update(UpdateCompetenceRequest updateCompetenceRequest);
         Task<GetCompetenceResponse> Delete(DeleteCompetenceRequest deleteCompetenceRequest);
         Task<IPaginate<GetListCompetenceResponse>> GetList(PageRequest pageRequest);
+        Task<IPaginate<GetListCompetenceResponse>> GetListByStudent(GetListByStudentRequest getListByStudentRequest);
         Task<GetCompetenceResponse> Get(Guid id);
     }
 }
