@@ -26,6 +26,7 @@ namespace Business
             services.AddScoped<IExperienceService, ExperienceManager>();
             services.AddScoped<IInstructorService, InstructorManager>();
             services.AddScoped<ILanguageService, LanguageManager>();
+            services.AddScoped<ILanguageLevelService, LanguageLevelManager>();
             services.AddScoped<ILikeService, LikeManager>();
             services.AddScoped<IPersonalInformationService, PersonalInformationManager>();
             services.AddScoped<ISocialMediaService, SocialMediaManager>();
@@ -60,6 +61,7 @@ namespace Business
             services.AddScoped<ExperienceBusinessRules>();
             services.AddScoped<InstructorBusinessRules>();
             services.AddScoped<LanguageBusinessRules>();
+            services.AddScoped<LanguageLevelBusinessRules>();
             services.AddScoped<LikeBusinessRules>();
             services.AddScoped<PersonalInformationBusinessRules>();
 

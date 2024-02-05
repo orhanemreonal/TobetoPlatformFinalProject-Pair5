@@ -31,6 +31,7 @@ namespace DataAccess
             services.AddScoped<IExperienceDal, EfExperienceDal>();
             services.AddScoped<IInstructorDal, EfInstructorDal>();
             services.AddScoped<ILanguageDal, EfLanguageDal>();
+            services.AddScoped<ILanguageLevelDal, EfLanguageLevelDal>();
             services.AddScoped<ILikeDal, EfLikeDal>();
             services.AddScoped<IPersonalInformationDal, EfPersonalInformationDal>();
             services.AddScoped<ISocialMediaDal, EfSocialMediaDal>();

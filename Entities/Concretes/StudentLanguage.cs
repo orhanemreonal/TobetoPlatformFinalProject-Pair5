@@ -8,7 +8,9 @@ namespace Entities.Concretes
 
         public Guid LanguageId { get; set; }
 
-        public string LanguageLevel { get; set; }
+        public Guid LanguageLevelId { get; set; }
+
+        public LanguageLevel? LanguageLevel { get; set; }
 
         public Student? Student { get; set; }
 

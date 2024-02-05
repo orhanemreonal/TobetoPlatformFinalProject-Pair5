@@ -19,8 +19,14 @@ namespace Business.Profiles
             CreateMap<GetStudentLanguageResponse, CreateStudentLanguageRequest>().ReverseMap();
 
 
-            CreateMap<StudentLanguage, GetStudentLanguageResponse>().ReverseMap();
-            CreateMap<StudentLanguage, GetListStudentLanguageResponse>().ReverseMap();
+            CreateMap<StudentLanguage, GetStudentLanguageResponse>()
+                .ForMember(dest => dest.LanguageName, opt => opt.MapFrom(src => src.Language.Name))
+                .ForMember(dest => dest.LanguageLevel, opt => opt.MapFrom(src => src.LanguageLevel.Level))
+                .ReverseMap();
+            CreateMap<StudentLanguage, GetListStudentLanguageResponse>()
+                .ForMember(dest => dest.LanguageName, opt => opt.MapFrom(src => src.Language.Name))
+                .ForMember(dest => dest.LanguageLevel, opt => opt.MapFrom(src => src.LanguageLevel.Level))
+                .ReverseMap();
             CreateMap<Paginate<StudentLanguage>, Paginate<GetListStudentLanguageResponse>>().ReverseMap();
 
         }

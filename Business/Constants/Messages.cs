@@ -70,26 +70,28 @@
 
         public static string MustContainUpperLowerChar = "Şifre en az bir büyük harf, bir küçük harf, bir rakam içermeli";
         public static string InvalidEmail = "Girdiğiniz -posta adresi geçersizdir.";
+        public static string MustContainMinSixChar = "En az altı karakter uzunluğunda olmalıdır.";
         public static string MustContainMinEightChar = "En az sekiz karakter uzunluğunda olmalıdır.";
-        public static string MustContainAtMaxFiftyChar = "En fazla 50 karakter girebilirsiniz";
-        public static string MustContainAtMinTenChar = "En az 10 karakter";
+        public static string MustContainAtMaxFiftyChar = "En fazla 50 karakter uzunluğunda olmalıdır";
+        public static string MustContainAtMinTenChar = "En az on karakter uzunluğunda olmalıdır";
         public static string MaximumCharCount = "200 Karakter sınırını aştınız";
 
         public static string PointMustBetween = "Girilen puan 0 ile 100 arasında olmalıdır.";
 
         public static string MustContainAtMaxTwentyChar = "Şifre 20 karakterden uzun olmamalıdır.";
         public static string? AlreadyExist = "";
-        public static string? NotBeExist ="";
+        public static string? NotBeExist = "";
         public static string? StudentAlreadyExits = "Böyle bir öğrenci mevcut";
         public static string? CourseNotExists = "Kurs bulunamadı.";
         public static string? EducationNotExists = "Eğitim bilgisi bulunamadı.";
         public static string? ExamNotExists = "Sınav bilgisi bulunamadı.";
         public static string? ExperienceNotExists = "Deneyim bulunamadı.";
         public static string? TitleNotExists = "";
-        public static string? VirtualClassNotExists ="";
-        public static string? TopicNotExists ="";
-        public static string MustFillingForSubscribtions= "Aboneliklerde fatura için doldurulması zorunlu alan.";
-        public static string MaxJobDescriptionChar="Karakter uzunluğu en fazla 300 karakter olmalıdır.";
-        internal static string NotBeEmpty;
+        public static string? VirtualClassNotExists = "";
+        public static string? TopicNotExists = "";
+        public static string MustFillingForSubscribtions = "Aboneliklerde fatura için doldurulması zorunlu alan.";
+        public static string MaxJobDescriptionChar = "Karakter uzunluğu en fazla 300 karakter olmalıdır.";
+        public static string NotBeEmpty = "Boş geçilemez";
+        public static string? LanguageLevelNotExists = "Dil seviyesi mevcut değil.";
     }
 }

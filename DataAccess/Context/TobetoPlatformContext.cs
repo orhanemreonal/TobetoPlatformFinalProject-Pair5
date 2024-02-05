@@ -50,11 +50,8 @@ namespace DataAccess.Context
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
-
-
-
-
         }
+
 
     }
 }

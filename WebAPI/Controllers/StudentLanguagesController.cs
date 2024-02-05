@@ -1,4 +1,5 @@
 ﻿using Business.Abstracts;
+using Business.Dtos.StudentLanguage.Requests;
 using Business.Dtos.Students.Requests;
 using Core.Business.Requests;
 using Microsoft.AspNetCore.Mvc;
@@ -27,13 +28,13 @@ namespace WebAPI.Controllers
         {
             var result = await _studentLanguageService.GetList(pageRequest);
             return Ok(result);
-
         }
         [HttpPost("add")]
         public async Task<IActionResult> Add([FromBody] CreateStudentLanguageRequest createStudentLanguageRequest)
         {
-            var result = await _studentLanguageService.Add(createStudentLanguageRequest);
-            return Ok(result);
+            var resultAdd = await _studentLanguageService.Add(createStudentLanguageRequest);
+            var resultGet = await _studentLanguageService.Get(resultAdd.Id);
+            return Ok(resultGet);
         }
         [HttpPut("update")]
         public async Task<IActionResult> Update([FromQuery] UpdateStudentLanguageRequest updateStudentLanguageRequest)
@@ -47,5 +48,13 @@ namespace WebAPI.Controllers
             var result = await _studentLanguageService.Delete(deleteStudentLanguageRequest);
             return Ok(result);
         }
+        [HttpGet("getlistbystudent")]
+        public async Task<IActionResult> GetListByStudent([FromQuery] GetStudentLanguagesByStudentRequest request)
+        {
+            var result = await _studentLanguageService.GetListByStudent(request);
+            return Ok(result);
+
+        }
     }
 }
+
