@@ -55,5 +55,13 @@ namespace WebAPI.Controllers
             var result = await _competenceService.GetList(pageRequest);
             return Ok(result);
         }
+
+        [HttpGet("getlistByStudent")]
+
+        public async Task<IActionResult> GetListByStudent([FromQuery] GetListByStudentRequest pageRequest)
+        {
+            var result = await _competenceService.GetListByStudent(pageRequest);
+            return Ok(result);
+        }
     }
 }

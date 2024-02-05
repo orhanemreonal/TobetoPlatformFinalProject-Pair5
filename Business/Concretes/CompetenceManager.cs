@@ -59,6 +59,12 @@ namespace Business.Concretes
             Paginate<GetListCompetenceResponse> response = _mapper.Map<Paginate<GetListCompetenceResponse>>(result);
             return response;
         }
+        public async Task<IPaginate<GetListCompetenceResponse>> GetListByStudent(GetListByStudentRequest request)
+        {
+            var result = await _competenceDal.GetListAsync(index: request.Index, size: request.Size, predicate: (x => x.StudentId == request.StudentId));
+            Paginate<GetListCompetenceResponse> response = _mapper.Map<Paginate<GetListCompetenceResponse>>(result);
+            return response;
+        }
 
         public async Task<GetCompetenceResponse> Update(UpdateCompetenceRequest request)
         {
