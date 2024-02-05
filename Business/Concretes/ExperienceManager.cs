@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Azure.Core;
 using Business.Abstracts;
 using Business.Dtos.Experience.Requests;
 using Business.Dtos.Experience.Responses;
@@ -64,7 +65,16 @@ namespace Business.Concretes
             Paginate<GetListExperienceResponse> response = _mapper.Map<Paginate<GetListExperienceResponse>>(result);
             return response;
         }
-
+        public async Task<IPaginate<GetListExperienceResponse>> GetListStudentId(PageRequest pageRequest,Guid id)
+        {
+            var result = await _experienceDal.GetListAsync(
+                 index: pageRequest.Index,
+                 size: pageRequest.Size,
+                 predicate: a => a.StudentId == id
+                 );
+            Paginate<GetListExperienceResponse> response = _mapper.Map<Paginate<GetListExperienceResponse>>(result);
+            return response;
+        }
         public async Task<GetExperienceResponse> Update(UpdateExperienceRequest request)
         {
             var result = await _experienceDal.GetAsync(predicate: a => a.Id == request.Id);

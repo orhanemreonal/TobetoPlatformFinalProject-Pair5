@@ -24,7 +24,6 @@ namespace Business.Concretes
             _businessRules = businessRules;
         }
 
-        [SecuredOperation("Admin")]
         public async Task<GetCompanyResponse> Add(CreateCompanyRequest request)
         {
             Company company = _mapper.Map<Company>(request);

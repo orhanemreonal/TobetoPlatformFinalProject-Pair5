@@ -57,6 +57,13 @@ namespace Business.Concretes
             GetStudentResponse response = _mapper.Map<GetStudentResponse>(student);
             return response;
         }
+        public async Task<GetStudentResponse> GetByUserId(Guid id)
+        {
+            Student student = await _studentDal.GetAsync(predicate: c => c.UserId == id);
+            await _businessRules.StudentShouldExistWhenSelected(student);
+            GetStudentResponse response = _mapper.Map<GetStudentResponse>(student);
+            return response;
+        }
 
         public async Task<IPaginate<GetListStudentResponse>> GetList(PageRequest request)
         {

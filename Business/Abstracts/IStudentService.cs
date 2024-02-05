@@ -12,5 +12,7 @@ namespace Business.Abstracts
         Task<GetStudentResponse> Delete(DeleteStudentRequest deleteStudentRequest);
         Task<IPaginate<GetListStudentResponse>> GetList(PageRequest pageRequest);
         Task<GetStudentResponse> Get(Guid id);
+        Task<GetStudentResponse> GetByUserId(Guid id);
+
     }
 }

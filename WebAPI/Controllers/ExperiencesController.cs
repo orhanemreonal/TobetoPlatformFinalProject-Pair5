@@ -33,6 +33,13 @@ namespace WebAPI.Controllers
             var result = await _experienceService.GetList(pageRequest);
             return Ok(result);
         }
+        [HttpGet("getliststudentid")]
+
+        public async Task<IActionResult> GetListStudentId([FromQuery] PageRequest pageRequest,Guid id)
+        {
+            var result = await _experienceService.GetListStudentId(pageRequest,id);
+            return Ok(result);
+        }
 
         [HttpGet("get")]
 
