@@ -25,7 +25,6 @@ namespace WebAPI.Controllers
         }
 
         [HttpDelete("delete")]
-
         public async Task<IActionResult> Delete(DeleteClassroomRequest deleteClassroomRequest)
         {
             var result = await _classroomService.Delete(deleteClassroomRequest);

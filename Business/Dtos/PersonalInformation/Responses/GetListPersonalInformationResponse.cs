@@ -10,19 +10,18 @@ namespace Business.Dtos.PersonelInformations.Responses
     public class GetListPersonalInformationResponse
     {
         public Guid Id { get; set; }
+        public Guid StudentId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public string? About { get; set; }
         public string IdentityNo { get; set; }
-        //public Country Country { get; set; }
-        //public City City { get; set; }
-        //public County County { get; set; }
-        //public Neighbourhood Neighbourhood { get; set; }
-        //public Street Street { get; set; }
-
+        public string Country { get; set; }
+        public string City { get; set; }
+        public string County { get; set; }
         public string Address { get; set; }
-
         public string PhoneNumber { get; set; }
-
         public DateTime BirthDate { get; set; }
+
 
     }
 }

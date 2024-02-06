@@ -15,6 +15,7 @@ namespace DataAccess.EntityConfigurations
             builder.Property(b => b.Id).HasColumnName("Id").IsRequired();
             builder.Property(b => b.StudentId).HasColumnName("StudentId").IsRequired();
             builder.Property(b => b.CompanyName).HasColumnName("CompanyName").IsRequired();
+            builder.Property(b => b.City).HasColumnName("City").IsRequired();
             builder.Property(b => b.Position).HasColumnName("Position").IsRequired();
             builder.Property(b => b.Sector).HasColumnName("Sector").IsRequired();
             builder.Property(b => b.IsContinued).HasColumnName("IsContinued").IsRequired();
