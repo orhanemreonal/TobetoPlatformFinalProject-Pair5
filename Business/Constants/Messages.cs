@@ -93,5 +93,6 @@
         public static string MaxJobDescriptionChar = "Karakter uzunluğu en fazla 300 karakter olmalıdır.";
         public static string NotBeEmpty = "Boş geçilemez";
         public static string? LanguageLevelNotExists = "Dil seviyesi mevcut değil.";
+        internal static string? SocialMediaStudentNotExists;
     }
 }

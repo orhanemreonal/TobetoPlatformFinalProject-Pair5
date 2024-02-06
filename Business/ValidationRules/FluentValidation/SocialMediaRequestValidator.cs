@@ -9,7 +9,6 @@ namespace Business.ValidationRules.FluentValidation
         public SocialMediaRequestValidator()
         {
             RuleFor(s => s.Name).NotEmpty().MinimumLength(2).WithMessage(Messages.MustContainAtMinTwoChar);
-            RuleFor(s => s.Url).NotEmpty().MinimumLength(2).WithMessage(Messages.MustContainAtMinTwoChar); ;
 
         }
 

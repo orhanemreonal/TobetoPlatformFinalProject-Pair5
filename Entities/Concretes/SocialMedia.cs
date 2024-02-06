@@ -4,10 +4,9 @@ namespace Entities.Concretes
 {
     public class SocialMedia : Entity<Guid>
     {
-        public Guid StudentId { get; set; }
+
         public string Name { get; set; }
-        public string Url { get; set; }
-        public Student? Student { get; set; }
+        public List<SocialMediaStudent>? SocialMediaStudents { get; set; }
 
     }
 }

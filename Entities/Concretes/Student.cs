@@ -13,7 +13,7 @@ namespace Entities.Concretes
         public List<Competence>? Competences { get; set; }
         public List<StudentLanguage>? StudentLanguages { get; set; }
         public List<Certificate>? Certificates { get; set; }
-        public List<SocialMedia>? SocialMedias { get; set; }
+        public List<SocialMediaStudent>? SocialMediaStudents { get; set; }
         public List<Survey>? Surveys { get; set; }
         public List<Exam>? Exams { get; set; }
         public List<Announcement>? Announcements { get; set; }

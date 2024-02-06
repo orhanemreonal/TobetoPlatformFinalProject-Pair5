@@ -1,6 +1,7 @@
 ﻿using Business.Abstracts;
 using Business.Dtos.StudentLanguage.Requests;
 using Business.Dtos.Students.Requests;
+using Business.Rules;
 using Core.Business.Requests;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,10 +12,12 @@ namespace WebAPI.Controllers
     public class StudentLanguagesController : ControllerBase
     {
         IStudentLanguageService _studentLanguageService;
+        StudentLanguageBusinessRules _studentLanguageBusinessRules;
 
-        public StudentLanguagesController(IStudentLanguageService studentLanguageService)
+        public StudentLanguagesController(IStudentLanguageService studentLanguageService, StudentLanguageBusinessRules studentLanguageBusinessRules)
         {
             _studentLanguageService = studentLanguageService;
+            _studentLanguageBusinessRules = studentLanguageBusinessRules;
         }
 
         [HttpGet("get")]
@@ -57,4 +60,3 @@ namespace WebAPI.Controllers
         }
     }
 }
-

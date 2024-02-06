@@ -2,6 +2,7 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Business;
 using Business.DependencyResolvers.Autofac;
+using Core.CrossCuttingConcerns.Exceptions.Extentions;
 using Core.DependencyResolvers;
 using Core.Extentions;
 using Core.Utilities.IoC;
@@ -70,5 +71,5 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.ConfigureCustomExceptionMiddleware();
 app.Run();

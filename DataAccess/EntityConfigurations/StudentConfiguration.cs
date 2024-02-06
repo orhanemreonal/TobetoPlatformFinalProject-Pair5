@@ -19,7 +19,7 @@ namespace DataAccess.EntityConfigurations
             builder.HasMany(s => s.Competences);
             builder.HasMany(s => s.StudentLanguages);
             builder.HasMany(s => s.Certificates);
-            builder.HasMany(s => s.SocialMedias);
+            builder.HasMany(s => s.SocialMediaStudents);
             builder.HasMany(s => s.Surveys);
             builder.HasMany(s => s.Exams);
             builder.HasMany(s => s.Announcements);

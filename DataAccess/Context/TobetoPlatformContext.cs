@@ -28,7 +28,9 @@ namespace DataAccess.Context
         public DbSet<Like> Likes { get; set; }
         public DbSet<PersonalInformation> PersonalInformations { get; set; }
         public DbSet<SocialMedia> SocialMedias { get; set; }
+        public DbSet<SocialMediaStudent> SocialMediaStudents { get; set; }
         public DbSet<StudentLanguage> StudentLanguages { get; set; }
+        public DbSet<LanguageLevel> LanguageLevels { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<Survey> Surveys { get; set; }
         public DbSet<Title> Titles { get; set; }

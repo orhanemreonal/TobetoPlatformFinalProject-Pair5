@@ -18,7 +18,7 @@ namespace Business.Rules
         public Task SocialMediaShouldExistWhenSelected(SocialMedia? socialMedia)
         {
             if (socialMedia == null)
-                throw new BusinessException(Messages.StudentLanguageNotExists);
+                throw new BusinessException(Messages.SocialMediaNotExists);
             return Task.CompletedTask;
         }
 

@@ -30,6 +30,7 @@ namespace Business
             services.AddScoped<ILikeService, LikeManager>();
             services.AddScoped<IPersonalInformationService, PersonalInformationManager>();
             services.AddScoped<ISocialMediaService, SocialMediaManager>();
+            services.AddScoped<ISocialMediaStudentService, SocialMediaStudentManager>();
             services.AddScoped<IStudentService, StudentManager>();
             services.AddScoped<ISurveyService, SurveyManager>();
             services.AddScoped<IUserService, UserManager>();
@@ -66,6 +67,7 @@ namespace Business
             services.AddScoped<PersonalInformationBusinessRules>();
 
             services.AddScoped<SocialMediaBusinessRules>();
+            services.AddScoped<SocialMediaStudentBusinessRules>();
             services.AddScoped<StudentBusinessRules>();
             services.AddScoped<StudentLanguageBusinessRules>();
             services.AddScoped<PersonalInformationBusinessRules>();

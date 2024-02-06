@@ -12,10 +12,7 @@ namespace DataAccess.EntityConfigurations
             builder.ToTable("SocialMedias").HasKey(b => b.Id);
             builder.Property(b => b.Id).HasColumnName("Id").IsRequired();
             builder.Property(b => b.Name).HasColumnName("Name").IsRequired();
-            builder.Property(b => b.Url).HasColumnName("Url");
-            builder.HasOne(s => s.Student)
-                .WithMany(u => u.SocialMedias)
-                .HasForeignKey(s => s.StudentId);
+
         }
     }
 }
