@@ -50,6 +50,13 @@ namespace Business.Concretes
             return response;
         }
 
+        public async Task<GetPersonalInformationResponse> GetByStudentId(Guid id)
+        {
+            PersonalInformation personalInformation = await _personalInformationDal.GetAsync(predicate: u => u.StudentId == id);
+            await _businessRules.PersonalInformationShouldExistWhenSelected(personalInformation);
+            GetPersonalInformationResponse response = _mapper.Map<GetPersonalInformationResponse>(personalInformation);
+            return response;
+        }
         public async Task<IPaginate<GetListPersonalInformationResponse>> GetList(PageRequest pageRequest)
         {
             var result = await _personalInformationDal.GetListAsync(index: pageRequest.Index, size: pageRequest.Size);

@@ -22,6 +22,12 @@ namespace WebAPI.Controllers
             var result = await _personalInformationService.Get(Id);
             return Ok(result);
         }
+        [HttpGet("getbystudentid")]
+        public async Task<IActionResult> GetByStudentId([FromQuery] Guid Id)
+        {
+            var result = await _personalInformationService.GetByStudentId(Id);
+            return Ok(result);
+        }
         [HttpGet("getlist")]
         public async Task<IActionResult> GetList([FromQuery] PageRequest pageRequest)
         {
@@ -36,7 +42,7 @@ namespace WebAPI.Controllers
             return Ok(result);
         }
         [HttpPut("update")]
-        public async Task<IActionResult> Update([FromQuery] UpdatePersonalInformationRequest updatePersonalInformationRequest)
+        public async Task<IActionResult> Update([FromBody] UpdatePersonalInformationRequest updatePersonalInformationRequest)
         {
             var result = await _personalInformationService.Update(updatePersonalInformationRequest);
             return Ok(result);

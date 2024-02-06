@@ -14,5 +14,7 @@ namespace Business.Abstracts
         Task<GetPersonalInformationResponse> Delete(DeletePersonalInformationRequest deletePersonalInformationRequest);
         Task<IPaginate<GetListPersonalInformationResponse>> GetList(PageRequest pageRequest);
         Task<GetPersonalInformationResponse> Get(Guid id);
+        Task<GetPersonalInformationResponse> GetByStudentId(Guid id);
+
     }
 }

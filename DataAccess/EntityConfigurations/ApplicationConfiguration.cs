@@ -11,6 +11,7 @@ namespace DataAccess.EntityConfigurations
             builder.ToTable("Applications").HasKey(a => a.Id);
             builder.Property(a => a.Id).HasColumnName("Id").IsRequired();
             builder.Property(a => a.StudentId).HasColumnName("StudentId").IsRequired();
+            builder.Property(a => a.Title).HasColumnName("Title").IsRequired();
             builder.Property(a => a.Description).HasColumnName("Description").IsRequired();
             builder.Property(a => a.IsAccepted).HasColumnName("IsAccepted");
 

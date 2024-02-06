@@ -52,7 +52,7 @@ namespace WebAPI.Controllers
 
         [HttpDelete("delete")]
 
-        public async Task<IActionResult> Delete(DeleteExperienceRequest deleteExperienceRequest)
+        public async Task<IActionResult> Delete([FromQuery] DeleteExperienceRequest deleteExperienceRequest)
         {
             var result = await _experienceService.Delete(deleteExperienceRequest);
             return Ok(result);
