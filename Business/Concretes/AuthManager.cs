@@ -3,7 +3,6 @@ using Business.Abstract;
 using Business.Abstracts;
 using Business.Constants;
 using Business.Dtos.Auth.Requests;
-using Business.Dtos.Student.Requests;
 using Business.Dtos.Users.Requests;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
@@ -48,7 +47,7 @@ namespace Business.Concrete
 
         }
 
-    
+
         public async Task<User> Login(LoginAuthRequest request)
         {
             User user = _mapper.Map<User>(request);
@@ -57,14 +56,14 @@ namespace Business.Concrete
             if (loginuser == null)
             {
 
-                throw new BusinessException(Messages.UserNotBeExist);
+                throw new BusinessException(Messages.MailOrPasswordIncorrect);
 
 
             }
 
             if (!HashingHelper.VerifyPasswordHash(request.Password, loginuser.PasswordHash, loginuser.PasswordSalt))
             {
-                throw new BusinessException(Messages.PasswordUncorrect);
+                throw new BusinessException(Messages.MailOrPasswordIncorrect);
             }
 
             var userResponse = _mapper.Map<User>(loginuser);
