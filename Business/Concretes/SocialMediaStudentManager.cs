@@ -47,7 +47,7 @@ namespace Business.Concretes
 
         public async Task<GetSocialMediaStudentResponse> Get(Guid id)
         {
-            SocialMediaStudent socialMediaStudent = await _socialMediaStudentDal.GetAsync(predicate: u => u.Id == id);
+            SocialMediaStudent socialMediaStudent = await _socialMediaStudentDal.GetAsync(predicate: u => u.Id == id, include: x => x.Include(y => y.SocialMedia));
             await _businessRules.SocialMediaStudentShouldExistWhenSelected(socialMediaStudent);
             GetSocialMediaStudentResponse response = _mapper.Map<GetSocialMediaStudentResponse>(socialMediaStudent);
             return response;
