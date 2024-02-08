@@ -32,7 +32,13 @@ namespace WebAPI.Controllers
             var result = await _educationService.GetList(pageRequest);
             return Ok(result);
         }
+        [HttpGet("getliststudentid")]
 
+        public async Task<IActionResult> GetListStudentId([FromQuery] PageRequest pageRequest,Guid id)
+        {
+            var result = await _educationService.GetListStudentId(pageRequest,id);
+            return Ok(result);
+        }
         [HttpGet("get")]
 
         public async Task<IActionResult> Get([FromQuery] Guid id)
@@ -44,7 +50,7 @@ namespace WebAPI.Controllers
 
         [HttpDelete("delete")]
 
-        public async Task<IActionResult> Delete(DeleteEducationRequest deleteEducationRequest)
+        public async Task<IActionResult> Delete([FromQuery] DeleteEducationRequest deleteEducationRequest)
         {
             var result = await _educationService.Delete(deleteEducationRequest);
             return Ok(result);

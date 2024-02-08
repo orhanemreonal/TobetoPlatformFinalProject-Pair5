@@ -2,10 +2,12 @@
 using Business.Abstracts;
 using Business.Dtos.Education.Requests;
 using Business.Dtos.Education.Responses;
+using Business.Dtos.Experience.Responses;
 using Business.Rules;
 using Core.Business.Requests;
 using Core.DataAccess.Paging;
 using DataAccess.Abstracts;
+using DataAccess.Concretes;
 using Entities.Concretes;
 
 namespace Business.Concretes
@@ -64,7 +66,16 @@ namespace Business.Concretes
             Paginate<GetListEducationResponse> response = _mapper.Map<Paginate<GetListEducationResponse>>(result);
             return response;
         }
-
+        public async Task<IPaginate<GetListEducationResponse>> GetListStudentId(PageRequest pageRequest, Guid id)
+        {
+            var result = await _educationDal.GetListAsync(
+                 index: pageRequest.Index,
+                 size: pageRequest.Size,
+                 predicate: a => a.StudentId == id
+                 );
+            Paginate<GetListEducationResponse> response = _mapper.Map<Paginate<GetListEducationResponse>>(result);
+            return response;
+        }
         public async Task<GetEducationResponse> Update(UpdateEducationRequest request)
         {
 
