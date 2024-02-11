@@ -3,6 +3,9 @@ using Business.Abstract;
 using Business.Abstracts;
 using Business.Dtos.Auth.Requests;
 using Business.Dtos.Student.Requests;
+using Business.Dtos.Users.Requests;
+using Core.CrossCuttingConcerns.Exceptions.Types;
+using Core.Utilities.Security.Hashing;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
@@ -14,10 +17,13 @@ namespace WebAPI.Controllers
         private IAuthService _authService;
         private IMapper _mapper;
         private IStudentService _studentService;
-        public AuthController(IAuthService authService,IStudentService studentService)
+        private IUserService _userService;
+        public AuthController(IAuthService authService, IStudentService studentService, IUserService userService, IMapper mapper)
         {
             _authService = authService;
             _studentService = studentService;
+            _userService = userService;
+            _mapper = mapper;
         }
 
         [HttpPost("Login")]
@@ -35,7 +41,7 @@ namespace WebAPI.Controllers
         [HttpPost("Register")]
         public async Task<IActionResult> Register([FromBody] RegisterAuthRequest request)
         {
-            await  _authService.UserExists(request.Email);
+            await _authService.UserExists(request.Email);
 
 
             var registerResult = await _authService.Register(request, request.Password);
@@ -64,6 +70,32 @@ namespace WebAPI.Controllers
             }
 
             return BadRequest();
+        }
+
+        [HttpPost("UpdatePassword")]
+        public async Task<IActionResult> UpdatePassword([FromBody] UploadPasswordRequest request)
+        {
+            //TODO: Yeni şifre için kayıtta yapılan tüm validasyonlar burada da yapılmalı!
+            if (request.NewPasswordAgain != request.NewPassword)
+            {
+                throw new BusinessException("Şifreler Eşleşmiyor");
+            }
+            var userResult = _userService.Get(request.UserId);
+            var loginResult = _authService.Login(new LoginAuthRequest { Email = userResult.Result.Email, Password = request.OldPassword });
+            if (loginResult.Result != null || userResult != null)
+            {
+                byte[] passwordHash, passwordSalt;
+                HashingHelper.CreatePasswordHash(request.NewPassword, out passwordHash, out passwordSalt);
+                userResult.Result.PasswordHash = passwordHash;
+                userResult.Result.PasswordSalt = passwordSalt;
+                var updateRequest = _mapper.Map<UpdateUserRequest>(userResult.Result);
+                _userService.Update(updateRequest);
+            }
+            else
+            {
+                throw new BusinessException("Eski şifre doğrulanamadı.");
+            }
+            return Ok();
         }
     }
 }

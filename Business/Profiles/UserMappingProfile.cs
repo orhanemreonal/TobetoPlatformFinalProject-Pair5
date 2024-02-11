@@ -26,6 +26,7 @@ namespace Business.Profiles
 
             CreateMap<GetUserResponse, RegisterAuthResponse>().ReverseMap();
             CreateMap<GetUserResponse, LoginAuthResponse>().ReverseMap();
+            CreateMap<GetUserResponse, UpdateUserRequest>().ReverseMap();
 
 
             CreateMap<User, GetUserResponse>().ReverseMap();
