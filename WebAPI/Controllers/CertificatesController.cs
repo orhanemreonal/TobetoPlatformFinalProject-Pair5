@@ -1,7 +1,6 @@
 ﻿using Business.Abstracts;
 using Business.Dtos.Certificate.Requests;
 using Core.Business.Requests;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
@@ -11,16 +10,20 @@ namespace WebAPI.Controllers
     public class CertificatesController : ControllerBase
     {
         ICertificateService _certificateService;
+        IConfiguration _configuration;
 
-        public CertificatesController(ICertificateService certificateService)
+        public CertificatesController(ICertificateService certificateService, IConfiguration configuration)
         {
             _certificateService = certificateService;
+            _configuration = configuration;
         }
 
         [HttpPost("add")]
-        public async Task<IActionResult> Add([FromBody] CreateCertificateRequest createCertificateRequest)
+        public async Task<IActionResult> Add([FromForm] UploadCertificateRequest uploadCertificateRequest)
         {
-            var result = await _certificateService.Add(createCertificateRequest);
+            var uploadedFile = await _certificateService.UploadCertificate(uploadCertificateRequest);
+
+            var result = await _certificateService.Add(uploadedFile);
             return Ok(result);
         }
 
@@ -28,6 +31,13 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> GetList([FromQuery] PageRequest pageRequest)
         {
             var result = await _certificateService.GetList(pageRequest);
+            return Ok(result);
+        }
+
+        [HttpGet("getlistByStudentId")]
+        public async Task<IActionResult> GetListByStudentId([FromQuery] GetListByStudentIdRequest request)
+        {
+            var result = await _certificateService.GetListByStudentId(request);
             return Ok(result);
         }
 

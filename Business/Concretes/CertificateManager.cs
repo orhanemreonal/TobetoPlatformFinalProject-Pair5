@@ -4,9 +4,11 @@ using Business.Dtos.Certificate.Requests;
 using Business.Dtos.Certificate.Responses;
 using Business.Rules;
 using Core.Business.Requests;
+using Core.CrossCuttingConcerns.Exceptions.Types;
 using Core.DataAccess.Paging;
 using DataAccess.Abstracts;
 using Entities.Concretes;
+using Microsoft.Extensions.Configuration;
 
 namespace Business.Concretes
 {
@@ -14,20 +16,23 @@ namespace Business.Concretes
     {
         ICertificateDal _certificateDal;
         IMapper _mapper;
+        IConfiguration _configuration;
         CertificateBusinessRules _businessRules;
 
-        public CertificateManager(ICertificateDal certificateDal, IMapper mapper, CertificateBusinessRules businessRules)
+        public CertificateManager(ICertificateDal certificateDal, IMapper mapper, CertificateBusinessRules businessRules, IConfiguration configuration)
         {
             _certificateDal = certificateDal;
             _mapper = mapper;
             _businessRules = businessRules;
+            _configuration = configuration;
         }
+
 
         public async Task<GetCertificateResponse> Add(CreateCertificateRequest request)
         {
             Certificate certificate = _mapper.Map<Certificate>(request);
             await _certificateDal.AddAsync(certificate);
-            GetCertificateResponse response = _mapper.Map<GetCertificateResponse>(request);
+            GetCertificateResponse response = _mapper.Map<GetCertificateResponse>(certificate);
             return response;
         }
 
@@ -57,6 +62,14 @@ namespace Business.Concretes
 
         }
 
+        public async Task<IPaginate<GetListCertificateResponse>> GetListByStudentId(GetListByStudentIdRequest request)
+        {
+            var result = await _certificateDal.GetListAsync(index: request.Index, size: request.Size, predicate: x => x.StudentId == request.StudentId);
+            Paginate<GetListCertificateResponse> response = _mapper.Map<Paginate<GetListCertificateResponse>>(result);
+            return response;
+
+        }
+
         public async Task<GetCertificateResponse> Update(UpdateCertificateRequest request)
         {
             var result = await _certificateDal.GetAsync(predicate: a => a.Id == request.Id);
@@ -65,6 +78,31 @@ namespace Business.Concretes
             await _certificateDal.UpdateAsync(result);
             GetCertificateResponse response = _mapper.Map<GetCertificateResponse>(result);
             return response;
+
+        }
+
+        public async Task<CreateCertificateRequest> UploadCertificate(UploadCertificateRequest uploadCertificateRequest)
+        {
+            CreateCertificateRequest createCertificateRequest = new CreateCertificateRequest();
+            //TODO: Bu kural BusinessRule içerisine taşınıp ordan yönetilebilir
+            if (uploadCertificateRequest == null || uploadCertificateRequest.File == null)
+            {
+                throw new BusinessException("PDF file is required.");
+            }
+            var uploadsFolderPath = _configuration.GetValue<string>("React:FileUploadUrl");
+            createCertificateRequest.StudentId = uploadCertificateRequest.StudentId;
+            createCertificateRequest.FileExtension = "." + uploadCertificateRequest.File.FileName.Split('.').LastOrDefault();
+            createCertificateRequest.FileName = uploadCertificateRequest.File.FileName;
+            createCertificateRequest.FilePath = Path.Combine(uploadsFolderPath, Guid.NewGuid().ToString() + createCertificateRequest.FileExtension);
+
+            using (var fileStream = new FileStream(createCertificateRequest.FilePath, FileMode.Create))
+            {
+                await uploadCertificateRequest.File.CopyToAsync(fileStream);
+            }
+
+            //TODO: File extension istenmeyen formattaysa businessRule ile hata dönülmeli
+
+            return createCertificateRequest;
 
         }
     }
