@@ -21,7 +21,7 @@ namespace DataAccess.EntityConfigurations
             builder.HasOne(sl => sl.SocialMedia)
                .WithMany(l => l.SocialMediaStudents)
                .HasForeignKey(sl => sl.SocialMediaId);
-
+            builder.HasQueryFilter(b => !b.DeletedDate.HasValue);
         }
     }
 }
