@@ -11,6 +11,7 @@ namespace Business.Abstracts
         Task<GetEducationResponse> Update(UpdateEducationRequest updateUserRequest);
         Task<GetEducationResponse> Delete(DeleteEducationRequest deleteUserRequest);
         Task<IPaginate<GetListEducationResponse>> GetList(PageRequest pageRequest);
+        Task<IPaginate<GetListEducationResponse>> GetListStudentId(PageRequest pageRequest,Guid id);
         Task<GetEducationResponse> Get(Guid id);
     }
 }
