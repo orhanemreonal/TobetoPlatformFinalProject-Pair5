@@ -3,9 +3,9 @@
     public class UploadPasswordRequest
     {
         public Guid UserId { get; set; }
-        public string OldPassword { get; set; }
+        public string Password { get; set; }
         public string NewPassword { get; set; }
-        public string NewPasswordAgain { get; set; }
+        public string ReNewPassword { get; set; }
 
     }
 }

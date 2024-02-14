@@ -76,19 +76,19 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> UpdatePassword([FromBody] UploadPasswordRequest request)
         {
             //TODO: Yeni şifre için kayıtta yapılan tüm validasyonlar burada da yapılmalı!
-            if (request.NewPasswordAgain != request.NewPassword)
+            if (request.ReNewPassword != request.NewPassword)
             {
                 throw new BusinessException("Şifreler Eşleşmiyor");
             }
-            var userResult = _userService.Get(request.UserId);
-            var loginResult = _authService.Login(new LoginAuthRequest { Email = userResult.Result.Email, Password = request.OldPassword });
-            if (loginResult.Result != null || userResult != null)
+            var userResult = await _userService.Get(request.UserId);
+            var loginResult = await _authService.Login(new LoginAuthRequest { Email = userResult.Email, Password = request.Password });
+            if (loginResult != null || userResult != null)
             {
                 byte[] passwordHash, passwordSalt;
                 HashingHelper.CreatePasswordHash(request.NewPassword, out passwordHash, out passwordSalt);
-                userResult.Result.PasswordHash = passwordHash;
-                userResult.Result.PasswordSalt = passwordSalt;
-                var updateRequest = _mapper.Map<UpdateUserRequest>(userResult.Result);
+                userResult.PasswordHash = passwordHash;
+                userResult.PasswordSalt = passwordSalt;
+                var updateRequest = _mapper.Map<UpdateUserRequest>(userResult);
                 _userService.Update(updateRequest);
             }
             else
