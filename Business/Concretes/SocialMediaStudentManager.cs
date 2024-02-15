@@ -85,5 +85,18 @@ namespace Business.Concretes
             Paginate<GetListSocialMediaStudentResponse> response = _mapper.Map<Paginate<GetListSocialMediaStudentResponse>>(result);
             return response;
         }
+        public async Task<IPaginate<GetListSocialMediaStudentResponse>> GetListByStudentId(PageRequest request,Guid id)
+        {
+            var result = await _socialMediaStudentDal.GetListAsync(
+                index: request.Index,
+                size: request.Size,
+                include: x => x
+                    .Include(sl => sl.SocialMedia)
+                    .Include(sl => sl.Student),
+                predicate: x => x.StudentId == id
+                );
+            Paginate<GetListSocialMediaStudentResponse> response = _mapper.Map<Paginate<GetListSocialMediaStudentResponse>>(result);
+            return response;
+        }
     }
 }

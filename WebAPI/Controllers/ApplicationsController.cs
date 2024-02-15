@@ -29,6 +29,13 @@ namespace WebAPI.Controllers
             return Ok(result);
 
         }
+        [HttpGet("getlistByStudentId")]
+        public async Task<IActionResult> GetListByStudentId([FromQuery] PageRequest pageRequest,Guid id)
+        {
+            var result = await _applicationService.GetListByStudentId(pageRequest,id);
+            return Ok(result);
+
+        }
         [HttpPost("add")]
         public async Task<IActionResult> Add([FromBody] CreateApplicationRequest createApplicationRequest)
         {

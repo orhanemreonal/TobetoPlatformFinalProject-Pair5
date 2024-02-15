@@ -60,7 +60,12 @@ namespace Business.Concretes
             Paginate<GetListApplicationResponse> response = _mapper.Map<Paginate<GetListApplicationResponse>>(result);
             return response;
         }
-
+        public async Task<IPaginate<GetListApplicationResponse>> GetListByStudentId(PageRequest request, Guid id)
+        {
+            var result = await _applicationDal.GetListAsync(index: request.Index, size: request.Size, predicate: a=>a.StudentId==id );
+            Paginate<GetListApplicationResponse> response = _mapper.Map<Paginate<GetListApplicationResponse>>(result);
+            return response;
+        }
         public async Task<GetApplicationResponse> Update(UpdateApplicationRequest request)
         {
             var result = await _applicationDal.GetAsync(predicate: a => a.Id == request.Id);

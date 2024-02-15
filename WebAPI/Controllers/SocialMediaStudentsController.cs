@@ -56,5 +56,12 @@ namespace WebAPI.Controllers
             return Ok(result);
 
         }
+        [HttpGet("getlistByStudentId")]
+        public async Task<IActionResult> GetListByStudentId([FromQuery] PageRequest pageRequest, Guid id)
+        {
+            var result = await _socialMediaStudentService.GetListByStudentId(pageRequest,id);
+            return Ok(result);
+
+        }
     }
 }

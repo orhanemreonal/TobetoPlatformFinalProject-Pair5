@@ -12,6 +12,7 @@ namespace Business.Abstracts
         Task<GetSocialMediaStudentResponse> Delete(DeleteSocialMediaStudentRequest deleteSocialMediaStudentRequest);
         Task<IPaginate<GetListSocialMediaStudentResponse>> GetList(PageRequest pageRequest);
         Task<IPaginate<GetListSocialMediaStudentResponse>> GetListByUserId(GetSocialMediaStudentByUserIdRequest request);
+        Task<IPaginate<GetListSocialMediaStudentResponse>> GetListByStudentId(PageRequest request,Guid id);
         Task<GetSocialMediaStudentResponse> Get(Guid id);
     }
 }

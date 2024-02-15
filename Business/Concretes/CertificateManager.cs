@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿    using AutoMapper;
 using Business.Abstracts;
 using Business.Dtos.Certificate.Requests;
 using Business.Dtos.Certificate.Responses;
@@ -46,7 +46,6 @@ namespace Business.Concretes
             await _businessRules.CertificateShouldExistWhenSelected(certificate);
             GetCertificateResponse response = _mapper.Map<GetCertificateResponse>(certificate);
             return response;
-
         }
 
         public async Task<IPaginate<GetListCertificateResponse>> GetList(PageRequest request)
@@ -54,7 +53,6 @@ namespace Business.Concretes
             var result = await _certificateDal.GetListAsync(index: request.Index, size: request.Size);
             Paginate<GetListCertificateResponse> response = _mapper.Map<Paginate<GetListCertificateResponse>>(result);
             return response;
-
         }
 
         public async Task<GetCertificateResponse> Update(UpdateCertificateRequest request)
@@ -65,7 +63,6 @@ namespace Business.Concretes
             await _certificateDal.UpdateAsync(result);
             GetCertificateResponse response = _mapper.Map<GetCertificateResponse>(result);
             return response;
-
         }
     }
 }
