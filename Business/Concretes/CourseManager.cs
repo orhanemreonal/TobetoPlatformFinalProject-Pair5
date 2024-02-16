@@ -7,6 +7,7 @@ using Core.Business.Requests;
 using Core.DataAccess.Paging;
 using DataAccess.Abstracts;
 using Entities.Concretes;
+using Microsoft.EntityFrameworkCore;
 
 namespace Business.Concretes
 {
@@ -48,7 +49,9 @@ namespace Business.Concretes
 
         public async Task<GetCourseResponse> Get(Guid id)
         {
-            Course course = await _courseDal.GetAsync(predicate: u => u.Id == id);
+            Course course = await _courseDal.GetAsync(predicate: u => u.Id == id, include: x => x
+                    .Include(c => c.Category)
+                    .Include(c => c.Company));
 
             await _businessRules.CourseShouldExistWhenSelected(course);
 
@@ -59,7 +62,9 @@ namespace Business.Concretes
 
         public async Task<IPaginate<GetListCourseResponse>> GetList(PageRequest request)
         {
-            var result = await _courseDal.GetListAsync(index: request.Index, size: request.Size);
+            var result = await _courseDal.GetListAsync(index: request.Index, size: request.Size,include: x => x
+                    .Include(c => c.Category)
+                    .Include(c => c.Company));
             Paginate<GetListCourseResponse> response = _mapper.Map<Paginate<GetListCourseResponse>>(result);
             return response;
         }
