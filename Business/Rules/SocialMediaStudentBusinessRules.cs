@@ -9,6 +9,7 @@ namespace Business.Rules
     public class SocialMediaStudentBusinessRules : BaseBusinessRules
     {
         ISocialMediaStudentDal _socialMediaStudentDal;
+        const int maxMediaAccountCount = 3;
 
         public SocialMediaStudentBusinessRules(ISocialMediaStudentDal socialMediaStudentDal)
         {
@@ -30,6 +31,15 @@ namespace Business.Rules
                 cancellationToken: cancellationToken
             );
             await SocialMediaStudentShouldExistWhenSelected(socialMediaStudent);
+        }
+
+        public async Task ControlSocialMediaCountByStudentId(Guid studentId)
+        {
+            var result = await _socialMediaStudentDal.GetListAsync(predicate: x => x.StudentId == studentId);
+            if (result.Count >= maxMediaAccountCount)
+            {
+                throw new BusinessException($"en fazla {maxMediaAccountCount} adet hesap eklenebilir");
+            }
         }
     }
 }

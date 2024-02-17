@@ -41,6 +41,7 @@ namespace DataAccess
             services.AddScoped<IStudentLikeDal, EfStudentLikeDal>();
             services.AddScoped<ISurveyDal, EfSurveyDal>();
             services.AddScoped<IUserDal, EfUserDal>();
+            services.AddScoped<ITopicDal, EfTopicDal>();
 
 
             return services;

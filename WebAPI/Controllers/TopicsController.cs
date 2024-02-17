@@ -25,7 +25,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getlist")]
-        public async Task<IActionResult> GetList([FromBody] PageRequest pageRequest)
+        public async Task<IActionResult> GetList([FromQuery] PageRequest pageRequest)
         {
             var result = await _topicService.GetList(pageRequest);
             return Ok(result);

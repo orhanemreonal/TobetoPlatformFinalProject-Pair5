@@ -28,7 +28,7 @@ namespace Business.Concretes
             Topic topic = _mapper.Map<Topic>(request);
 
             await _topicDal.AddAsync(topic);
-            GetTopicResponse response = _mapper.Map<GetTopicResponse>(request);
+            GetTopicResponse response = _mapper.Map<GetTopicResponse>(topic);
             return response;
         }
 
