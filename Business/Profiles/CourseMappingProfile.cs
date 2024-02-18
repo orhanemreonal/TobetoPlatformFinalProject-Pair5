@@ -1,4 +1,10 @@
-﻿namespace Business.Profiles
+﻿using AutoMapper;
+using Business.Dtos.Course.Requests;
+using Business.Dtos.Course.Responses;
+using Core.DataAccess.Paging;
+using Entities.Concretes;
+
+namespace Business.Profiles
 {
     public class CourseMappingProfile : Profile
     {
