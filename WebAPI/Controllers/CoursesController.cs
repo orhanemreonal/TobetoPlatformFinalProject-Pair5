@@ -41,6 +41,12 @@ namespace WebAPI.Controllers
             return Ok(result);
         }
 
+        [HttpGet("getDetail")]
+        public async Task<IActionResult> GetDetail([FromQuery] Guid id)
+        {
+            var result = await _courseService.GetDetail(id);
+            return Ok(result);
+        }
 
         [HttpDelete("delete")]
 
@@ -57,5 +63,7 @@ namespace WebAPI.Controllers
             var result = await _courseService.Update(updateCourseRequest);
             return Ok(result);
         }
+
+
     }
 }
