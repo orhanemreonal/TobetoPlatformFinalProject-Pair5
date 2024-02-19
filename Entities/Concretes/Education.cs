@@ -9,7 +9,7 @@ namespace Entities.Concretes
         public string University { get; set; }
         public string Department { get; set; }
         public DateTime StartYear { get; set; }
-        public DateTime GraduationYear { get; set; }
+        public DateTime? GraduationYear { get; set; }
         public bool IsContinued { get; set; }
         public Student? Student { get; set; }
     }

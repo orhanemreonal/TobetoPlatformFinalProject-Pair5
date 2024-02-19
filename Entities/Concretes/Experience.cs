@@ -11,7 +11,7 @@ namespace Entities.Concretes
         public string City { get; set; }
         public bool IsContinued { get; set; }
         public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
         public string? JobDescription { get; set; }
         public Student? Student { get; set; }
     }
