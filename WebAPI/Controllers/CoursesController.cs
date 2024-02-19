@@ -41,10 +41,16 @@ namespace WebAPI.Controllers
             return Ok(result);
         }
 
+        [HttpGet("getDetail")]
+        public async Task<IActionResult> GetDetail([FromQuery] Guid id)
+        {
+            var result = await _courseService.GetDetail(id);
+            return Ok(result);
+        }
 
         [HttpDelete("delete")]
 
-        public async Task<IActionResult> Delete(DeleteCourseRequest deleteCourseRequest)
+        public async Task<IActionResult> Delete([FromQuery] DeleteCourseRequest deleteCourseRequest)
         {
             var result = await _courseService.Delete(deleteCourseRequest);
             return Ok(result);
@@ -57,5 +63,7 @@ namespace WebAPI.Controllers
             var result = await _courseService.Update(updateCourseRequest);
             return Ok(result);
         }
+
+
     }
 }

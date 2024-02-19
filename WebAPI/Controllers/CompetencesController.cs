@@ -26,7 +26,7 @@ namespace WebAPI.Controllers
 
         [HttpDelete("delete")]
 
-        public async Task<IActionResult> Delete(DeleteCompetenceRequest deleteCompetenceRequest)
+        public async Task<IActionResult> Delete([FromQuery] DeleteCompetenceRequest deleteCompetenceRequest)
         {
             var result = await _competenceService.Delete(deleteCompetenceRequest);
             return Ok(result);

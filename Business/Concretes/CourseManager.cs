@@ -60,6 +60,16 @@ namespace Business.Concretes
             return response;
         }
 
+        public async Task<GetCourseDetailResponse> GetDetail(Guid id)
+        {
+            var result = await _courseDal.GetAsync(
+                predicate: x => x.Id == id,
+                include: x => x.Include(y => y.CourseTopics).ThenInclude(z => z.Topic).ThenInclude(ti => ti.Titles)
+                );
+            GetCourseDetailResponse response = _mapper.Map<GetCourseDetailResponse>(result);
+            return response;
+        }
+
         public async Task<IPaginate<GetListCourseResponse>> GetList(PageRequest request)
         {
             var result = await _courseDal.GetListAsync(index: request.Index, size: request.Size,include: x => x

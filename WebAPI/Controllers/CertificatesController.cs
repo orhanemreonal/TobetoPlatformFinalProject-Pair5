@@ -1,5 +1,6 @@
 ﻿using Business.Abstracts;
 using Business.Dtos.Certificate.Requests;
+using Business.Rules;
 using Core.Business.Requests;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,16 +12,20 @@ namespace WebAPI.Controllers
     {
         ICertificateService _certificateService;
         IConfiguration _configuration;
+        CertificateBusinessRules _certificateBusinessRules;
 
-        public CertificatesController(ICertificateService certificateService, IConfiguration configuration)
+        public CertificatesController(ICertificateService certificateService, IConfiguration configuration, CertificateBusinessRules certificateBusinessRules)
         {
             _certificateService = certificateService;
             _configuration = configuration;
+            _certificateBusinessRules = certificateBusinessRules;
         }
 
         [HttpPost("add")]
         public async Task<IActionResult> Add([FromForm] UploadCertificateRequest uploadCertificateRequest)
         {
+            await _certificateBusinessRules.CertificateFileTypeControl(uploadCertificateRequest.File);
+            await _certificateBusinessRules.CertificateSizeControl(uploadCertificateRequest.File);
             var uploadedFile = await _certificateService.UploadCertificate(uploadCertificateRequest);
 
             var result = await _certificateService.Add(uploadedFile);
@@ -49,7 +54,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpDelete("delete")]
-        public async Task<IActionResult> Delete(DeleteCertificateRequest deleteCertificateRequest)
+        public async Task<IActionResult> Delete([FromQuery] DeleteCertificateRequest deleteCertificateRequest)
         {
             var result = await _certificateService.Delete(deleteCertificateRequest);
             return Ok(result);

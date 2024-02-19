@@ -44,7 +44,7 @@ namespace WebAPI.Controllers
 
         [HttpDelete("delete")]
 
-        public async Task<IActionResult> Delete(DeleteLanguageLevelRequest deleteLanguageLevelRequest)
+        public async Task<IActionResult> Delete([FromQuery] DeleteLanguageLevelRequest deleteLanguageLevelRequest)
         {
             var result = await _languageLevelService.Delete(deleteLanguageLevelRequest);
             return Ok(result);
