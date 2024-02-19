@@ -44,7 +44,7 @@ namespace WebAPI.Controllers
 
         [HttpDelete("delete")]
 
-        public async Task<IActionResult> Delete(DeleteLikeRequest deleteLikeRequest)
+        public async Task<IActionResult> Delete([FromQuery] DeleteLikeRequest deleteLikeRequest)
         {
             var result = await _likeService.Delete(deleteLikeRequest);
             return Ok(result);

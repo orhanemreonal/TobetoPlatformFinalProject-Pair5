@@ -1,7 +1,6 @@
 ﻿using Business.Abstracts;
 using Business.Dtos.Instructor.Requests;
 using Core.Business.Requests;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
@@ -45,7 +44,7 @@ namespace WebAPI.Controllers
 
         [HttpDelete("delete")]
 
-        public async Task<IActionResult> Delete(DeleteInstructorRequest deleteInstructorRequest)
+        public async Task<IActionResult> Delete([FromQuery] DeleteInstructorRequest deleteInstructorRequest)
         {
             var result = await _instructorService.Delete(deleteInstructorRequest);
             return Ok(result);

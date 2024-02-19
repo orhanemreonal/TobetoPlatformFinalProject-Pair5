@@ -26,7 +26,7 @@ namespace WebAPI.Controllers
 
         [HttpDelete("delete")]
 
-        public async Task<IActionResult> Delete(DeleteCompanyRequest deleteCompanyRequest)
+        public async Task<IActionResult> Delete([FromQuery] DeleteCompanyRequest deleteCompanyRequest)
         {
             var result = await _companyService.Delete(deleteCompanyRequest);
             return Ok(result);
@@ -56,14 +56,5 @@ namespace WebAPI.Controllers
 
         }
 
-
-
-        //[HttpDelete("delete")]
-        //public async Task<IActionResult> Delete([DeleteCompanyRequest deletedCompanyRequest)
-        //{
-        //    var result = await _companyService.GetList(deletedCompanyRequest);
-        //    return Ok(result);
-
-        //}
     }
 }
