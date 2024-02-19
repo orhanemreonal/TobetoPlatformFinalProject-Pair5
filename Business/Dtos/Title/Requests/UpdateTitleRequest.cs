@@ -11,5 +11,6 @@
         public string Subtype { get; set; }
         public string VideoLanguage { get; set; }
         public string VideoLink { get; set; }
+        public int VideoTime { get; set; }
     }
 }

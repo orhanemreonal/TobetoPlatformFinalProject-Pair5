@@ -1,4 +1,5 @@
 ﻿using Business.Constants;
+using Business.Dtos.SocialMediaStudent.Requests;
 using Core.Business.Rules;
 using Core.CrossCuttingConcerns.Exceptions.Types;
 using DataAccess.Abstracts;
@@ -39,6 +40,15 @@ namespace Business.Rules
             if (result.Count >= maxMediaAccountCount)
             {
                 throw new BusinessException($"en fazla {maxMediaAccountCount} adet hesap eklenebilir");
+            }
+        }
+
+        public async Task SocialMediaStudentAlsoExist(CreateSocialMediaStudentRequest request)
+        {
+            var result = await _socialMediaStudentDal.GetListAsync(predicate: x => x.StudentId == request.StudentId && x.SocialMediaId == request.SocialMediaId);
+            if (result.Count > 0)
+            {
+                throw new BusinessException(Messages.SocialMediaStudentAlsoExist);
             }
         }
     }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Business.Dtos.Title.Responses
+﻿namespace Business.Dtos.Title.Responses
 {
     public class GetTitleResponse
     {
@@ -17,5 +11,6 @@ namespace Business.Dtos.Title.Responses
         public string Subtype { get; set; }
         public string VideoLanguage { get; set; }
         public string VideoLink { get; set; }
+        public int VideoTime { get; set; }
     }
 }

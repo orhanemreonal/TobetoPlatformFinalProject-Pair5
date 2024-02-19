@@ -37,6 +37,7 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> Add([FromBody] CreateSocialMediaStudentRequest createSocialMediaStudentRequest)
         {
             await _socialMediaStudentBusinessRules.ControlSocialMediaCountByStudentId(createSocialMediaStudentRequest.StudentId);
+            await _socialMediaStudentBusinessRules.SocialMediaStudentAlsoExist(createSocialMediaStudentRequest);
             var resultAdd = await _socialMediaStudentService.Add(createSocialMediaStudentRequest);
             var resultGet = await _socialMediaStudentService.Get(resultAdd.Id);
             return Ok(resultGet);

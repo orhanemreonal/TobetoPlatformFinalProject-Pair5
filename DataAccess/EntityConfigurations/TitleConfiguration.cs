@@ -18,6 +18,7 @@ namespace DataAccess.EntityConfigurations
             builder.Property(t => t.Subtype).HasColumnName("Subtype").IsRequired();
             builder.Property(t => t.VideoLanguage).HasColumnName("VideoLanguage").IsRequired();
             builder.Property(t => t.VideoLink).HasColumnName("VideoLink").IsRequired();
+            builder.Property(t => t.VideoTime).HasColumnName("VideoTime").IsRequired();
 
             builder.HasOne(t => t.Topic).WithMany(top => top.Titles).HasForeignKey(t => t.TopicId);
             //builder.HasOne(t => t.Like).WithOne(l => l.Title).HasForeignKey<Title>(t => t.LikeId);
