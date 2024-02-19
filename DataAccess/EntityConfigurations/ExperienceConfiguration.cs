@@ -20,7 +20,7 @@ namespace DataAccess.EntityConfigurations
             builder.Property(b => b.Sector).HasColumnName("Sector").IsRequired();
             builder.Property(b => b.IsContinued).HasColumnName("IsContinued").IsRequired();
             builder.Property(b => b.StartDate).HasColumnName("StartDate").IsRequired();
-            builder.Property(b => b.EndDate).HasColumnName("EndDate").IsRequired();
+            builder.Property(b => b.EndDate).HasColumnName("EndDate");
             builder.Property(b => b.JobDescription).HasColumnName("JobDescription");
            
 
