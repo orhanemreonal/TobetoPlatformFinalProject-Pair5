@@ -13,6 +13,8 @@ namespace DataAccess.EntityConfigurations
             builder.Property(t => t.TopicId).HasColumnName("TopicId").IsRequired();
             builder.Property(t => t.StartTime).HasColumnName("StartTime").IsRequired();
             builder.Property(t => t.FinishTime).HasColumnName("FinishTime").IsRequired();
+            builder.Property(t => t.Name).HasColumnName("Name").IsRequired();
+            builder.Property(t => t.RecordLink).HasColumnName("RecordLink").IsRequired();
 
             builder.HasOne(v => v.Topic).WithMany(t => t.VirtualClasses).HasForeignKey(v => v.TopicId);
             //Instructor ile virtual class arasında n-n ilişki var. Ara tablo yapılmalı mı? 
