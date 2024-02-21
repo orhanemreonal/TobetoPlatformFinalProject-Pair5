@@ -3,7 +3,6 @@
     public class CreateTitleRequest
     {
         public Guid TopicId { get; set; }
-        public Guid LikeId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public int Point { get; set; }
