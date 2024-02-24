@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Business.Dtos.Course.Responses;
 using Business.Dtos.CourseTopic.Requests;
 using Business.Dtos.CourseTopic.Responses;
 using Core.DataAccess.Paging;
@@ -22,6 +23,7 @@ namespace Business.Profiles
             //Responses
             CreateMap<CourseTopic, GetCourseTopicResponse>().ReverseMap();
             CreateMap<CourseTopic, GetListCourseTopicResponse>().ReverseMap();
+            CreateMap<CourseTopic, GetCourseDetailCourseTopicResponse>().ReverseMap();
             CreateMap<Paginate<CourseTopic>, Paginate<GetListCourseTopicResponse>>().ReverseMap();
         }
 

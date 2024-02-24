@@ -26,9 +26,6 @@ namespace Business.Concretes
         public async Task<GetVirtualClassResponse> Add(CreateVirtualClassRequest request)
         {
             VirtualClass virtualClass = _mapper.Map<VirtualClass>(request);
-
-
-
             await _virtualClassDal.AddAsync(virtualClass);
             GetVirtualClassResponse response = _mapper.Map<GetVirtualClassResponse>(request);
             return response;

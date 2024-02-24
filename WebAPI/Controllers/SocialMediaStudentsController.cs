@@ -1,5 +1,6 @@
 ﻿using Business.Abstracts;
 using Business.Dtos.SocialMediaStudent.Requests;
+using Business.Rules;
 using Core.Business.Requests;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,10 +12,12 @@ namespace WebAPI.Controllers
     {
 
         ISocialMediaStudentService _socialMediaStudentService;
+        SocialMediaStudentBusinessRules _socialMediaStudentBusinessRules;
 
-        public SocialMediaStudentsController(ISocialMediaStudentService socialMediaStudentService)
+        public SocialMediaStudentsController(ISocialMediaStudentService socialMediaStudentService, SocialMediaStudentBusinessRules socialMediaStudentBusinessRules)
         {
             _socialMediaStudentService = socialMediaStudentService;
+            _socialMediaStudentBusinessRules = socialMediaStudentBusinessRules;
         }
 
         [HttpGet("get")]
@@ -33,6 +36,8 @@ namespace WebAPI.Controllers
         [HttpPost("add")]
         public async Task<IActionResult> Add([FromBody] CreateSocialMediaStudentRequest createSocialMediaStudentRequest)
         {
+            await _socialMediaStudentBusinessRules.ControlSocialMediaCountByStudentId(createSocialMediaStudentRequest.StudentId);
+            await _socialMediaStudentBusinessRules.SocialMediaStudentAlsoExist(createSocialMediaStudentRequest);
             var resultAdd = await _socialMediaStudentService.Add(createSocialMediaStudentRequest);
             var resultGet = await _socialMediaStudentService.Get(resultAdd.Id);
             return Ok(resultGet);
@@ -59,7 +64,7 @@ namespace WebAPI.Controllers
         [HttpGet("getlistByStudentId")]
         public async Task<IActionResult> GetListByStudentId([FromQuery] PageRequest pageRequest, Guid id)
         {
-            var result = await _socialMediaStudentService.GetListByStudentId(pageRequest,id);
+            var result = await _socialMediaStudentService.GetListByStudentId(pageRequest, id);
             return Ok(result);
 
         }

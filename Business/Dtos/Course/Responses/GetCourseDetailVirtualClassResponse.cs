@@ -1,6 +1,6 @@
-﻿namespace Business.Dtos.VirtualClass.Requests
+﻿namespace Business.Dtos.Course.Responses
 {
-    public class CreateVirtualClassRequest
+    public class GetCourseDetailVirtualClassResponse
     {
         public Guid TopicId { get; set; }
         public DateTime StartTime { get; set; }

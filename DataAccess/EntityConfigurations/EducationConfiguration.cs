@@ -16,7 +16,7 @@ namespace DataAccess.EntityConfigurations
             builder.Property(b => b.University).HasColumnName("University").IsRequired();
             builder.Property(b => b.Department).HasColumnName("Department").IsRequired();
             builder.Property(b => b.StartYear).HasColumnName("StartYear").IsRequired();
-            builder.Property(b => b.GraduationYear).HasColumnName("GraduationYear").IsRequired();
+            builder.Property(b => b.GraduationYear).HasColumnName("GraduationYear");
             builder.Property(b => b.IsContinued).HasColumnName("IsContinued").IsRequired();
 
 
