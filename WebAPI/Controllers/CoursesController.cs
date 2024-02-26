@@ -33,6 +33,14 @@ namespace WebAPI.Controllers
             return Ok(result);
         }
 
+        [HttpGet("getPublicCourseList")]
+
+        public async Task<IActionResult> GetPublicCourseList([FromQuery] PageRequest pageRequest)
+        {
+            var result = await _courseService.GetPublicCourseList(pageRequest);
+            return Ok(result);
+        }
+
         [HttpGet("get")]
 
         public async Task<IActionResult> Get([FromQuery] Guid id)

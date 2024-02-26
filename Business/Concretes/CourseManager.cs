@@ -73,9 +73,29 @@ namespace Business.Concretes
 
         public async Task<IPaginate<GetListCourseResponse>> GetList(PageRequest request)
         {
-            var result = await _courseDal.GetListAsync(index: request.Index, size: request.Size, include: x => x
+            var result = await _courseDal.GetListAsync(index: request.Index, size: request.Size,
+                include: x => x
+                    .Include(c => c.ClassroomCourses).ThenInclude(c => c.Classroom)
                     .Include(c => c.Category)
                     .Include(c => c.Company));
+
+            result.Items = result.Items = result.Items.Where(x =>
+                    x.ClassroomCourses.All(cc => cc.Classroom.Name != "public") ||
+                    !x.ClassroomCourses.Any()
+                    ).ToList();
+
+            Paginate<GetListCourseResponse> response = _mapper.Map<Paginate<GetListCourseResponse>>(result);
+            return response;
+        }
+
+        public async Task<IPaginate<GetListCourseResponse>> GetPublicCourseList(PageRequest request)
+        {
+            var result = await _courseDal.GetListAsync(include: x =>
+                x.Include(c => c.ClassroomCourses).ThenInclude(c => c.Classroom)
+                .Include(c => c.Category)
+                    .Include(c => c.Company)
+            );
+            result.Items = result.Items.Where(x => x.ClassroomCourses.Any(x => x.Classroom.Name == "public")).ToList();
             Paginate<GetListCourseResponse> response = _mapper.Map<Paginate<GetListCourseResponse>>(result);
             return response;
         }
